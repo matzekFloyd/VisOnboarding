@@ -1,11 +1,11 @@
 /* CONSTANTS */
-const BASE_URI = "/MIT/VisOnboarding";
+const BASE_URI = "/vis-onboarding";
 const ROUTES = {
     '/': {page: '/'},
-    '/about': {page: '/about'},
-    '/p/hello-nextjs': {page: '/post', query: {title: 'hello-nextjs'}},
-    '/p/learn-nextjs': {page: '/post', query: {title: 'learn-nextjs'}},
-    '/p/deploy-nextjs': {page: '/post', query: {title: 'deploy-nextjs'}},
+    '/context': {page: '/context'},
+    '/assessment': {page: '/assessment'},
+    '/p/vis': {page: '/visualisation', query: {title: 'vis'}},
+    '/p/vis-onboarding': {page: '/visualisation', query: {title: 'vis-onboarding'}},
 };
 const withSass = require('@zeit/next-sass');
 const isProd = process.env.NODE_ENV === 'production';

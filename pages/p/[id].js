@@ -1,13 +1,14 @@
 import {useRouter} from 'next/router'
-import Layout from '../../src/components/MyLayout.js'
+import Context from "../context";
 
-export default function Post() {
+export default function Visualisation() {
     const router = useRouter();
 
     return (
-        <Layout>
-            <h1>{router.query.id}</h1>
-            <p>This is the blog post content.</p>
-        </Layout>
+        <div>
+            {router.query.id === "vis-onboarding" ?
+                <p><h1>{router.query.id}</h1>This is the visualisation post content.</p> : <Context/>
+            }
+        </div>
     )
 }
