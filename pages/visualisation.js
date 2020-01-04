@@ -1,13 +1,14 @@
-// pages/about.js
+import React from "react";
+import Layout from '../src/ui/Layout';
+import "../src/css/main.scss"
 
-import Layout from '../src/components/MyLayout';
 
 export default function Visualisation() {
     return (
         <Layout>
             <h1>Visualisation</h1>
             <p>
-                Highcharts visualisation here.
+                HighCharts visualisation here.
             </p>
         </Layout>
     );

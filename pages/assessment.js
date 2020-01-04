@@ -1,6 +1,6 @@
-// pages/about.js
-
-import Layout from '../src/components/MyLayout';
+import React from "react";
+import "../src/css/main.scss"
+import Layout from '../src/ui/Layout';
 
 export default function Assessment() {
     return (

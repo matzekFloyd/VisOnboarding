@@ -1,21 +1,19 @@
-import Layout from '../src/components/MyLayout';
-import Link from 'next/link';
+import Layout from '../src/ui/Layout';
 import "../src/css/main.scss"
+import React, {PureComponent} from 'react';
 
-export default function Blog() {
-    return (
-        <Layout>
-            <li>
-                <Link href={"/p/[id]"} as={`/p/vis`}>
-                    <a>Vis</a>
-                </Link>
-            </li>
+export default class Home extends PureComponent {
 
-            <li>
-                <Link href={"/p/[id]"} as={`/p/vis-onboarding`}>
-                    <a>Vis + onboarding </a>
-                </Link>
-            </li>
-        </Layout>
-    );
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <Layout>
+                <h1>Home</h1>
+            </Layout>
+        );
+    }
+
 }

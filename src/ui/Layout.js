@@ -1,3 +1,4 @@
+import React from "react";
 import Header from './Header';
 
 const layoutStyle = {
@@ -8,7 +9,7 @@ const layoutStyle = {
 
 const Layout = props => (
     <div style={layoutStyle}>
-        <Header />
+        <Header/>
         {props.children}
     </div>
 );
