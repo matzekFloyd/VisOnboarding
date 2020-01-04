@@ -1,3 +1,17 @@
+/* Fonts */
+$txt-main-font: 'Lato', sans-serif;
+$txt-headline-font: 'Merriweather', serif;
+$txt-floating-size: 16px;
+
+$col-background: lightgrey;
+
 body {
-  background-color: orange;
+  font-family: $txt-main-font;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: $col-background;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
