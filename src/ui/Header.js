@@ -1,17 +1,12 @@
+import React from 'react';
 import {URL} from "../../constants";
-
-const linkStyle = {
-    marginRight: 15
-};
+import "../css/main.scss";
 
 const Header = () => (
     <div>
-        <a style={linkStyle} href={URL.home}>Home</a>
-        <a style={linkStyle} href={URL.assessment}>Assessment</a>
-        <a style={linkStyle} href={URL.onboarding.basic}>Onboarding Basic</a>
-        <a style={linkStyle} href={URL.onboarding.advanced}>Onboarding Advanced</a>
-        <a style={linkStyle} href={URL.onboarding.proficient}>Onboarding Proficient</a>
-        <a style={linkStyle} href={URL.visualisation}>Visualisation</a>
+        <a className={"nav"} href={URL.home}>Home</a>
+        <a className={"nav"} href={URL.assessment}>Assessment</a>
+        <a className={"nav"} href={URL.visualisation}>Visualisation</a>
     </div>
 );
 

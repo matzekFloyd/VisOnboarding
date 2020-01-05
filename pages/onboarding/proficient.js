@@ -1,12 +1,19 @@
-import React from "react";
+import React, {PureComponent} from 'react';
 import Layout from "../../src/ui/Layout";
 import "../../src/css/main.scss";
 
-export default function Proficient() {
+export default class Proficient extends PureComponent {
 
-    return (
-        <Layout>
-            <h1>PROFICIENT</h1>
-        </Layout>
-    );
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <Layout>
+                <h1>Proficient</h1>
+            </Layout>
+        );
+    }
+
 }

@@ -1,12 +1,19 @@
-import React from "react";
+import React, {PureComponent} from 'react';
 import Layout from "../../src/ui/Layout";
 import "../../src/css/main.scss";
 
-export default function Basic() {
+export default class Basic extends PureComponent {
 
-    return (
-        <Layout>
-            <h1>BASIC</h1>
-        </Layout>
-    );
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <Layout>
+                <h1>Basic</h1>
+            </Layout>
+        );
+    }
+
 }

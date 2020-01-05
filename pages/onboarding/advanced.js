@@ -1,12 +1,19 @@
-import React from "react";
+import React, {PureComponent} from 'react';
 import Layout from "../../src/ui/Layout";
 import "../../src/css/main.scss";
 
-export default function Advanced() {
+export default class Advanced extends PureComponent {
 
-    return (
-        <Layout>
-            <h1>ADVANCED</h1>
-        </Layout>
-    );
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <Layout>
+                <h1>Advanced</h1>
+            </Layout>
+        );
+    }
+
 }
