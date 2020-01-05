@@ -17,6 +17,5 @@ module.exports = withSass({
         return ROUTES;
     },
     distDir: 'build',
-    assetPrefix: isProd ? BASE_URI : '',
-    cssModules: true
+    assetPrefix: isProd ? BASE_URI : ''
 });
