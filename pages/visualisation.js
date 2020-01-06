@@ -5,7 +5,7 @@ import Highcharts from 'highcharts';
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official';
 import highchartsGantt from "highcharts/modules/gantt";
-import {options} from "../src/data";
+import {D_JAN_15} from "../src/data/2019-01-15";
 
 export default class Visualisation extends PureComponent {
 
@@ -23,7 +23,7 @@ export default class Visualisation extends PureComponent {
                 <h1>Visualisation</h1>
                 <HighchartsReact
                     highcharts={Highcharts}
-                    options={options}
+                    options={D_JAN_15}
                     constructorType={'ganttChart'}
                 />
             </Layout>
