@@ -26,6 +26,7 @@ export default class Visualisation extends PureComponent {
                     options={D_JAN_15}
                     constructorType={'ganttChart'}
                 />
+                <img src={"../static/map.PNG"} alt="map"/>
             </Layout>
         );
     }

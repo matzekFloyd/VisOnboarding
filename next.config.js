@@ -9,13 +9,14 @@ const ROUTES = {
     '/visualisation': {page: '/visualisation'},
 };
 const withSass = require('@zeit/next-sass');
+const withImages = require('next-images');
 const isProd = process.env.NODE_ENV === 'production';
 
 /* CONFIG */
-module.exports = withSass({
+module.exports = withImages(withSass({
     exportPathMap: async function () {
         return ROUTES;
     },
     distDir: 'build',
     assetPrefix: isProd ? BASE_URI : ''
-});
+}));
