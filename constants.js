@@ -7,6 +7,7 @@ function sanitizeUrl(url) {
 export const URL = {
     home: sanitizeUrl("/"),
     assessment: sanitizeUrl("/assessment"),
+    context: sanitizeUrl("/context"),
     onboarding: {
         basic: sanitizeUrl("/onboarding/basic"),
         advanced: sanitizeUrl("/onboarding/advanced"),

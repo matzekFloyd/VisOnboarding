@@ -3,6 +3,7 @@ const BASE_URI = "/vis";
 const ROUTES = {
     '/': {page: '/'},
     '/assessment': {page: '/assessment'},
+    '/context': {page: '/context'},
     '/onboarding/basic': {page: '/onboarding/basic'},
     '/onboarding/advanced': {page: '/onboarding/advanced'},
     '/onboarding/proficient': {page: '/onboarding/proficient'},
