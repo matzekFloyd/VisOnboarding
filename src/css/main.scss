@@ -19,3 +19,11 @@ body {
 a.nav {
   margin-right: 15px;
 }
+
+.chart.show {
+  display: block;
+}
+
+.chart.hide {
+    display: none;
+}

@@ -1,60 +1,65 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
+import Base from "./Base";
 import "../../css/main.scss";
+import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import HighchartsExporting from "highcharts/modules/exporting";
-import highchartsGantt from "highcharts/modules/gantt";
-import {D_JAN_15} from "../../data/2019-01-15";
+import PropTypes from "prop-types";
+import {JAN_15, JAN_16, JAN_17} from "../../../constants";
 
-export default class ChartManager extends PureComponent {
+export default class ChartManager extends Base {
 
     constructor(props, context) {
         super(props, context);
-        if (typeof Highcharts === 'object') {
-            HighchartsExporting(Highcharts);
-            highchartsGantt(Highcharts);
-        }
-        this.initialDate = null;
-        this.day = 1000 * 60 * 60 * 24;
-        this.initData(props.identifier);
-    }
-
-    initData(identifier) {
-        switch (identifier) {
-            case "JAN_15":
-                this.chartOptions = D_JAN_15;
-                this.initialDate = new Date('2019-01-15T01:00:00');
-                this.initialDate = this.initialDate.getTime();
-                break;
-            case "JAN_16": return null;
-            default: return null;
-        }
-    }
-
-    calc(hours, minutes, seconds) {
-        return this.initialDate + 1000 * (hours * 3600 + minutes * 60 + seconds);
-    }
-
-    initDataObj(axis, location, startH, startM, startS, endH, endM, endS) {
-        return {
-            taskName: location,
-            color: this.getColor(location),
-            start: this.calc(startH, startM, startS),
-            end: this.calc(endH, endM, endS),
-            y: axis
+        this.state = {
+            active: props.identifier,
+            charts: {
+                jan_15: this.getChartCfg(JAN_15),
+                jan_16: this.getChartCfg(JAN_16),
+                jan_17: this.getChartCfg(JAN_17)
+            },
         };
     }
 
-    getColor(location) {
-        switch (location) {
-            case "Funken":
-                return "#949494";
-            case "Roboter":
-                return "#FFA000";
-            case "Dornerei":
-                return "#FAE4B1";
-            case "Stanzen":
-                return "#0097A5";
-        }
+    isActive(identifier) {
+        return this.state.active === identifier;
+    }
+
+    changeChart(identifier) {
+        this.setState({active: identifier})
+    }
+
+    render() {
+        return (<div>
+                <h1> Chart Overview </h1>
+                <p>Select the day you want to inspect:
+                    <button onClick={() => this.changeChart(JAN_15)}> 15.01.2019</button>
+                    <button onClick={() => this.changeChart(JAN_16)}> 16.01.2019</button>
+                    <button onClick={() => this.changeChart(JAN_17)}> 17.01.2019</button>
+                </p>
+                <div className={this.isActive(JAN_15) ? "chart show" : "chart hide"}>
+                    <HighchartsReact highcharts={Highcharts}
+                                     options={this.state.charts.jan_15}
+                                     constructorType={'ganttChart'}
+                    />
+                </div>
+                <div className={this.isActive(JAN_16) ? "chart show" : "chart hide"}>
+                    <HighchartsReact highcharts={Highcharts}
+                                     options={this.state.charts.jan_16}
+                                     constructorType={'ganttChart'}
+                    />
+                </div>
+                <div className={this.isActive(JAN_17) ? "chart show" : "chart hide"}>
+                    <HighchartsReact highcharts={Highcharts}
+                                     options={this.state.charts.jan_17}
+                                     constructorType={'ganttChart'}
+                    />
+                </div>
+            </div>
+        );
     }
 
 }
+
+ChartManager.propTypes = {
+    identifier: PropTypes.string.isRequired,
+};

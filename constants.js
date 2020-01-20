@@ -15,3 +15,7 @@ export const URL = {
     },
     visualisation: sanitizeUrl("/visualisation"),
 };
+
+export const JAN_15 = "JAN_15";
+export const JAN_16 = "JAN_16";
+export const JAN_17 = "JAN_17";
