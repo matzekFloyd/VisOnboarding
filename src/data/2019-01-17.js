@@ -54,7 +54,7 @@ export const D_JAN_17 =
             name: 'Project 1',
             data: [{
                 start: 2,
-                end: 5,
+                end: 3,
                 name: 'Prototype',
                 id: 'prototype',
                 y: 0
@@ -66,7 +66,7 @@ export const D_JAN_17 =
                 id: 'proto_done',
                 y: 0
             }, {
-                start: 7,
+                start: 9,
                 end: 11,
                 name: 'Testing',
                 dependency: 'proto_done',
@@ -81,18 +81,6 @@ export const D_JAN_17 =
                 end: 10,
                 name: 'Newsletter',
                 y: 1
-            }, {
-                start: 9,
-                end: 11,
-                name: 'Licensing',
-                id: 'testing',
-                y: 2
-            }, {
-                start: 11.5,
-                end: 12.5,
-                name: 'Publish',
-                dependency: 'testing',
-                y: 2
             }]
         }]
     };

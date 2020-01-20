@@ -1,65 +1,38 @@
-import React from 'react';
-import Base from "./Base";
+import React, {PureComponent} from 'react';
 import "../../css/main.scss";
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
-import PropTypes from "prop-types";
 import {JAN_15, JAN_16, JAN_17} from "../../../constants";
+import Chart from "./Chart";
 
-export default class ChartManager extends Base {
+export default class ChartManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            active: props.identifier,
-            charts: {
-                jan_15: this.getChartCfg(JAN_15),
-                jan_16: this.getChartCfg(JAN_16),
-                jan_17: this.getChartCfg(JAN_17)
-            },
+            selected: JAN_15,
         };
     }
 
-    isActive(identifier) {
-        return this.state.active === identifier;
+    isSelected(identifier) {
+        return this.state.selected === identifier;
     }
 
-    changeChart(identifier) {
-        this.setState({active: identifier})
+    setSelected(identifier) {
+        this.setState({selected: identifier})
     }
 
     render() {
         return (<div>
                 <h1> Chart Overview </h1>
                 <p>Select the day you want to inspect:
-                    <button onClick={() => this.changeChart(JAN_15)}> 15.01.2019</button>
-                    <button onClick={() => this.changeChart(JAN_16)}> 16.01.2019</button>
-                    <button onClick={() => this.changeChart(JAN_17)}> 17.01.2019</button>
+                    <button onClick={() => this.setSelected(JAN_15)}>15.01.2019</button>
+                    <button onClick={() => this.setSelected(JAN_16)}>16.01.2019</button>
+                    <button onClick={() => this.setSelected(JAN_17)}>17.01.2019</button>
                 </p>
-                <div className={this.isActive(JAN_15) ? "chart show" : "chart hide"}>
-                    <HighchartsReact highcharts={Highcharts}
-                                     options={this.state.charts.jan_15}
-                                     constructorType={'ganttChart'}
-                    />
-                </div>
-                <div className={this.isActive(JAN_16) ? "chart show" : "chart hide"}>
-                    <HighchartsReact highcharts={Highcharts}
-                                     options={this.state.charts.jan_16}
-                                     constructorType={'ganttChart'}
-                    />
-                </div>
-                <div className={this.isActive(JAN_17) ? "chart show" : "chart hide"}>
-                    <HighchartsReact highcharts={Highcharts}
-                                     options={this.state.charts.jan_17}
-                                     constructorType={'ganttChart'}
-                    />
-                </div>
+                <Chart identifier={JAN_15} active={this.isSelected(JAN_15)}/>
+                <Chart identifier={JAN_16} active={this.isSelected(JAN_16)}/>
+                <Chart identifier={JAN_17} active={this.isSelected(JAN_17)}/>
             </div>
         );
     }
 
 }
-
-ChartManager.propTypes = {
-    identifier: PropTypes.string.isRequired,
-};
