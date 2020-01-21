@@ -1,15 +1,22 @@
-export class DataProvider {
+export class DataCruncher {
 
     startDate;
     day;
+    categories;
     xAxis;
+    yAxis;
 
-    constructor(startDate, day = 1000 * 60 * 60 * 24) {
+    constructor(startDate, categories, day = 1000 * 60 * 60 * 24) {
         this.startDate = startDate;
         this.day = day;
+        this.categories = categories;
         this.xAxis = {
-            min: this.startDate.getTime() + 0.3333 * this.day,
+            min: this.startDate.getTime(),
             max: this.startDate.getTime() + this.day
+        };
+        this.yAxis = {
+            min: 0,
+            max: this.categories.length - 1
         }
     }
 
@@ -17,13 +24,13 @@ export class DataProvider {
         return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
     }
 
-    initDataObj(axis, location, startH, startM, startS, endH, endM, endS) {
+    initDataObj(tag, location, startH, startM, startS, endH, endM, endS) {
         return {
             taskName: location,
             color: this.getColor(location),
             start: this.calc(startH, startM, startS),
             end: this.calc(endH, endM, endS),
-            y: axis
+            y: this.categories.indexOf(tag)
         };
     }
 
