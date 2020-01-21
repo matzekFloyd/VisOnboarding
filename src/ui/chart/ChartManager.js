@@ -22,11 +22,10 @@ export default class ChartManager extends PureComponent {
 
     render() {
         return (<div>
-                <h1> Chart Overview </h1>
                 <p>Select the day you want to inspect:
-                    <button onClick={() => this.setSelected(JAN_15)}>15.01.2019</button>
-                    <button onClick={() => this.setSelected(JAN_16)}>16.01.2019</button>
-                    <button onClick={() => this.setSelected(JAN_17)}>17.01.2019</button>
+                    <button className={"button day"} onClick={() => this.setSelected(JAN_15)}>15.01.2019</button>
+                    <button className={"button day"} onClick={() => this.setSelected(JAN_16)}>16.01.2019</button>
+                    <button className={"button day"} onClick={() => this.setSelected(JAN_17)}>17.01.2019</button>
                 </p>
                 <Chart identifier={JAN_15} active={this.isSelected(JAN_15)}/>
                 <Chart identifier={JAN_16} active={this.isSelected(JAN_16)}/>
