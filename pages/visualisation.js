@@ -14,7 +14,7 @@ export default class Visualisation extends PureComponent {
             <Layout>
                 <h1>Visualisation</h1>
                 <ChartManager/>
-                <img className={"image layout"} src={"../static/gf_layout.PNG"} alt="map"/>
+                <img className={"image layout"} src={"/static/gf_layout.PNG"} alt="map"/>
             </Layout>
         );
     }
