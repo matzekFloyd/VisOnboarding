@@ -1,19 +1,24 @@
-function sanitizeUrl(url) {
+export function sanitizeImgUrl(img) {
+    let isProd = process.env.NODE_ENV === "production";
+    return isProd ? "/vis/static/" + img : "/static/" + img;
+}
+
+function sanitizeRouteUrl(url) {
     let isProd = process.env.NODE_ENV === "production";
     if (url === "/" && isProd) return "/vis";
     return isProd ? "/vis" + url : url;
 }
 
 export const URL = {
-    home: sanitizeUrl("/"),
-    assessment: sanitizeUrl("/assessment"),
-    context: sanitizeUrl("/context"),
+    home: sanitizeRouteUrl("/"),
+    assessment: sanitizeRouteUrl("/assessment"),
+    context: sanitizeRouteUrl("/context"),
     onboarding: {
-        basic: sanitizeUrl("/onboarding/basic"),
-        advanced: sanitizeUrl("/onboarding/advanced"),
-        proficient: sanitizeUrl("/onboarding/proficient"),
+        basic: sanitizeRouteUrl("/onboarding/basic"),
+        advanced: sanitizeRouteUrl("/onboarding/advanced"),
+        proficient: sanitizeRouteUrl("/onboarding/proficient"),
     },
-    visualisation: sanitizeUrl("/visualisation"),
+    visualisation: sanitizeRouteUrl("/visualisation"),
 };
 
 export const JAN_15 = "JAN_15";
