@@ -1,6 +1,7 @@
 import React from "react";
 import Header from './Header';
 import {sanitizePublicPath} from "../util/helpers";
+import "../../public/styles/main.scss";
 
 const layoutStyle = {
     margin: 20,
