@@ -1,5 +1,4 @@
 import Layout from '../src/ui/Layout';
-import "../src/css/main.scss"
 import React, {PureComponent} from 'react';
 
 export default class Home extends PureComponent {

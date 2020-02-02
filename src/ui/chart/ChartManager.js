@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import "../../css/main.scss";
 import {JAN_15, JAN_16, JAN_17} from "../../../constants";
 import Chart from "./Chart";
 

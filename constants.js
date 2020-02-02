@@ -1,13 +1,4 @@
-export function sanitizeImgUrl(img) {
-    let isProd = process.env.NODE_ENV === "production";
-    return isProd ? "/vis/static/" + img : "/static/" + img;
-}
-
-function sanitizeRouteUrl(url) {
-    let isProd = process.env.NODE_ENV === "production";
-    if (url === "/" && isProd) return "/vis";
-    return isProd ? "/vis" + url : url;
-}
+import {sanitizeRouteUrl} from "./src/util/helpers";
 
 export const URL = {
     home: sanitizeRouteUrl("/"),

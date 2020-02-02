@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import "../../css/main.scss";
 import PropTypes from "prop-types";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";

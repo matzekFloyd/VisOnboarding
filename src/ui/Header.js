@@ -1,6 +1,5 @@
 import React from 'react';
 import {URL} from "../../constants";
-import "../css/main.scss";
 
 const Header = () => (
     <div>

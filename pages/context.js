@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import "../src/css/main.scss"
 import Layout from '../src/ui/Layout';
 
 export default class Context extends PureComponent {
