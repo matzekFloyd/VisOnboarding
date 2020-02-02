@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import Layout from '../src/ui/Layout';
-import "../src/css/main.scss";
 import ChartManager from "../src/ui/chart/ChartManager";
 import {sanitizeImgUrl} from "../constants";
 

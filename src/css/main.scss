@@ -1,3 +1,10 @@
+//noinspection CssInvalidAtRule
+@tailwind base;
+//noinspection CssInvalidAtRule
+@tailwind components;
+//noinspection CssInvalidAtRule
+@tailwind utilities;
+
 /* Fonts */
 $txt-main-font: 'Lato', sans-serif;
 $txt-headline-font: 'Merriweather', serif;
@@ -25,7 +32,7 @@ a.nav {
 }
 
 .chart.hide {
-    display: none;
+  display: none;
 }
 
 .image.layout {
