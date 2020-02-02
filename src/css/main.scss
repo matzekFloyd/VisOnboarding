@@ -1,9 +1,4 @@
-//noinspection CssInvalidAtRule
-@tailwind base;
-//noinspection CssInvalidAtRule
-@tailwind components;
-//noinspection CssInvalidAtRule
-@tailwind utilities;
+@import './tailwind.scss';
 
 /* Fonts */
 $txt-main-font: 'Lato', sans-serif;
