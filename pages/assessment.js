@@ -10,10 +10,11 @@ export default class Assessment extends PureComponent {
         super(props, context);
     }
 
-    redirect(to) {
+    redirect(e, to) {
+        e.preventDefault();
         let rand = Math.floor(Math.random() * 100);
         let href = to + "?res=" + rand.toString();
-        Router.push(href, href + "~" + Date.now().toString(), {}).then(() => console.log("Redirecting: ", to));
+        Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
     }
 
     render() {
@@ -21,9 +22,9 @@ export default class Assessment extends PureComponent {
             <Layout>
                 <h1>Assessment</h1>
                 <div>
-                    <ButtonOutLine title={"Basic"} onClick={() => this.redirect(URL.onboarding.basic)}/>
-                    <ButtonOutLine title={"Advanced"} onClick={() => this.redirect(URL.onboarding.advanced)}/>
-                    <ButtonOutLine title={"Proficient"} onClick={() => this.redirect(URL.onboarding.proficient)}/>
+                    <ButtonOutLine title={"Basic"} onClick={(e) => this.redirect(e, URL.onboarding.basic)}/>
+                    <ButtonOutLine title={"Advanced"} onClick={(e) => this.redirect(e, URL.onboarding.advanced)}/>
+                    <ButtonOutLine title={"Proficient"} onClick={(e) => this.redirect(e, URL.onboarding.proficient)}/>
                 </div>
             </Layout>
         );
