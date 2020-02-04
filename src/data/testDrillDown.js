@@ -7,12 +7,23 @@ export const TEST_DRILLDOWN = () => {
         chart: {
             events: {
                 drilldown: function (e) {
-                        console.log("EVENT ", e, "\n", e.seriesOptions);
-                        let chart = this;
-                        chart.showLoading('LOADING');
-                        setTimeout(function () {
-                            chart.hideLoading();
-                        }, 500)
+                    console.log("EVENT ", e, "\n", e.seriesOptions);
+                    let chart = this;
+                    chart.showLoading('LOADING', chart.yAxis, chart.yAxis.type);
+                    let new_categories = ['a', 'b', 'c', 'd', 'e', 'f'];
+                    chart.yAxis[0].update({
+                        categories: new_categories
+                    });
+
+                    setTimeout(function () {
+                        chart.hideLoading();
+                    }, 500)
+                },
+                drillup: function (e) {
+                    let chart = this;
+                    chart.yAxis[0].update({
+                        categories: categories
+                    });
                 }
             }
         },
@@ -47,6 +58,11 @@ export const TEST_DRILLDOWN = () => {
             }
         }],
         drilldown: {
+            yAxis: {
+                type: 'category',
+                categories: ['a', 'b'],
+
+            },
             series: [{
                 name: "a",
                 id: "a",
