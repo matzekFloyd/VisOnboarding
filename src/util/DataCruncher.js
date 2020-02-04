@@ -30,7 +30,8 @@ export class DataCruncher {
             color: this.getColor(location),
             start: this.calc(startH, startM, startS),
             end: this.calc(endH, endM, endS),
-            y: this.categories.indexOf(tag)
+            y: this.categories.indexOf(tag),
+            drilldown: "a"
         };
     }
 

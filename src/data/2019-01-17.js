@@ -2,11 +2,18 @@
 import {DataCruncher} from "../util/DataCruncher";
 
 export const D_JAN_17 = () => {
-    let categories = ['pMaq','ox0d','Hf6q','lwFq','LLz2','Xgti','GmK6','n4gK','ofEz','WGSU','nnhk'];
+    let categories = ['pMaq', 'ox0d', 'Hf6q', 'lwFq', 'LLz2', 'Xgti', 'GmK6', 'n4gK', 'ofEz', 'WGSU', 'nnhk'];
     let dc = new DataCruncher(new Date('2019-01-17T01:00:00'), categories);
     return {
         title: {
             text: ''
+        },
+        charts: {
+            events: {
+                drilldown: function (e) {
+                    console.log("Drilldown" + e.point.name);
+                }
+            },
         },
         xAxis: {
             currentDateIndicator: true,
@@ -17,7 +24,7 @@ export const D_JAN_17 = () => {
             type: 'category',
             categories: categories,
             min: dc.yAxis.min,
-            max: dc.yAxis.max
+            max: dc.yAxis.max,
         },
         series: [{
             name: '',
@@ -270,6 +277,6 @@ export const D_JAN_17 = () => {
                 dc.initDataObj('pMaq', 'Roboter', 23, 4, 44, 23, 15, 6),
                 dc.initDataObj('pMaq', 'Funken', 23, 15, 6, 23, 26, 44),
             ]
-        }],
+        }]
     };
 };
