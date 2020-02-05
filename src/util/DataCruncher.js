@@ -1,5 +1,5 @@
 /**
- *
+ * @TODO refactor Point creation, value setting functionality into a Point model
  */
 export class DataCruncher {
 

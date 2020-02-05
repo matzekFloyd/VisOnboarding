@@ -1,6 +1,7 @@
 /* 2019.01.15 8:00 - 23:59 - min duration: 5 Minutes */
 import {DataCruncher} from "../util/DataCruncher";
 
+//TODO WIP change selected data point on drilldown, dependencies, zoom
 export const D_JAN_15 = () => {
     let categories = ['lwFq', 'ofEz', 'pMaq', 'LLz2', 'Hf6q', 'Xgti', 'GYPG', 'GmK6', 'n4gK', 'ox0d', 'QuLX', 'oiFK'];
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
