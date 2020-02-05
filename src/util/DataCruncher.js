@@ -27,21 +27,24 @@ export class DataCruncher {
         }
     }
 
-    calc(hours, minutes, seconds) {
-        return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
-    }
-
-    initBaseObj(location, startH, startM, startS, endH, endM, endS) {
+    basicObj(location, startH, startM, startS, endH, endM, endS) {
         return {
             taskName: location,
             color: this.getColor(location),
-            start: this.calc(startH, startM, startS),
-            end: this.calc(endH, endM, endS),
+            start: this.calculateTime(startH, startM, startS),
+            end: this.calculateTime(endH, endM, endS),
         }
     }
 
-    initDataObj(tag, location, startH, startM, startS, endH, endM, endS) {
-        let base = this.initBaseObj(location, startH, startM, startS, endH, endM, endS);
+    dataObj(tag, location, startH, startM, startS, endH, endM, endS) {
+        let dataObj = this.basicObj(location, startH, startM, startS, endH, endM, endS);
+        dataObj.y = this.categories.indexOf(tag);
+        dataObj.drilldown = tag;
+        return {...dataObj};
+    }
+
+    drillObj(tag, location, startH, startM, startS, endH, endM, endS) {
+        let base = this.basicObj(location, startH, startM, startS, endH, endM, endS);
 
         let newY = null;
         switch (location) {
@@ -62,11 +65,34 @@ export class DataCruncher {
         return {...base}
     }
 
-    initDrilldownObj(tag, location, startH, startM, startS, endH, endM, endS) {
-        let dataObj = this.initBaseObj(location, startH, startM, startS, endH, endM, endS);
-        dataObj.y = this.categories.indexOf(tag);
-        dataObj.drilldown = tag;
-        return {...dataObj};
+    drilldown(event, chart) {
+        chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
+        chart.yAxis[0].update({
+            categories: this.LOCATIONS,
+            min: 0,
+            max: this.LOCATIONS.length - 1
+        });
+
+        setTimeout(function () {
+            chart.hideLoading();
+        }, 500);
+    }
+
+    drillup(event, chart) {
+        chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
+        chart.yAxis[0].update({
+            type: 'category',
+            categories: this.categories,
+            min: this.yAxis.min,
+            max: this.yAxis.max
+        });
+        setTimeout(function () {
+            chart.hideLoading();
+        }, 500);
+    }
+
+    calculateTime(hours, minutes, seconds) {
+        return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
     }
 
     getColor(location) {
