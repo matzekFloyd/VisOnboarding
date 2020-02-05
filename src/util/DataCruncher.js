@@ -6,6 +6,13 @@ export class DataCruncher {
     xAxis;
     yAxis;
 
+    FUNKEN = "Funken";
+    ROBOTER = "Roboter";
+    DORNEREI = "Dornerei";
+    STANZEN = "Stanzen";
+
+    LOCATIONS = [this.FUNKEN, this.ROBOTER, this.DORNEREI, this.STANZEN];
+
     constructor(startDate, categories, day = 1000 * 60 * 60 * 24) {
         this.startDate = startDate;
         this.day = day;
@@ -24,26 +31,53 @@ export class DataCruncher {
         return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
     }
 
-    initDataObj(tag, location, startH, startM, startS, endH, endM, endS) {
+    initBaseObj(location, startH, startM, startS, endH, endM, endS) {
         return {
             taskName: location,
             color: this.getColor(location),
             start: this.calc(startH, startM, startS),
             end: this.calc(endH, endM, endS),
-            y: this.categories.indexOf(tag),
-            drilldown: "a"
-        };
+        }
+    }
+
+    initDataObj(tag, location, startH, startM, startS, endH, endM, endS) {
+        let base = this.initBaseObj(location, startH, startM, startS, endH, endM, endS);
+
+        let newY = null;
+        switch (location) {
+            case this.FUNKEN:
+                newY = 0;
+                break;
+            case this.ROBOTER:
+                newY = 1;
+                break;
+            case this.DORNEREI:
+                newY = 2;
+                break;
+            case this.STANZEN:
+                newY = 3;
+                break;
+        }
+        base.y = newY;
+        return {...base}
+    }
+
+    initDrilldownObj(tag, location, startH, startM, startS, endH, endM, endS) {
+        let dataObj = this.initBaseObj(location, startH, startM, startS, endH, endM, endS);
+        dataObj.y = this.categories.indexOf(tag);
+        dataObj.drilldown = tag;
+        return {...dataObj};
     }
 
     getColor(location) {
         switch (location) {
-            case "Funken":
+            case this.FUNKEN:
                 return "#7F3C8D";
-            case "Roboter":
+            case this.ROBOTER:
                 return "#11A579";
-            case "Dornerei":
+            case this.DORNEREI:
                 return "#3969AC";
-            case "Stanzen":
+            case this.STANZEN:
                 return "#F2B701";
         }
     }

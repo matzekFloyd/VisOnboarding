@@ -26,7 +26,7 @@ export default class Chart extends PureComponent {
     }
 
     getChartCfg(identifier) {
-        return TEST_DRILLDOWN();
+        //return TEST_DRILLDOWN();
 
         switch (identifier) {
             case JAN_15:
