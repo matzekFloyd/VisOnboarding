@@ -9,6 +9,7 @@ import {JAN_15, JAN_16, JAN_17} from "../../../constants";
 import {D_JAN_15} from "../../data/2019-01-15";
 import {D_JAN_16} from "../../data/2019-01-16";
 import {D_JAN_17} from "../../data/2019-01-17";
+import {Empty} from "../components";
 
 export default class Chart extends PureComponent {
 
@@ -19,9 +20,13 @@ export default class Chart extends PureComponent {
             highchartsGantt(Highcharts);
             drilldown(Highcharts);
         }
-        this.state = {
-            config: this.getChartCfg(props.identifier)
-        }
+        this.state = {config: null, loading: true};
+    }
+
+    componentDidMount() {
+        this.setState({config: this.getChartCfg(this.props.identifier)}, () => {
+            this.setState({loading: false})
+        });
     }
 
     getChartCfg(identifier) {
@@ -40,8 +45,10 @@ export default class Chart extends PureComponent {
     render() {
         const {config} = this.state;
         return (
-            <div className={this.props.active ? "chart show" : "chart hide"}>
-                <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}/>
+            <div> {this.state.loading ? <Empty/> :
+                <div className={this.props.active ? "chart show" : "chart hide"}>
+                    <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}/>
+                </div>}
             </div>
         );
     }

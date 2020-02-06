@@ -1,6 +1,3 @@
-/**
- * @TODO refactor Point creation, value setting functionality into a Point model
- */
 export class DataCruncher {
 
     startDate;
@@ -52,6 +49,7 @@ export class DataCruncher {
         return {
             id: this.createId(tag, startH, startM, startS, endH, endM, endS),
             name: "pt_" + tag + "_" + location,
+            location: location,
             taskName: location,
             color: this.getColor(location),
             start: this.calculateTime(startH, startM, startS),
@@ -145,6 +143,20 @@ export class DataCruncher {
         setTimeout(function () {
             chart.hideLoading();
         }, 500);
+    }
+
+    setDependencies(objArray) {
+        for (let i = 1; i < objArray.length; i++) {
+            let cur = objArray[i];
+            let prev = objArray[i - 1];
+            if (cur.location !== prev.location) {
+                cur.dependency = prev.id;
+            }
+            if ((cur.start < prev.start)) {
+                console.warn("Incorrect order at index: ", i);
+            }
+        }
+        return objArray;
     }
 
     /**
