@@ -63,12 +63,30 @@ export const D_JAN_15 = () => {
             min: dc.xAxis.min,
             max: dc.xAxis.max,
         },
-        yAxis: {
+        yAxis: [{
             type: 'category',
-            categories: categories,
-            min: dc.yAxis.min,
-            max: dc.yAxis.max
-        },
+         //   categories: categories,
+         //   min: dc.yAxis.min,
+         //   max: dc.yAxis.max
+            grid: {
+              columns: [{
+                  title: {
+                      text: "Name"
+                  },
+                  categories: categories.map(function (s) {
+                      return s;
+                  },)
+              }, {
+                  title: {
+                      text: "ID"
+                  },
+                  categories: categories.map(function (s) {
+                      return s + "asdf";
+                  },)
+              }]
+            },
+
+        }],
         series: [
             {
                 name: 'Overview',
