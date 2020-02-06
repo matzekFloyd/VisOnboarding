@@ -7,6 +7,7 @@ export const D_JAN_15 = () => {
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
     return {
         chart: {
+            zoomType: 'xy',
             events: {
                 drilldown: function (e) {
                     dc.drilldown(e, this);
@@ -21,9 +22,16 @@ export const D_JAN_15 = () => {
         },
         navigator: {
             enabled: true,
-            //  handles: {
-            //      enabled: false
-            //  }
+            liveRedraw: true,
+            height: 30,
+            margin: 0,
+            series: {
+                visible: false
+            },
+        },
+        scrollbar: {
+            enabled: true,
+            showFull: false
         },
         rangeSelector: {
             enabled: true,
