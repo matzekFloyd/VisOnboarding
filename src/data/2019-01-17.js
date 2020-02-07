@@ -23,8 +23,8 @@ export const D_JAN_17 = () => {
         yAxis: {
             type: 'category',
             categories: categories,
-            min: dc.yAxis.min,
-            max: dc.yAxis.max,
+         //   min: dc.yAxis.min,
+         //   max: dc.yAxis.max,
         },
         series: [{
             name: '',

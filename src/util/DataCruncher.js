@@ -1,17 +1,14 @@
+import {LOCATIONS, FUNKEN, ROBOTER, DORNEREI, STANZEN} from "../../constants";
+
+/**
+ *
+ */
 export class DataCruncher {
 
     startDate;
     day;
     categories;
     xAxis;
-    yAxis;
-
-    FUNKEN = "Funken";
-    ROBOTER = "Roboter";
-    DORNEREI = "Dornerei";
-    STANZEN = "Stanzen";
-
-    LOCATIONS = [this.FUNKEN, this.ROBOTER, this.DORNEREI, this.STANZEN];
 
     /**
      *
@@ -27,10 +24,6 @@ export class DataCruncher {
             min: this.startDate.getTime(),
             max: this.startDate.getTime() + this.day
         };
-        this.yAxis = {
-            min: 0,
-            max: this.categories.length - 1
-        }
     }
 
     /**
@@ -71,7 +64,9 @@ export class DataCruncher {
      */
     dataObj(tag, location, startH, startM, startS, endH, endM, endS) {
         let obj = this.basicObj(tag, location, startH, startM, startS, endH, endM, endS);
-        obj.y = this.categories.indexOf(tag);
+        obj.y = this.categories.map((cat) => {
+            return cat.id;
+        }).indexOf(tag);
         obj.drilldown = tag;
         return {...obj};
     }
@@ -92,16 +87,16 @@ export class DataCruncher {
         let obj = this.basicObj(tag, location, startH, startM, startS, endH, endM, endS);
         let newY = null;
         switch (location) {
-            case this.FUNKEN:
+            case FUNKEN:
                 newY = 0;
                 break;
-            case this.ROBOTER:
+            case ROBOTER:
                 newY = 1;
                 break;
-            case this.DORNEREI:
+            case DORNEREI:
                 newY = 2;
                 break;
-            case this.STANZEN:
+            case STANZEN:
                 newY = 3;
                 break;
         }
@@ -118,9 +113,15 @@ export class DataCruncher {
     drilldown(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
         chart.yAxis[0].update({
-            categories: this.LOCATIONS,
-            min: 0,
-            max: this.LOCATIONS.length - 1
+            type: 'category',
+            grid: {
+                columns: [{
+                    title: {
+                        text: "Location"
+                    },
+                    categories: LOCATIONS
+                }]
+            }
         });
         setTimeout(function () {
             chart.hideLoading();
@@ -135,16 +136,34 @@ export class DataCruncher {
     drillup(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
         chart.yAxis[0].update({
-            type: 'category',
-            categories: this.categories,
-            min: this.yAxis.min,
-            max: this.yAxis.max
+            grid: {
+                columns: [{
+                    title: {
+                        text: "Name"
+                    },
+                    categories: this.categories.map(function (category) {
+                        return category.name;
+                    })
+                }, {
+                    title: {
+                        text: "ID"
+                    },
+                    categories: this.categories.map(function (category) {
+                        return category.id;
+                    })
+                }]
+            }
         });
         setTimeout(function () {
             chart.hideLoading();
         }, 500);
     }
 
+    /**
+     *
+     * @param objArray
+     * @return {*}
+     */
     setDependencies(objArray) {
         for (let i = 1; i < objArray.length; i++) {
             let cur = objArray[i];
@@ -192,13 +211,13 @@ export class DataCruncher {
      */
     getColor(location) {
         switch (location) {
-            case this.FUNKEN:
+            case FUNKEN:
                 return "#7F3C8D";
-            case this.ROBOTER:
+            case ROBOTER:
                 return "#11A579";
-            case this.DORNEREI:
+            case DORNEREI:
                 return "#3969AC";
-            case this.STANZEN:
+            case STANZEN:
                 return "#F2B701";
         }
     }

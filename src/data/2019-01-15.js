@@ -2,11 +2,11 @@
 import {DataCruncher} from "../util/DataCruncher";
 import {BEACONS} from "../../constants";
 
-//TODO WIP change selected data point on drilldown, zoom
+//TODO WIP change selected data point on drilldown
 export const D_JAN_15 = () => {
     let categories = [
-        BEACONS.lwFq.id, BEACONS.ofEZ.id, BEACONS.pMaq.id, BEACONS.LLz2.id, BEACONS.Hf6q.id, BEACONS.Xgti.id,
-        BEACONS.GYPG.id, BEACONS.GmK6.id, BEACONS.n4gK.id, BEACONS.ox0d.id, BEACONS.QuLX.id, BEACONS.oiFK.id
+        BEACONS.lwFq, BEACONS.ofEZ, BEACONS.pMaq, BEACONS.LLz2, BEACONS.Hf6q, BEACONS.Xgti,
+        BEACONS.GYPG, BEACONS.GmK6, BEACONS.n4gK, BEACONS.ox0d, BEACONS.QuLX, BEACONS.oiFK
     ];
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
     return {
@@ -69,24 +69,21 @@ export const D_JAN_15 = () => {
         },
         yAxis: [{
             type: 'category',
-            //   categories: categories,
-            //   min: dc.yAxis.min,
-            //   max: dc.yAxis.max
             grid: {
                 columns: [{
                     title: {
                         text: "Name"
                     },
-                    categories: categories.map(function (s) {
-                        return s;
-                    },)
+                    categories: categories.map(function (category) {
+                        return category.name;
+                    })
                 }, {
                     title: {
                         text: "ID"
                     },
-                    categories: categories.map(function (s) {
-                        return s + "asdf";
-                    },)
+                    categories: categories.map(function (category) {
+                        return category.id;
+                    })
                 }]
             },
 

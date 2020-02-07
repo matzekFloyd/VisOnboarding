@@ -16,6 +16,14 @@ export const JAN_15 = "JAN_15";
 export const JAN_16 = "JAN_16";
 export const JAN_17 = "JAN_17";
 
+
+export const FUNKEN = "Funken";
+export const ROBOTER = "Roboter";
+export const DORNEREI = "Dornerei";
+export const STANZEN = "Stanzen";
+
+export const LOCATIONS = [FUNKEN, ROBOTER, DORNEREI, STANZEN];
+
 export const BEACONS = {
     LLz2: {id: "LLz2", name: "Beacon Pro 1"},
     GmK6: {id: "GmK6", name: "Beacon Pro 2"},
