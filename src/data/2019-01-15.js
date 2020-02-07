@@ -1,9 +1,13 @@
 /* 2019.01.15 8:00 - 23:59 - min duration: 5 Minutes */
 import {DataCruncher} from "../util/DataCruncher";
+import {BEACONS} from "../../constants";
 
 //TODO WIP change selected data point on drilldown, zoom
 export const D_JAN_15 = () => {
-    let categories = ['lwFq', 'ofEz', 'pMaq', 'LLz2', 'Hf6q', 'Xgti', 'GYPG', 'GmK6', 'n4gK', 'ox0d', 'QuLX', 'oiFK'];
+    let categories = [
+        BEACONS.lwFq.id, BEACONS.ofEZ.id, BEACONS.pMaq.id, BEACONS.LLz2.id, BEACONS.Hf6q.id, BEACONS.Xgti.id,
+        BEACONS.GYPG.id, BEACONS.GmK6.id, BEACONS.n4gK.id, BEACONS.ox0d.id, BEACONS.QuLX.id, BEACONS.oiFK.id
+    ];
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
     return {
         chart: {
@@ -65,25 +69,25 @@ export const D_JAN_15 = () => {
         },
         yAxis: [{
             type: 'category',
-         //   categories: categories,
-         //   min: dc.yAxis.min,
-         //   max: dc.yAxis.max
+            //   categories: categories,
+            //   min: dc.yAxis.min,
+            //   max: dc.yAxis.max
             grid: {
-              columns: [{
-                  title: {
-                      text: "Name"
-                  },
-                  categories: categories.map(function (s) {
-                      return s;
-                  },)
-              }, {
-                  title: {
-                      text: "ID"
-                  },
-                  categories: categories.map(function (s) {
-                      return s + "asdf";
-                  },)
-              }]
+                columns: [{
+                    title: {
+                        text: "Name"
+                    },
+                    categories: categories.map(function (s) {
+                        return s;
+                    },)
+                }, {
+                    title: {
+                        text: "ID"
+                    },
+                    categories: categories.map(function (s) {
+                        return s + "asdf";
+                    },)
+                }]
             },
 
         }],
@@ -334,7 +338,7 @@ export const D_JAN_15 = () => {
             series: [
                 {
                     name: "Detail lwFq",
-                    id: "lwFq",
+                    id: BEACONS.lwFq.id,
                     allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('lwFq', 'Roboter', 0, 14, 13, 0, 26, 14),
@@ -373,7 +377,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail ofEz",
-                    id: "ofEz",
+                    id: BEACONS.ofEZ.id,
                     data: dc.setDependencies([
                         dc.drillObj('ofEz', 'Funken', 0, 25, 36, 0, 35, 33),
                         dc.drillObj('ofEz', 'Roboter', 0, 35, 33, 2, 43, 37),
@@ -411,7 +415,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail n4gK",
-                    id: "n4gK",
+                    id: BEACONS.n4gK.id,
                     data: dc.setDependencies([
                         dc.drillObj('n4gK', 'Roboter', 0, 4, 13, 10, 29, 36),
                         dc.drillObj('n4gK', 'Funken', 10, 29, 36, 10, 34, 58),
@@ -454,7 +458,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail Hf6q",
-                    id: "Hf6q",
+                    id: BEACONS.Hf6q.id,
                     data: dc.setDependencies([
                         dc.drillObj('Hf6q', 'Funken', 0, 25, 34, 0, 35, 36),
                         dc.drillObj('Hf6q', 'Funken', 0, 35, 36, 0, 43, 34),
@@ -500,7 +504,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail QuLX",
-                    id: "QuLX",
+                    id: BEACONS.QuLX.id,
                     data: dc.setDependencies([
                         dc.drillObj('QuLX', 'Roboter', 0, 50, 13, 2, 20, 17),
                         dc.drillObj('QuLX', 'Roboter', 2, 21, 34, 3, 2, 57),
@@ -520,14 +524,14 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail oiFK",
-                    id: "oiFK",
+                    id: BEACONS.oiFK.id,
                     data: dc.setDependencies([
                         dc.drillObj('oiFK', 'Stanzen', 2, 13, 37, 18, 4, 15)
                     ])
                 },
                 {
                     name: "Detail GmK6",
-                    id: "GmK6",
+                    id: BEACONS.GmK6.id,
                     data: dc.setDependencies([
                         dc.drillObj('GmK6', 'Funken', 4, 36, 55, 5, 4, 14),
                         dc.drillObj('GmK6', 'Roboter', 5, 4, 14, 5, 9, 35),
@@ -543,7 +547,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail pMaq",
-                    id: "pMaq",
+                    id: BEACONS.pMaq.id,
                     data: dc.setDependencies([
                         dc.drillObj('pMaq', 'Funken', 5, 3, 35, 5, 9, 34),
                         dc.drillObj('pMaq', 'Roboter', 5, 9, 34, 6, 55, 35),
@@ -586,7 +590,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail LLz2",
-                    id: "LLz2",
+                    id: BEACONS.LLz2.id,
                     data: dc.setDependencies([
                         dc.drillObj('LLz2', 'Dornerei', 9, 15, 34, 10, 5, 38),
                         dc.drillObj('LLz2', 'Dornerei', 10, 7, 34, 10, 19, 38),
@@ -596,7 +600,7 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail Xgti",
-                    id: "Xgti",
+                    id: BEACONS.Xgti.id,
                     data: dc.setDependencies([
                         dc.drillObj('Xgti', 'Funken', 9, 45, 37, 10, 27, 36),
                         dc.drillObj('Xgti', 'Funken', 10, 27, 36, 10, 33, 38),
@@ -620,14 +624,14 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail GYPG",
-                    id: "GYPG",
+                    id: BEACONS.GYPG.id,
                     data: dc.setDependencies([
                         dc.drillObj('GYPG', 'Stanzen', 9, 55, 38, 10, 4, 54)
                     ])
                 },
                 {
                     name: "Detail ox0d",
-                    id: "ox0d",
+                    id: BEACONS.ox0d.id,
                     data: dc.setDependencies([
                         dc.drillObj('ox0d', 'Dornerei', 15, 59, 35, 16, 19, 39),
                         dc.drillObj('ox0d', 'Stanzen', 16, 19, 39, 16, 39, 36),
