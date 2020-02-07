@@ -29,7 +29,7 @@ export let SeriesDrill = (beacon, data) => {
         name: beacon.name + " (" + beacon.id + ")",
         id: beacon.id,
         allowPointSelect: true,
-        data: data
+        data: DataCruncher.setDependencies(data)
     }
 };
 
