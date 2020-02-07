@@ -16,7 +16,7 @@ export class DataCruncher {
      * @param categories
      * @param day
      */
-    constructor(startDate, categories, day = 1000 * 60 * 60 * 24) {
+    constructor(startDate = new Date(), categories, day = 1000 * 60 * 60 * 24) {
         this.startDate = startDate;
         this.day = day;
         this.categories = categories;
@@ -41,13 +41,13 @@ export class DataCruncher {
     basicObj(tag, location, startH, startM, startS, endH, endM, endS) {
         let start = this.calculateTime(startH, startM, startS);
         let end = this.calculateTime(endH, endM, endS);
-        let duration = this.calculateDuration(start, end);
+        let duration = DataCruncher.calculateDuration(start, end);
         return {
-            id: this.createId(tag, startH, startM, startS, endH, endM, endS),
+            id: DataCruncher.createId(tag, startH, startM, startS, endH, endM, endS),
             name: "pt_" + tag + "_" + location,
             tag: tag,
             location: location,
-            color: this.getColor(location),
+            color: DataCruncher.getColor(location),
             start: start,
             end: end,
             duration: duration,
@@ -105,7 +105,7 @@ export class DataCruncher {
                 break;
         }
         obj.y = newY;
-        obj.id = this.createId(tag, startH, startM, startS, endH, endM, endS);
+        obj.id = DataCruncher.createId(tag, startH, startM, startS, endH, endM, endS);
         return {...obj}
     }
 
@@ -185,7 +185,7 @@ export class DataCruncher {
      * @param objArray
      * @return {*}
      */
-    setDependencies(objArray) {
+    static setDependencies(objArray) {
         for (let i = 1; i < objArray.length; i++) {
             let cur = objArray[i];
             let prev = objArray[i - 1];
@@ -207,6 +207,7 @@ export class DataCruncher {
      * @return {number}
      */
     calculateTime(hours, minutes, seconds) {
+        //TODO refactor to static
         return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
     }
 
@@ -216,7 +217,7 @@ export class DataCruncher {
      * @param tEnd
      * @return {string}
      */
-    calculateDuration(tStart, tEnd) {
+    static calculateDuration(tStart, tEnd) {
         let diff = Math.floor((tEnd - tStart) / 1000), units = [
             {d: 60, l: "seconds"},
             {d: 60, l: "minutes"},
@@ -236,7 +237,7 @@ export class DataCruncher {
      * @param unix
      * @return {string}
      */
-    convertUnixTimestamp(unix) {
+    static convertUnixTimestamp(unix) {
         let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let date = new Date(unix);
         let year = date.getFullYear();
@@ -259,7 +260,7 @@ export class DataCruncher {
      * @param endS
      * @return {*}
      */
-    createId(tag, startH, startM, startS, endH, endM, endS) {
+    static createId(tag, startH, startM, startS, endH, endM, endS) {
         return tag + startH + startM + startS + endH + endM + endS + Math.random();
     }
 
@@ -268,7 +269,7 @@ export class DataCruncher {
      * @param location
      * @return {string}
      */
-    getColor(location) {
+    static getColor(location) {
         switch (location) {
             case FUNKEN:
                 return "#7F3C8D";
