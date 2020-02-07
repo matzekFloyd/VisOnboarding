@@ -10,7 +10,15 @@ export const D_JAN_15 = () => {
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
     return {
         chart: {
-            zoomType: 'xy',
+            /*
+            zoomType: 'x',
+            resetZoomButton: {
+                position: {
+                    x: 0,
+                    y: -30
+                }
+            },
+            */
             events: {
                 drilldown: function (e) {
                     dc.drilldown(e, this);
@@ -63,6 +71,17 @@ export const D_JAN_15 = () => {
             textAlign: 'center',
             margin: 0,
             useHtml: true
+        },
+        tooltip: {
+            shape: "square",
+            padding: 12,
+            formatter: function () {
+                return '<b> ' + this.series.name + '</b><br />' +
+                    'Location: ' + this.point.location + '<br />' +
+                    'Start: ' + dc.convertUnixTimestamp(this.point.start) + '<br />' +
+                    'End: ' + dc.convertUnixTimestamp(this.point.end) + '<br />' +
+                    'Duration: ' + this.point.duration + '<br />';
+            }
         },
         xAxis: {
             min: dc.xAxis.min,

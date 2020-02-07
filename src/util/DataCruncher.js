@@ -1,4 +1,4 @@
-import {LOCATIONS, FUNKEN, ROBOTER, DORNEREI, STANZEN, BEACON} from "../../constants";
+import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../constants";
 
 /**
  *
@@ -39,15 +39,18 @@ export class DataCruncher {
      * @return {{color: string, name: string, start: number, taskName: *, end: number, id: *}}
      */
     basicObj(tag, location, startH, startM, startS, endH, endM, endS) {
+        let start = this.calculateTime(startH, startM, startS);
+        let end = this.calculateTime(endH, endM, endS);
+        let duration = this.calculateDuration(start, end);
         return {
             id: this.createId(tag, startH, startM, startS, endH, endM, endS),
             name: "pt_" + tag + "_" + location,
             tag: tag,
             location: location,
-            taskName: location,
             color: this.getColor(location),
-            start: this.calculateTime(startH, startM, startS),
-            end: this.calculateTime(endH, endM, endS),
+            start: start,
+            end: end,
+            duration: duration,
         }
     }
 
@@ -116,7 +119,7 @@ export class DataCruncher {
         let beacon = BEACON(event.point.tag);
         chart.update({
             title: {
-                text: '<b>Asset Tracking - Detail: ' + beacon.name + " (" + beacon.id + ')</b>',
+                text: '<b>Asset Tracking - ' + beacon.name + " (" + beacon.id + ')</b>',
                 textAlign: 'center',
                 margin: 0,
                 uesHtml: true
@@ -205,6 +208,44 @@ export class DataCruncher {
      */
     calculateTime(hours, minutes, seconds) {
         return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
+    }
+
+    /**
+     *
+     * @param tStart
+     * @param tEnd
+     * @return {string}
+     */
+    calculateDuration(tStart, tEnd) {
+        let diff = Math.floor((tEnd - tStart) / 1000), units = [
+            {d: 60, l: "seconds"},
+            {d: 60, l: "minutes"},
+            {d: 24, l: "hours"}
+        ];
+
+        let s = '';
+        for (let i = 0; i < units.length; ++i) {
+            s = (diff % units[i].d) + " " + units[i].l + " " + s;
+            diff = Math.floor(diff / units[i].d);
+        }
+        return s;
+    }
+
+    /**
+     *
+     * @param unix
+     * @return {string}
+     */
+    convertUnixTimestamp(unix) {
+        let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let date = new Date(unix);
+        let year = date.getFullYear();
+        let month = months_arr[date.getMonth()];
+        let day = date.getDate();
+        let hours = date.getHours();
+        let minutes = "0" + date.getMinutes();
+        let seconds = "0" + date.getSeconds();
+        return month + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     }
 
     /**
