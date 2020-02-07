@@ -1,12 +1,11 @@
 /* 2019.01.15 8:00 - 23:59 - min duration: 5 Minutes */
 import {DataCruncher} from "../util/DataCruncher";
-import {BEACONS} from "../../constants";
+import {BEACON, lwFq, ofEZ, pMaq, LLz2, Hf6q, Xgti, GYPG, GmK6, n4gK, ox0d, QuLX, oiFK} from "../../constants";
 
-//TODO WIP change selected data point on drilldown
 export const D_JAN_15 = () => {
     let categories = [
-        BEACONS.lwFq, BEACONS.ofEZ, BEACONS.pMaq, BEACONS.LLz2, BEACONS.Hf6q, BEACONS.Xgti,
-        BEACONS.GYPG, BEACONS.GmK6, BEACONS.n4gK, BEACONS.ox0d, BEACONS.QuLX, BEACONS.oiFK
+        BEACON(lwFq), BEACON(ofEZ), BEACON(pMaq), BEACON(LLz2), BEACON(Hf6q), BEACON(Xgti), BEACON(GYPG),
+        BEACON(GmK6), BEACON(n4gK), BEACON(ox0d), BEACON(QuLX), BEACON(oiFK)
     ];
     let dc = new DataCruncher(new Date('2019-01-15T01:00:00'), categories);
     return {
@@ -60,12 +59,19 @@ export const D_JAN_15 = () => {
             ]
         },
         title: {
-            text: 'Asset Tracking Data retrieved from Georg Fischer Fittings GmbH'
+            text: '<b>Asset Tracking - Overview</b>',
+            textAlign: 'center',
+            margin: 0,
+            useHtml: true
         },
         xAxis: {
-            currentDateIndicator: true,
             min: dc.xAxis.min,
             max: dc.xAxis.max,
+            crosshair: {
+                enabled: true,
+                snap: false,
+                color: "rgba(102,133,194,0.75)"
+            },
         },
         yAxis: [{
             type: 'category',
@@ -335,7 +341,7 @@ export const D_JAN_15 = () => {
             series: [
                 {
                     name: "Detail lwFq",
-                    id: BEACONS.lwFq.id,
+                    id: BEACON(lwFq).id,
                     allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('lwFq', 'Roboter', 0, 14, 13, 0, 26, 14),
@@ -374,7 +380,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail ofEz",
-                    id: BEACONS.ofEZ.id,
+                    id: BEACON(ofEZ).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('ofEz', 'Funken', 0, 25, 36, 0, 35, 33),
                         dc.drillObj('ofEz', 'Roboter', 0, 35, 33, 2, 43, 37),
@@ -412,7 +419,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail n4gK",
-                    id: BEACONS.n4gK.id,
+                    id: BEACON(n4gK).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('n4gK', 'Roboter', 0, 4, 13, 10, 29, 36),
                         dc.drillObj('n4gK', 'Funken', 10, 29, 36, 10, 34, 58),
@@ -455,7 +463,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail Hf6q",
-                    id: BEACONS.Hf6q.id,
+                    id: BEACON(Hf6q).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('Hf6q', 'Funken', 0, 25, 34, 0, 35, 36),
                         dc.drillObj('Hf6q', 'Funken', 0, 35, 36, 0, 43, 34),
@@ -501,7 +510,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail QuLX",
-                    id: BEACONS.QuLX.id,
+                    id: BEACON(QuLX).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('QuLX', 'Roboter', 0, 50, 13, 2, 20, 17),
                         dc.drillObj('QuLX', 'Roboter', 2, 21, 34, 3, 2, 57),
@@ -521,14 +531,16 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail oiFK",
-                    id: BEACONS.oiFK.id,
+                    id: BEACON(oiFK).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('oiFK', 'Stanzen', 2, 13, 37, 18, 4, 15)
                     ])
                 },
                 {
                     name: "Detail GmK6",
-                    id: BEACONS.GmK6.id,
+                    id: BEACON(GmK6).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('GmK6', 'Funken', 4, 36, 55, 5, 4, 14),
                         dc.drillObj('GmK6', 'Roboter', 5, 4, 14, 5, 9, 35),
@@ -544,7 +556,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail pMaq",
-                    id: BEACONS.pMaq.id,
+                    id: BEACON(pMaq).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('pMaq', 'Funken', 5, 3, 35, 5, 9, 34),
                         dc.drillObj('pMaq', 'Roboter', 5, 9, 34, 6, 55, 35),
@@ -587,7 +600,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail LLz2",
-                    id: BEACONS.LLz2.id,
+                    id: BEACON(LLz2).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('LLz2', 'Dornerei', 9, 15, 34, 10, 5, 38),
                         dc.drillObj('LLz2', 'Dornerei', 10, 7, 34, 10, 19, 38),
@@ -597,7 +611,8 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail Xgti",
-                    id: BEACONS.Xgti.id,
+                    id: BEACON(Xgti).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('Xgti', 'Funken', 9, 45, 37, 10, 27, 36),
                         dc.drillObj('Xgti', 'Funken', 10, 27, 36, 10, 33, 38),
@@ -621,14 +636,16 @@ export const D_JAN_15 = () => {
                 },
                 {
                     name: "Detail GYPG",
-                    id: BEACONS.GYPG.id,
+                    id: BEACON(GYPG).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('GYPG', 'Stanzen', 9, 55, 38, 10, 4, 54)
                     ])
                 },
                 {
                     name: "Detail ox0d",
-                    id: BEACONS.ox0d.id,
+                    id: BEACON(ox0d).id,
+                    allowPointSelect: true,
                     data: dc.setDependencies([
                         dc.drillObj('ox0d', 'Dornerei', 15, 59, 35, 16, 19, 39),
                         dc.drillObj('ox0d', 'Stanzen', 16, 19, 39, 16, 39, 36),

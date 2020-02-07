@@ -1,4 +1,4 @@
-import {LOCATIONS, FUNKEN, ROBOTER, DORNEREI, STANZEN} from "../../constants";
+import {LOCATIONS, FUNKEN, ROBOTER, DORNEREI, STANZEN, BEACON} from "../../constants";
 
 /**
  *
@@ -42,6 +42,7 @@ export class DataCruncher {
         return {
             id: this.createId(tag, startH, startM, startS, endH, endM, endS),
             name: "pt_" + tag + "_" + location,
+            tag: tag,
             location: location,
             taskName: location,
             color: this.getColor(location),
@@ -112,15 +113,24 @@ export class DataCruncher {
      */
     drilldown(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
-        chart.yAxis[0].update({
-            type: 'category',
-            grid: {
-                columns: [{
-                    title: {
-                        text: "Location"
-                    },
-                    categories: LOCATIONS
-                }]
+        let beacon = BEACON(event.point.tag);
+        chart.update({
+            title: {
+                text: '<b>Asset Tracking - Detail: ' + beacon.name + " (" + beacon.id + ')</b>',
+                textAlign: 'center',
+                margin: 0,
+                uesHtml: true
+            },
+            yAxis: {
+                type: 'category',
+                grid: {
+                    columns: [{
+                        title: {
+                            text: "Location"
+                        },
+                        categories: LOCATIONS
+                    }]
+                }
             }
         });
         setTimeout(function () {
@@ -135,23 +145,31 @@ export class DataCruncher {
      */
     drillup(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
-        chart.yAxis[0].update({
-            grid: {
-                columns: [{
-                    title: {
-                        text: "Name"
-                    },
-                    categories: this.categories.map(function (category) {
-                        return category.name;
-                    })
-                }, {
-                    title: {
-                        text: "ID"
-                    },
-                    categories: this.categories.map(function (category) {
-                        return category.id;
-                    })
-                }]
+        chart.update({
+            title: {
+                text: '<b>Asset Tracking - Overview</b>',
+                textAlign: 'center',
+                margin: 0,
+                useHtml: true
+            },
+            yAxis: {
+                grid: {
+                    columns: [{
+                        title: {
+                            text: "Name"
+                        },
+                        categories: this.categories.map(function (category) {
+                            return category.name;
+                        })
+                    }, {
+                        title: {
+                            text: "ID"
+                        },
+                        categories: this.categories.map(function (category) {
+                            return category.id;
+                        })
+                    }]
+                }
             }
         });
         setTimeout(function () {
