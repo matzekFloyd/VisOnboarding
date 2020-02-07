@@ -1,4 +1,9 @@
 import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../constants";
+import {Point} from "./models";
+
+//LEVELS
+const OVERVIEW = 0;
+const DRILLDOWN = 1;
 
 /**
  *
@@ -28,6 +33,7 @@ export class DataCruncher {
 
     /**
      *
+     * @param level
      * @param tag
      * @param location
      * @param startH
@@ -36,77 +42,23 @@ export class DataCruncher {
      * @param endH
      * @param endM
      * @param endS
-     * @return {{color: string, name: string, start: number, taskName: *, end: number, id: *}}
+     * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
      */
-    basicObj(tag, location, startH, startM, startS, endH, endM, endS) {
-        let start = this.calculateTime(startH, startM, startS);
-        let end = this.calculateTime(endH, endM, endS);
-        let duration = DataCruncher.calculateDuration(start, end);
-        return {
-            id: DataCruncher.createId(tag, startH, startM, startS, endH, endM, endS),
-            name: "pt_" + tag + "_" + location,
-            tag: tag,
-            location: location,
-            color: DataCruncher.getColor(location),
-            start: start,
-            end: end,
-            duration: duration,
+    point(level, tag, location, startH, startM, startS, endH, endM, endS) {
+        let y = null;
+        let drillRef = null;
+        if (level === OVERVIEW) {
+            y = this.categories.map((cat) => {
+                return cat.id;
+            }).indexOf(tag);
+            drillRef = tag;
         }
-    }
 
-    /**
-     *
-     * @param tag
-     * @param location
-     * @param startH
-     * @param startM
-     * @param startS
-     * @param endH
-     * @param endM
-     * @param endS
-     * @return {{color: string, name: string, start: number, taskName: *, end: number, id: *}}
-     */
-    dataObj(tag, location, startH, startM, startS, endH, endM, endS) {
-        let obj = this.basicObj(tag, location, startH, startM, startS, endH, endM, endS);
-        obj.y = this.categories.map((cat) => {
-            return cat.id;
-        }).indexOf(tag);
-        obj.drilldown = tag;
-        return {...obj};
-    }
-
-    /**
-     *
-     * @param tag
-     * @param location
-     * @param startH
-     * @param startM
-     * @param startS
-     * @param endH
-     * @param endM
-     * @param endS
-     * @return {{color: string, name: string, start: number, taskName: *, end: number, id: *}}
-     */
-    drillObj(tag, location, startH, startM, startS, endH, endM, endS) {
-        let obj = this.basicObj(tag, location, startH, startM, startS, endH, endM, endS);
-        let newY = null;
-        switch (location) {
-            case FUNKEN:
-                newY = 0;
-                break;
-            case ROBOTER:
-                newY = 1;
-                break;
-            case DORNEREI:
-                newY = 2;
-                break;
-            case STANZEN:
-                newY = 3;
-                break;
+        if (level === DRILLDOWN) {
+            y = LOCATIONS.indexOf(location);
         }
-        obj.y = newY;
-        obj.id = DataCruncher.createId(tag, startH, startM, startS, endH, endM, endS);
-        return {...obj}
+
+        return Point(this.startDate, y, tag, location, drillRef, startH, startM, startS, endH, endM, endS);
     }
 
     /**
@@ -201,14 +153,14 @@ export class DataCruncher {
 
     /**
      *
+     * @param startDate
      * @param hours
      * @param minutes
      * @param seconds
      * @return {number}
      */
-    calculateTime(hours, minutes, seconds) {
-        //TODO refactor to static
-        return this.startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
+    static calculateTime(startDate, hours, minutes, seconds) {
+        return startDate.getTime() + 1000 * (hours * 3600 + minutes * 60 + seconds);
     }
 
     /**
