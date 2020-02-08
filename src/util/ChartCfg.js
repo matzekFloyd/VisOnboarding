@@ -1,5 +1,12 @@
 import {DataCruncher} from "./DataCruncher";
 
+/**
+ *
+ * @param {Date} date
+ * @param {Array} beacons
+ * @return {{scrollbar: {showFull: boolean, enabled: boolean}, drilldown: {series: *}, yAxis: [{grid: {columns: [{categories: *, title: {text: string}}, {categories: *, title: {text: string}}]}, type: string}], xAxis: {crosshair: {color: string, enabled: boolean, snap: boolean}, min: *, max: *}, credits: {enabled: boolean}, rangeSelector: {buttons: [{count: number, text: string, type: string}, {count: number, text: string, type: string}, {count: number, text: string, type: string}, {text: string, type: string}], inputEnabled: boolean, enabled: boolean}, series: *, navigator: {margin: number, series: {visible: boolean}, liveRedraw: boolean, enabled: boolean, height: number}, tooltip: {formatter: (function(): string), padding: number, shape: string}, title: {margin: number, textAlign: string, useHtml: boolean, text: string}, chart: {events: {drilldown: chart.events.drilldown, drillup: chart.events.drillup}}}}
+ * @constructor
+ */
 export const ChartCfg = (date, beacons) => {
     let dc = new DataCruncher(date, beacons);
     return {

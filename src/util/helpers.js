@@ -14,13 +14,37 @@ export const withPageRouter = Component => {
     return routerWrapper;
 };
 
+/**
+ *
+ * @param {string} path
+ * @return {string}
+ */
 export function sanitizePublicPath(path) {
     let isProd = process.env.NODE_ENV === "production";
     return isProd ? "/vis/" + path : path;
 }
 
+/**
+ *
+ * @param {string} url
+ * @return {string|*}
+ */
 export function sanitizeRouteUrl(url) {
     let isProd = process.env.NODE_ENV === "production";
     if (url === "/" && isProd) return "/vis";
     return isProd ? "/vis" + url : url;
+}
+
+/**
+ *
+ * @param parameter
+ * @param type
+ * @return {boolean}
+ */
+export function typeCheck(parameter, type) {
+    if (!(parameter instanceof type)) {
+        console.error("Passed parameter does not match the required type: \n", parameter);
+        return false;
+    }
+    return true;
 }

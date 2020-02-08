@@ -1,8 +1,16 @@
 import {DataCruncher} from "../util/DataCruncher";
 import {Series, SeriesDrill} from "../util/models";
 import {BEACON, GmK6, GYPG, Hf6q, LLz2, lwFq, n4gK, ofEZ, oiFK, ox0d, pMaq, QuLX, Xgti} from "../../constants";
+import {typeCheck} from "../util/helpers";
 
+/**
+ *
+ * @param {DataCruncher} dc
+ * @return {[{data: *, name: Series.props, id: *}]|*[]}
+ * @constructor
+ */
 export const OVERVIEW_2019_01_15 = (dc) => {
+    if (!typeCheck(dc, DataCruncher)) return [];
     return [
         Series('Overview', 'overview',
             [
@@ -247,7 +255,14 @@ export const OVERVIEW_2019_01_15 = (dc) => {
     ]
 };
 
+/**
+ *
+ * @param {DataCruncher} dc
+ * @return {*[]|[{data: *, allowPointSelect: boolean, name: string, id: *}, {data: *, allowPointSelect: boolean, name: string, id: *}, {data: *, allowPointSelect: boolean, name: string, id: *}, {data: *, allowPointSelect: boolean, name: string, id: *}, {data: *, allowPointSelect: boolean, name: string, id: *}, null, null, null, null, null, null, null]}
+ * @constructor
+ */
 export const DRILLDOWN_2019_01_15 = (dc) => {
+    if (!typeCheck(dc, DataCruncher)) return [];
     return [
         SeriesDrill(BEACON(lwFq), [
             dc.point(1, 'lwFq', 'Roboter', 0, 14, 13, 0, 26, 14),

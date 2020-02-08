@@ -4,7 +4,6 @@ import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15";
 import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../data/2019_01_16";
 import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../data/2019_01_17";
 
-//TYPE
 const OVERVIEW = 0;
 const DRILLDOWN = 1;
 
@@ -13,7 +12,7 @@ const JAN_16 = 16;
 const JAN_17 = 17;
 
 /**
- *
+ * @type DataCruncher
  */
 export class DataCruncher {
 
@@ -24,9 +23,9 @@ export class DataCruncher {
 
     /**
      *
-     * @param startDate
-     * @param categories
-     * @param day
+     * @param {Date} startDate
+     * @param {Array} categories
+     * @param {number} day
      */
     constructor(startDate = new Date(), categories, day = 1000 * 60 * 60 * 24) {
         this.startDate = startDate;
@@ -40,15 +39,15 @@ export class DataCruncher {
 
     /**
      *
-     * @param type
-     * @param tag
-     * @param location
-     * @param startH
-     * @param startM
-     * @param startS
-     * @param endH
-     * @param endM
-     * @param endS
+     * @param {number} type
+     * @param {string} tag
+     * @param {string} location
+     * @param {number} startH
+     * @param {number} startM
+     * @param {number} startS
+     * @param {number} endH
+     * @param {number} endM
+     * @param {number} endS
      * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
      */
     point(type, tag, location, startH, startM, startS, endH, endM, endS) {
@@ -139,6 +138,12 @@ export class DataCruncher {
         }, 500);
     }
 
+    /**
+     *
+     * @param {number} type
+     * @param {Date} date
+     * @return {*}
+     */
     getSeries(type, date) {
         switch (date.getUTCDate()) {
             case JAN_15:
@@ -155,7 +160,7 @@ export class DataCruncher {
 
     /**
      *
-     * @param objArray
+     * @param {array} objArray
      * @return {*}
      */
     static setDependencies(objArray) {
@@ -174,10 +179,10 @@ export class DataCruncher {
 
     /**
      *
-     * @param startDate
-     * @param hours
-     * @param minutes
-     * @param seconds
+     * @param {Date} startDate
+     * @param {number} hours
+     * @param {number} minutes
+     * @param {number} seconds
      * @return {number}
      */
     static calculateTime(startDate, hours, minutes, seconds) {
@@ -186,8 +191,8 @@ export class DataCruncher {
 
     /**
      *
-     * @param tStart
-     * @param tEnd
+     * @param {number} tStart
+     * @param {number} tEnd
      * @return {string}
      */
     static calculateDuration(tStart, tEnd) {
@@ -207,7 +212,7 @@ export class DataCruncher {
 
     /**
      *
-     * @param unix
+     * @param {number} unix
      * @return {string}
      */
     static convertUnixTimestamp(unix) {
@@ -224,13 +229,13 @@ export class DataCruncher {
 
     /**
      *
-     * @param tag
-     * @param startH
-     * @param startM
-     * @param startS
-     * @param endH
-     * @param endM
-     * @param endS
+     * @param {string} tag
+     * @param {number} startH
+     * @param {number} startM
+     * @param {number} startS
+     * @param {number} endH
+     * @param {number} endM
+     * @param {number} endS
      * @return {*}
      */
     static createId(tag, startH, startM, startS, endH, endM, endS) {
@@ -239,7 +244,7 @@ export class DataCruncher {
 
     /**
      *
-     * @param location
+     * @param {string} location
      * @return {string}
      */
     static getColor(location) {

@@ -2,9 +2,9 @@ import {DataCruncher} from "./DataCruncher";
 
 /**
  *
- * @param name
- * @param id
- * @param data
+ * @param {string} name
+ * @param {string} id
+ * @param {Array} data
  * @return {{data: *, name: Series.props, id: *}}
  * @constructor
  */
@@ -18,13 +18,12 @@ export let Series = (name, id, data) => {
 
 /**
  *
- * @param beacon
- * @param data
+ * @param {BEACON} beacon
+ * @param {Array} data
  * @return {{data: *, allowPointSelect: boolean, name: string, id: *}}
  * @constructor
  */
 export let SeriesDrill = (beacon, data) => {
-    //TODO make sure beacon has correct structure
     return {
         name: beacon.name + " (" + beacon.id + ")",
         id: beacon.id,
@@ -35,17 +34,17 @@ export let SeriesDrill = (beacon, data) => {
 
 /**
  *
- * @param startDate
- * @param y
- * @param tag
- * @param location
- * @param drilldown
- * @param startH
- * @param startM
- * @param startS
- * @param endH
- * @param endM
- * @param endS
+ * @param {Date} startDate
+ * @param {number} y
+ * @param {string} tag
+ * @param {string} location
+ * @param {string} drilldown
+ * @param {number} startH
+ * @param {number} startM
+ * @param {number} startS
+ * @param {number} endH
+ * @param {number} endM
+ * @param {number} endS
  * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
  * @constructor
  */
