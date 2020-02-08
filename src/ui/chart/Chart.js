@@ -5,11 +5,24 @@ import Highcharts from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import highchartsGantt from "highcharts/modules/gantt";
 import drilldown from 'highcharts/modules/drilldown';
-import {JAN_15, JAN_16, JAN_17} from "../../../constants";
-import {D_JAN_15} from "../../data/2019-01-15";
-import {D_JAN_16} from "../../data/2019-01-16";
-import {D_JAN_17} from "../../data/2019-01-17";
+import {
+    BEACON,
+    GmK6,
+    GYPG,
+    Hf6q,
+    JAN_15,
+    JAN_16,
+    JAN_17,
+    LLz2,
+    lwFq,
+    n4gK, nnhk,
+    ofEZ, oiFK,
+    ox0d,
+    pMaq, QuLX, UUWO, WGSU,
+    Xgti
+} from "../../../constants";
 import {Empty} from "../components";
+import {ChartCfg} from "../../util/ChartCfg";
 
 export default class Chart extends PureComponent {
 
@@ -32,13 +45,19 @@ export default class Chart extends PureComponent {
     getChartCfg(identifier) {
         switch (identifier) {
             case JAN_15:
-                return D_JAN_15();
-            case JAN_16:
-                return D_JAN_16();
-            case JAN_17:
-                return D_JAN_17();
             default:
-                return D_JAN_15();
+                return ChartCfg(new Date('2019-01-15T01:00:00'), [
+                    BEACON(lwFq), BEACON(ofEZ), BEACON(pMaq), BEACON(LLz2), BEACON(Hf6q), BEACON(Xgti), BEACON(GYPG),
+                    BEACON(GmK6), BEACON(n4gK), BEACON(ox0d), BEACON(QuLX), BEACON(oiFK)
+                ]);
+           case JAN_16:
+               return ChartCfg(new Date('2019-01-16T01:00:00'), [BEACON(n4gK), BEACON(ofEZ),
+                   BEACON(Xgti), BEACON(pMaq), BEACON(lwFq), BEACON(Hf6q), BEACON(LLz2), BEACON(ox0d),
+                   BEACON(GmK6), BEACON(UUWO)]);
+           case JAN_17:
+               return ChartCfg(new Date('2019-01-17T01:00:00'), [BEACON(pMaq), BEACON(ox0d),
+                   BEACON(Hf6q), BEACON(lwFq), BEACON(LLz2), BEACON(Xgti), BEACON(GmK6), BEACON(n4gK), BEACON(ofEZ),
+                   BEACON(WGSU), BEACON(nnhk)]);
         }
     }
 

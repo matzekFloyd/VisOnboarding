@@ -1,9 +1,16 @@
 import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../constants";
 import {Point} from "./models";
+import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15";
+import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../data/2019_01_16";
+import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../data/2019_01_17";
 
-//LEVELS
+//TYPE
 const OVERVIEW = 0;
 const DRILLDOWN = 1;
+
+const JAN_15 = 15;
+const JAN_16 = 16;
+const JAN_17 = 17;
 
 /**
  *
@@ -33,7 +40,7 @@ export class DataCruncher {
 
     /**
      *
-     * @param level
+     * @param type
      * @param tag
      * @param location
      * @param startH
@@ -44,17 +51,17 @@ export class DataCruncher {
      * @param endS
      * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
      */
-    point(level, tag, location, startH, startM, startS, endH, endM, endS) {
+    point(type, tag, location, startH, startM, startS, endH, endM, endS) {
         let y = null;
         let drillRef = null;
-        if (level === OVERVIEW) {
+        if (type === OVERVIEW) {
             y = this.categories.map((cat) => {
                 return cat.id;
             }).indexOf(tag);
             drillRef = tag;
         }
 
-        if (level === DRILLDOWN) {
+        if (type === DRILLDOWN) {
             y = LOCATIONS.indexOf(location);
         }
 
@@ -130,6 +137,20 @@ export class DataCruncher {
         setTimeout(function () {
             chart.hideLoading();
         }, 500);
+    }
+
+    getSeries(type, date) {
+        switch (date.getUTCDate()) {
+            case JAN_15:
+            default:
+                return type === OVERVIEW ? OVERVIEW_2019_01_15(this) : DRILLDOWN_2019_01_15(this);
+
+            case JAN_16:
+                return type === OVERVIEW ? OVERVIEW_2019_01_16(this) : DRILLDOWN_2019_01_16(this);
+
+            case JAN_17:
+                return type === OVERVIEW ? OVERVIEW_2019_01_17(this) : DRILLDOWN_2019_01_17(this);
+        }
     }
 
     /**

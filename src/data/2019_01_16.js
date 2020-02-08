@@ -1,27 +1,12 @@
-/* 2019.01.16 8:00 - 23:59 - min duration: 5 Minutes */
 import {DataCruncher} from "../util/DataCruncher";
+import {Series, SeriesDrill} from "../util/models";
+import {BEACON, GmK6, GYPG, Hf6q, LLz2, lwFq, n4gK, ofEZ, oiFK, ox0d, pMaq, QuLX, Xgti} from "../../constants";
 
-export const D_JAN_16 = () => {
-    let categories = ['n4gK', 'ofEz', 'Xgti', 'pMaq', 'lwFq', 'Hf6q', 'LLz2', 'ox0d', 'GmK6', 'UUWO'];
-    let dc = new DataCruncher(new Date('2019-01-16T01:00:00'), categories);
-    return {
-        title: {
-            text: ''
-        },
-        xAxis: {
-            currentDateIndicator: true,
-            min: dc.xAxis.min,
-            max: dc.xAxis.max,
-        },
-        yAxis: {
-            type: 'category',
-            categories: categories,
-            // min: dc.yAxis.min,
-            // max: dc.yAxis.max
-        },
-        series: [{
-            name: '',
-            data: [
+//TODO fix incorrect order errors, add drilldown date
+export const OVERVIEW_2019_01_16 = (dc) => {
+    return [
+        Series('Overview', 'overview',
+            [
                 dc.point(0, 'n4gK', 'Roboter', 0, 3, 36, 0, 11, 37),
                 dc.point(0, 'n4gK', 'Roboter', 0, 13, 36, 0, 49, 37),
                 dc.point(0, 'n4gK', 'Funken', 0, 49, 37, 1, 7, 36),
@@ -312,7 +297,12 @@ export const D_JAN_16 = () => {
                 dc.point(0, 'pMaq', 'Funken', 23, 15, 40, 23, 52, 59),
                 dc.point(0, 'Xgti', 'Stanzen', 23, 16, 56, 23, 27, 3),
                 dc.point(0, 'LLz2', 'Stanzen', 23, 24, 56, 23, 53, 2),
+
             ]
-        }],
-    };
+        )
+    ]
+};
+
+export const DRILLDOWN_2019_01_16 = (dc) => {
+    return []
 };
