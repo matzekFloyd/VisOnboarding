@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {JAN_15, JAN_16, JAN_17} from "../../../constants";
+import {JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20} from "../../../constants";
 import Chart from "./Chart";
 
 const btn_styling = "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded";

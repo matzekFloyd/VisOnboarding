@@ -12,9 +12,13 @@ export const URL = {
     visualisation: sanitizeRouteUrl("/visualisation"),
 };
 
+export const JAN_14 = "JAN_14";
 export const JAN_15 = "JAN_15";
 export const JAN_16 = "JAN_16";
 export const JAN_17 = "JAN_17";
+export const JAN_18 = "JAN_18";
+export const JAN_19 = "JAN_19";
+export const JAN_20 = "JAN_20";
 
 export const FUNKEN = "Funken";
 export const ROBOTER = "Roboter";

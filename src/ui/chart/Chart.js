@@ -9,10 +9,10 @@ import {
     BEACON,
     GmK6,
     GYPG,
-    Hf6q,
+    Hf6q, JAN_14,
     JAN_15,
     JAN_16,
-    JAN_17,
+    JAN_17, JAN_18, JAN_19, JAN_20, JWwq,
     LLz2,
     lwFq,
     n4gK, nnhk,
@@ -42,8 +42,17 @@ export default class Chart extends PureComponent {
         });
     }
 
+    /**
+     *
+     * @param {string} identifier
+     */
     getChartCfg(identifier) {
         switch (identifier) {
+         // case JAN_14:
+         // default:
+         //     return ChartCfg(new Date('2019-01-14T01:00:00'), [
+         //         BEACON(GYPG), BEACON(Hf6q), BEACON(ofEZ), BEACON(JWwq), BEACON(ox0d), BEACON(n4gK), BEACON(QuLX),
+         //         BEACON(pMaq), BEACON(GmK6), BEACON(lwFq), BEACON(oiFK)]);
             case JAN_15:
             default:
                 return ChartCfg(new Date('2019-01-15T01:00:00'), [
