@@ -8,7 +8,7 @@ import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../data/2019_01_14";
 const OVERVIEW = 0;
 const DRILLDOWN = 1;
 
-const JAN_14 = 15;
+const JAN_14 = 14;
 const JAN_15 = 15;
 const JAN_16 = 16;
 const JAN_17 = 17;
@@ -151,9 +151,8 @@ export class DataCruncher {
      */
     getSeries(type, date) {
         switch (date.getUTCDate()) {
-         //   case JAN_14:
-         //   default:
-         //       return type === OVERVIEW ? OVERVIEW_2019_01_14(this) : DRILLDOWN_2019_01_14(this);
+            case JAN_14:
+                return type === OVERVIEW ? OVERVIEW_2019_01_14(this) : DRILLDOWN_2019_01_14(this);
             case JAN_15:
             default:
                 return type === OVERVIEW ? OVERVIEW_2019_01_15(this) : DRILLDOWN_2019_01_15(this);
@@ -187,6 +186,17 @@ export class DataCruncher {
             }
         }
         return objArray;
+    }
+
+    checkErrors(array) {
+        for (let i = 1; i < array.length; i++) {
+            let cur = array[i];
+            let prev = array[i - 1];
+            if ((cur.start < prev.start)) {
+                console.warn("Incorrect order at index: ", i);
+            }
+        }
+        return (array);
     }
 
     /**

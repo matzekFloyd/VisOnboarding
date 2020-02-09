@@ -48,25 +48,24 @@ export default class Chart extends PureComponent {
      */
     getChartCfg(identifier) {
         switch (identifier) {
-         // case JAN_14:
-         // default:
-         //     return ChartCfg(new Date('2019-01-14T01:00:00'), [
-         //         BEACON(GYPG), BEACON(Hf6q), BEACON(ofEZ), BEACON(JWwq), BEACON(ox0d), BEACON(n4gK), BEACON(QuLX),
-         //         BEACON(pMaq), BEACON(GmK6), BEACON(lwFq), BEACON(oiFK)]);
-            case JAN_15:
+            case JAN_14:
             default:
+                return ChartCfg(new Date('2019-01-14T01:00:00'), [
+                    BEACON(GYPG), BEACON(Hf6q), BEACON(ofEZ), BEACON(JWwq), BEACON(ox0d), BEACON(n4gK), BEACON(QuLX),
+                    BEACON(pMaq), BEACON(GmK6), BEACON(lwFq), BEACON(oiFK)]);
+            case JAN_15:
                 return ChartCfg(new Date('2019-01-15T01:00:00'), [
                     BEACON(lwFq), BEACON(ofEZ), BEACON(pMaq), BEACON(LLz2), BEACON(Hf6q), BEACON(Xgti), BEACON(GYPG),
                     BEACON(GmK6), BEACON(n4gK), BEACON(ox0d), BEACON(QuLX), BEACON(oiFK)
                 ]);
-           case JAN_16:
-               return ChartCfg(new Date('2019-01-16T01:00:00'), [BEACON(n4gK), BEACON(ofEZ),
-                   BEACON(Xgti), BEACON(pMaq), BEACON(lwFq), BEACON(Hf6q), BEACON(LLz2), BEACON(ox0d),
-                   BEACON(GmK6), BEACON(UUWO)]);
-           case JAN_17:
-               return ChartCfg(new Date('2019-01-17T01:00:00'), [BEACON(pMaq), BEACON(ox0d),
-                   BEACON(Hf6q), BEACON(lwFq), BEACON(LLz2), BEACON(Xgti), BEACON(GmK6), BEACON(n4gK), BEACON(ofEZ),
-                   BEACON(WGSU), BEACON(nnhk)]);
+            case JAN_16:
+                return ChartCfg(new Date('2019-01-16T01:00:00'), [BEACON(n4gK), BEACON(ofEZ),
+                    BEACON(Xgti), BEACON(pMaq), BEACON(lwFq), BEACON(Hf6q), BEACON(LLz2), BEACON(ox0d),
+                    BEACON(GmK6), BEACON(UUWO)]);
+            case JAN_17:
+                return ChartCfg(new Date('2019-01-17T01:00:00'), [BEACON(pMaq), BEACON(ox0d),
+                    BEACON(Hf6q), BEACON(lwFq), BEACON(LLz2), BEACON(Xgti), BEACON(GmK6), BEACON(n4gK), BEACON(ofEZ),
+                    BEACON(WGSU), BEACON(nnhk)]);
         }
     }
 
