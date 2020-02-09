@@ -7,7 +7,7 @@ import highchartsGantt from "highcharts/modules/gantt";
 import drilldown from 'highcharts/modules/drilldown';
 import {
     BEACON, GmK6, GYPG, Hf6q, JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20, JWwq, LLz2, lwFq, n4gK, nnhk,
-    ofEZ, oiFK, ox0d, pMaq, QuLX, UUWO, WGSU, Xgti
+    ofEZ, oiFK, ox0d, pMaq, QuLX, Sfo7, UUWO, WGSU, Xgti
 } from "../../../constants";
 import {Empty} from "../components";
 import {ChartCfg} from "../../util/ChartCfg";
@@ -55,7 +55,10 @@ export default class Chart extends PureComponent {
                     BEACON(Hf6q), BEACON(lwFq), BEACON(LLz2), BEACON(Xgti), BEACON(GmK6), BEACON(n4gK), BEACON(ofEZ),
                     BEACON(WGSU), BEACON(nnhk)]);
             case JAN_18:
-                return ChartCfg(new Date('2019-01-18T01:00:00'), []);
+                return ChartCfg(new Date('2019-01-18T01:00:00'), [
+                    BEACON(n4gK), BEACON(ofEZ), BEACON(LLz2), BEACON(Hf6q), BEACON(pMaq), BEACON(GmK6), BEACON(lwFq),
+                    BEACON(ox0d), BEACON(UUWO), BEACON(Xgti), BEACON(Sfo7), BEACON(oiFK)
+                ]);
             case JAN_19:
                 return ChartCfg(new Date('2019-01-19T01:00:00'), []);
             case JAN_20:
