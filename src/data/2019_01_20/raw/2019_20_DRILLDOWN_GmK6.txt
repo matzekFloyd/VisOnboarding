@@ -1,0 +1,6 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'GmK6','Funken',0,2,2,0,20,49,
+1,'GmK6','Funken',0,25,33,0,34,49,
+1,'GmK6','Roboter',0,34,49,0,41,33,
+1,'GmK6','Roboter',0,43,29,22,39,36,
+1,'GmK6','Roboter',22,44,12,23,22,56,

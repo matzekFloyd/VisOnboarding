@@ -1,0 +1,3 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'UUWO','Stanzen',9,27,12,9,37,39,
+1,'UUWO','Funken',9,37,39,9,54,53,

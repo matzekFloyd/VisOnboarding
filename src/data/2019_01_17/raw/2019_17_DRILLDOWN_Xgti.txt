@@ -1,0 +1,6 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'Xgti','Funken',1,47,1,2,19,3,
+1,'Xgti','Funken',2,19,3,2,31,1,
+1,'Xgti','Funken',2,33,4,3,44,57,
+1,'Xgti','Stanzen',3,44,57,3,51,4,
+1,'Xgti','Stanzen',3,52,57,4,1,1,

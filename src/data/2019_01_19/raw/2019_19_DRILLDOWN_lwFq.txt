@@ -1,0 +1,9 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'lwFq','Stanzen',2,47,17,6,42,53,
+1,'lwFq','Stanzen',6,47,18,6,54,53,
+1,'lwFq','Stanzen',6,59,18,7,8,53,
+1,'lwFq','Stanzen',7,13,18,7,30,53,
+1,'lwFq','Dornerei',7,30,53,7,39,18,
+1,'lwFq','Stanzen',7,39,18,9,23,20,
+1,'lwFq','Funken',9,23,20,9,31,19,
+1,'lwFq','Stanzen',9,31,19,12,7,21,

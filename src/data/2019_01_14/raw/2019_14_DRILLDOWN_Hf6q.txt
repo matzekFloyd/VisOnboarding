@@ -21,4 +21,4 @@ type,tag,location,startH,startM,startS,endH,endM,endS
 1,'Hf6q','Funken',19,35,34,19,43,36,
 1,'Hf6q','Funken',19,45,34,22,41,36,
 1,'Hf6q','Funken',22,41,36,22,51,34,
-1,'Hf6q','Funken',22,51,34,23,25,33
+1,'Hf6q','Funken',22,51,34,23,25,33,

@@ -1,6 +1,6 @@
 type,tag,location,startH,startM,startS,endH,endM,endS
-1,'QuLX','Funken',9,9,32,9,19,31
-1,'QuLX','Roboter',9,19,31,16,5,35
-1,'QuLX','Roboter',16,10,12,20,9,36
-1,'QuLX','Roboter',20,20,53,20,55,36
-1,'QuLX','Stanzen',20,55,36,21,1,33
+1,'QuLX','Funken',9,9,32,9,19,31,
+1,'QuLX','Roboter',9,19,31,16,5,35,
+1,'QuLX','Roboter',16,10,12,20,9,36,
+1,'QuLX','Roboter',20,20,53,20,55,36,
+1,'QuLX','Stanzen',20,55,36,21,1,33,

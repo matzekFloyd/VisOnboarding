@@ -6,4 +6,4 @@ type,tag,location,startH,startM,startS,endH,endM,endS
 1,'ox0d','Stanzen',15,25,35,16,55,35,
 1,'ox0d','Funken',16,55,35,17,11,35,
 1,'ox0d','Stanzen',17,11,35,20,19,34,
-1,'ox0d','Stanzen',20,21,36,20,27,36
+1,'ox0d','Stanzen',20,21,36,20,27,36,

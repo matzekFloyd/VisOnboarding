@@ -1,0 +1,3 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'UUWO','Funken',5,28,43,6,22,54,
+1,'UUWO','Funken',6,26,43,6,47,49,

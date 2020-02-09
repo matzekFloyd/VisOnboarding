@@ -1,4 +1,4 @@
 type,tag,location,startH,startM,startS,endH,endM,endS
 1,'oiFK','Stanzen',12,16,14,12,38,11,
 1,'oiFK','Roboter',12,38,11,13,52,15,
-1,'oiFK','Stanzen',13,52,15,14,0,52
+1,'oiFK','Stanzen',13,52,15,14,0,52,

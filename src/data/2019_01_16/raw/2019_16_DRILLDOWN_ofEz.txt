@@ -1,0 +1,12 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'ofEz','Roboter',0,56,16,1,19,39,
+1,'ofEz','Roboter',1,24,16,3,32,20,
+1,'ofEz','Roboter',3,35,36,7,2,18,
+1,'ofEz','Roboter',7,4,17,8,31,2,
+1,'ofEz','Roboter',8,34,17,10,11,33,
+1,'ofEz','Roboter',10,12,57,14,4,21,
+1,'ofEz','Roboter',14,12,58,19,22,20,
+1,'ofEz','Funken',19,22,20,19,39,43,
+1,'ofEz','Funken',19,39,43,20,4,18,
+1,'ofEz','Roboter',20,4,18,22,21,0,
+1,'ofEz','Funken',22,21,0,22,28,59,

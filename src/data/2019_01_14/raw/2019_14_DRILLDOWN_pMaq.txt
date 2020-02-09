@@ -25,4 +25,4 @@ type,tag,location,startH,startM,startS,endH,endM,endS
 1,'pMaq','Funken',19,25,36,20,12,53,
 1,'pMaq','Roboter',20,12,53,20,22,54,
 1,'pMaq','Funken',20,22,54,20,51,33,
-1,'pMaq','Roboter',20,51,33,21,30,14
+1,'pMaq','Roboter',20,51,33,21,30,14,

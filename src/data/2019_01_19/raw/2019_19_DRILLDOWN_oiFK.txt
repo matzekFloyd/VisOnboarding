@@ -1,0 +1,5 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'oiFK','Funken',1,9,19,2,14,7,
+1,'oiFK','Funken',2,17,59,2,23,27,
+1,'oiFK','Roboter',2,23,27,3,20,39,
+1,'oiFK','Funken',3,20,39,5,40,47,
