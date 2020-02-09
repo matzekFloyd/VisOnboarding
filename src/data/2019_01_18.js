@@ -1,6 +1,6 @@
 import {DataCruncher} from "../util/DataCruncher";
 import {Series, SeriesDrill} from "../util/models";
-import {BEACON, GmK6, Hf6q, LLz2, lwFq, n4gK, ofEZ, oiFK, ox0d, pMaq, Sfo7, UUWO, Xgti} from "../../constants";
+import {BEACON, GmK6, Hf6q, LLz2, lwFq, n4gK, ofEz, oiFK, ox0d, pMaq, Sfo7, UUWO, Xgti} from "../../constants";
 import {typeCheck} from "../util/helpers";
 
 /**
@@ -297,7 +297,7 @@ export const DRILLDOWN_2019_01_18 = (dc) => {
             dc.point(1, 'n4gK', 'Funken', 7, 51, 45, 8, 24, 5),
             dc.point(1, 'n4gK', 'Funken', 8, 25, 45, 9, 16, 10)
         ]),
-        SeriesDrill(BEACON(ofEZ), [
+        SeriesDrill(BEACON(ofEz), [
             dc.point(1, 'ofEz', 'Stanzen', 0, 16, 20, 0, 22, 24),
             dc.point(1, 'ofEz', 'Funken', 0, 22, 24, 3, 2, 21),
             dc.point(1, 'ofEz', 'Funken', 3, 4, 24, 3, 18, 21),

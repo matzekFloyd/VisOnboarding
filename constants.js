@@ -32,7 +32,7 @@ export const GmK6 = "GmK6";
 export const pMaq = "pMaq";
 export const oiFK = "oiFK";
 export const dPd9 = "dPd9";
-export const ofEZ = "ofEz";
+export const ofEz = "ofEz";
 export const UUWO = "UUWO";
 export const WGSU = "WGSU";
 export const Sfo7 = "Sfo7";
@@ -65,7 +65,7 @@ export const BEACON = function (key) {
             return {id: "oiFK", name: "Beacon Pro 4"};
         case dPd9:
             return {id: "dPd9", name: "Beacon Pro 5"};
-        case ofEZ:
+        case ofEz:
             return {id: "ofEz", name: "Beacon Pro 6"};
         case UUWO:
             return {id: "UUWO", name: "Beacon Pro 7"};

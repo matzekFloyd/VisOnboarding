@@ -1,6 +1,6 @@
 import {DataCruncher} from "../util/DataCruncher";
 import {Series, SeriesDrill} from "../util/models";
-import {BEACON, GmK6, GYPG, Hf6q, LLz2, lwFq, n4gK, ofEZ, oiFK, ox0d, pMaq, QuLX, Xgti} from "../../constants";
+import {BEACON, GmK6, GYPG, Hf6q, LLz2, lwFq, n4gK, ofEz, oiFK, ox0d, pMaq, QuLX, Xgti} from "../../constants";
 import {typeCheck} from "../util/helpers";
 
 /**
