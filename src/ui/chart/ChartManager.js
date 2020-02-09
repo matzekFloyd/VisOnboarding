@@ -62,7 +62,7 @@ export default class ChartManager extends PureComponent {
             charts.push(<Chart key={"chart_" + DATES[i].selector} identifier={DATES[i].selector}
                                active={this.isSelected(DATES[i].selector)}/>);
         }
-        return <div className={"mt-12"}>{charts}</div>;
+        return <div className={"mt-6"}>{charts}</div>;
     }
 
     render() {
