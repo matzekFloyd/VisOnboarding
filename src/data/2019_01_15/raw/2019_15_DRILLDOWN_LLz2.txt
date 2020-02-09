@@ -1,0 +1,5 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'LLz2','Dornerei',9,15,34,10,5,38,
+1,'LLz2','Dornerei',10,7,34,10,19,38,
+1,'LLz2','Stanzen',10,27,38,10,33,34,
+1,'LLz2','Dornerei',10,33,34,10,39,38,

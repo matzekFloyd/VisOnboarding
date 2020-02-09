@@ -1,0 +1,2 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'GYPG','Stanzen',9,55,38,10,4,54,

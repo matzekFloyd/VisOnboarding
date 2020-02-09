@@ -1,0 +1,2 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'oiFK','Stanzen',2,13,37,18,4,15,

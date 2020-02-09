@@ -1,6 +1,6 @@
 import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../constants";
 import {Point} from "./models";
-import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15";
+import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15/2019_01_15";
 import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../data/2019_01_16";
 import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../data/2019_01_17";
 import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../data/2019_01_14/2019_01_14";
