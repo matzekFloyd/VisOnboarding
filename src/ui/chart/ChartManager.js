@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
 import {JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20} from "../../../constants";
 import Chart from "./Chart";
+import {sanitizePublicPath} from "../../util/helpers";
 
-const btn_styling = "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded";
+const btn_styling = "chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-1 w-1/3 h-auto";
 
 const DATES = [
     {selector: JAN_14, btnTxt: "14.01.2019"},
@@ -32,29 +33,50 @@ export default class ChartManager extends PureComponent {
     }
 
     initChartNav() {
-        let html = [];
+        let firstRow = [];
+        let secondRow = [];
+
         for (let i = 0; i < DATES.length; i++) {
-            html.push(<button key={"btn_" + DATES[i].selector} className={btn_styling}
-                              onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>)
+            let btn = <button key={"btn_" + DATES[i].selector}
+                              className={this.state.selected === DATES[i].selector ? btn_styling + " active" : btn_styling}
+                              onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>;
+            if (i < 3) {
+                firstRow.push(btn)
+            } else {
+                secondRow.push(btn)
+            }
         }
-        return html;
+        return <div className={"chart-nav mt-12"}>
+            <div className={"flex mb-4"}>
+                {firstRow}
+            </div>
+            <div className={"flex mb-4"}>
+                {secondRow}
+            </div>
+        </div>;
     }
 
     intCharts() {
-        let html = [];
+        let charts = [];
         for (let i = 0; i < DATES.length; i++) {
-            html.push(<Chart key={"chart_" + DATES[i].selector} identifier={DATES[i].selector}
-                             active={this.isSelected(DATES[i].selector)}/>);
+            charts.push(<Chart key={"chart_" + DATES[i].selector} identifier={DATES[i].selector}
+                               active={this.isSelected(DATES[i].selector)}/>);
         }
-        return html;
+        return <div className={"mt-12"}>{charts}</div>;
     }
 
     render() {
         return (<div>
-                <p>Select the day you want to inspect:
-                    {this.initChartNav()}
-                </p>
-                {this.intCharts()}
+                <div className={"flex"}>
+                    <div className={"w-3/4 h-auto"}>
+                        {this.intCharts()}
+                    </div>
+                    <div className={"w-1/4 h-auto ml-16"}>
+                        <img className={"mt-48 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
+                             alt="map"/>
+                        {this.initChartNav()}
+                    </div>
+                </div>
             </div>
         );
     }

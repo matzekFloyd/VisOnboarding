@@ -4,9 +4,8 @@ import {sanitizePublicPath} from "../util/helpers";
 import "../../public/styles/main.scss";
 
 const layoutStyle = {
-    margin: 20,
-    padding: 20,
-    border: '1px solid #DDD'
+    margin: 10,
+    padding: 10,
 };
 
 const Layout = props => (

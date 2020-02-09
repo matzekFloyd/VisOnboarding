@@ -23,20 +23,23 @@ a.nav {
 }
 
 .chart.show {
+  //TODO refactor this to use tailwind visible class?
   display: block;
 }
 
 .chart.hide {
+  //TODO refactor this to use tailwind invisible class?
   display: none;
 }
 
 .image.layout {
+  //TODO is this even still needed
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 20%;
 }
 
-.button.day {
-  margin: 0 10px 0 10px;
+.chart-nav-btn.active {
+  color: white;
+  background-color: #2b6cb0;
 }

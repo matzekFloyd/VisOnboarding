@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import Layout from '../src/ui/Layout';
 import ChartManager from "../src/ui/chart/ChartManager";
-import {sanitizePublicPath} from "../src/util/helpers";
 
 export default class Visualisation extends PureComponent {
 
@@ -12,9 +11,8 @@ export default class Visualisation extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1>Visualisation</h1>
+                <h1 className={"mt-12 text-xl font-extrabold"}>Visualisation</h1>
                 <ChartManager/>
-                <img className={"image layout"} src={sanitizePublicPath("static/gf_layout.png")} alt="map"/>
             </Layout>
         );
     }
