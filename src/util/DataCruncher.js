@@ -191,17 +191,6 @@ export class DataCruncher {
         return objArray;
     }
 
-    checkErrors(array) {
-        for (let i = 1; i < array.length; i++) {
-            let cur = array[i];
-            let prev = array[i - 1];
-            if ((cur.start < prev.start)) {
-                console.warn("Incorrect order at index: ", i);
-            }
-        }
-        return (array);
-    }
-
     /**
      *
      * @param {Date} startDate

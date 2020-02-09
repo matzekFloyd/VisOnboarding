@@ -13,7 +13,7 @@ export const OVERVIEW_2019_01_20 = (dc) => {
     if (!typeCheck(dc, DataCruncher)) return [];
     return [
         Series('Overview', 'overview',
-            dc.checkErrors([
+            [
                 dc.point(0, 'pMaq', 'Roboter', 0, 0, 49, 0, 29, 22),
                 dc.point(0, 'ox0d', 'Funken', 0, 1, 22, 0, 11, 22),
                 dc.point(0, 'GmK6', 'Funken', 0, 2, 2, 0, 20, 49),
@@ -286,7 +286,7 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'LLz2', 'Dornerei', 23, 42, 59, 23, 55, 12),
                 dc.point(0, 'Hf6q', 'Funken', 23, 47, 36, 23, 54, 12),
                 dc.point(0, 'lwFq', 'Dornerei', 23, 52, 59, 23, 59, 12)
-            ])
+            ]
         )
     ]
 };
