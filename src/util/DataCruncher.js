@@ -4,6 +4,9 @@ import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15";
 import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../data/2019_01_16";
 import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../data/2019_01_17";
 import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../data/2019_01_14";
+import {DRILLDOWN_2019_01_18, OVERVIEW_2019_01_18} from "../data/2019_01_18";
+import {DRILLDOWN_2019_01_19, OVERVIEW_2019_01_19} from "../data/2019_01_19";
+import {DRILLDOWN_2019_01_20, OVERVIEW_2019_01_20} from "../data/2019_01_20";
 
 const OVERVIEW = 0;
 const DRILLDOWN = 1;
@@ -152,20 +155,20 @@ export class DataCruncher {
     getSeries(type, date) {
         switch (date.getUTCDate()) {
             case JAN_14:
+            default:
                 return type === OVERVIEW ? OVERVIEW_2019_01_14(this) : DRILLDOWN_2019_01_14(this);
             case JAN_15:
-            default:
                 return type === OVERVIEW ? OVERVIEW_2019_01_15(this) : DRILLDOWN_2019_01_15(this);
             case JAN_16:
                 return type === OVERVIEW ? OVERVIEW_2019_01_16(this) : DRILLDOWN_2019_01_16(this);
             case JAN_17:
                 return type === OVERVIEW ? OVERVIEW_2019_01_17(this) : DRILLDOWN_2019_01_17(this);
-          //  case JAN_18:
-          //      return [];
-          //  case JAN_19:
-          //      return [];
-          //  case JAN_20:
-          //      return [];
+            case JAN_18:
+                return type === OVERVIEW ? OVERVIEW_2019_01_18(this) : DRILLDOWN_2019_01_18(this);
+            case JAN_19:
+                return type === OVERVIEW ? OVERVIEW_2019_01_19(this) : DRILLDOWN_2019_01_19(this);
+            case JAN_20:
+                return type === OVERVIEW ? OVERVIEW_2019_01_20(this) : DRILLDOWN_2019_01_20(this);
         }
     }
 

@@ -4,12 +4,22 @@ import Chart from "./Chart";
 
 const btn_styling = "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded";
 
+const DATES = [
+    {selector: JAN_14, btnTxt: "14.01.2019"},
+    {selector: JAN_15, btnTxt: "15.01.2019"},
+    {selector: JAN_16, btnTxt: "16.01.2019"},
+    {selector: JAN_17, btnTxt: "17.01.2019"},
+    {selector: JAN_18, btnTxt: "18.01.2019"},
+    {selector: JAN_19, btnTxt: "19.01.2019"},
+    {selector: JAN_20, btnTxt: "20.01.2019"}
+];
+
 export default class ChartManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            selected: JAN_14,
+            selected: DATES[0].selector,
         };
     }
 
@@ -21,18 +31,30 @@ export default class ChartManager extends PureComponent {
         this.setState({selected: identifier})
     }
 
+    initChartNav() {
+        let html = [];
+        for (let i = 0; i < DATES.length; i++) {
+            html.push(<button key={"btn_" + DATES[i].selector} className={btn_styling}
+                              onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>)
+        }
+        return html;
+    }
+
+    intCharts() {
+        let html = [];
+        for (let i = 0; i < DATES.length; i++) {
+            html.push(<Chart key={"chart_" + DATES[i].selector} identifier={DATES[i].selector}
+                             active={this.isSelected(DATES[i].selector)}/>);
+        }
+        return html;
+    }
+
     render() {
         return (<div>
                 <p>Select the day you want to inspect:
-                    <button className={btn_styling} onClick={() => this.setSelected(JAN_14)}>14.01.2019</button>
-                    <button className={btn_styling} onClick={() => this.setSelected(JAN_15)}>15.01.2019</button>
-                    <button className={btn_styling} onClick={() => this.setSelected(JAN_16)}>16.01.2019</button>
-                    <button className={btn_styling} onClick={() => this.setSelected(JAN_17)}>17.01.2019</button>
+                    {this.initChartNav()}
                 </p>
-                <Chart identifier={JAN_14} active={this.isSelected(JAN_14)}/>
-                <Chart identifier={JAN_15} active={this.isSelected(JAN_15)}/>
-                <Chart identifier={JAN_16} active={this.isSelected(JAN_16)}/>
-                <Chart identifier={JAN_17} active={this.isSelected(JAN_17)}/>
+                {this.intCharts()}
             </div>
         );
     }
