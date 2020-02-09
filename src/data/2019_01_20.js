@@ -13,7 +13,7 @@ export const OVERVIEW_2019_01_20 = (dc) => {
     if (!typeCheck(dc, DataCruncher)) return [];
     return [
         Series('Overview', 'overview',
-            [
+            dc.checkErrors([
                 dc.point(0, 'pMaq', 'Roboter', 0, 0, 49, 0, 29, 22),
                 dc.point(0, 'ox0d', 'Funken', 0, 1, 22, 0, 11, 22),
                 dc.point(0, 'GmK6', 'Funken', 0, 2, 2, 0, 20, 49),
@@ -32,8 +32,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'Hf6q', 'Funken', 1, 10, 53, 1, 22, 50),
                 dc.point(0, 'Hf6q', 'Roboter', 1, 22, 50, 1, 54, 53),
                 dc.point(0, 'pMaq', 'Roboter', 1, 30, 50, 2, 51, 22),
-                dc.point(0, 'LLz2', 'Dornerei', 1, 32, 56, 1, 44, 42),
                 dc.point(0, 'ofEz', 'Stanzen', 1, 32, 42, 2, 28, 42),
+                dc.point(0, 'LLz2', 'Dornerei', 1, 32, 56, 1, 44, 42),
                 dc.point(0, 'LLz2', 'Dornerei', 1, 48, 56, 2, 38, 42),
                 dc.point(0, 'Hf6q', 'Funken', 1, 54, 53, 2, 0, 2),
                 dc.point(0, 'Hf6q', 'Funken', 2, 2, 13, 2, 17, 30),
@@ -67,8 +67,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'Hf6q', 'Funken', 4, 35, 33, 4, 51, 28),
                 dc.point(0, 'ox0d', 'Funken', 4, 44, 43, 4, 50, 53),
                 dc.point(0, 'pMaq', 'Stanzen', 4, 46, 43, 5, 0, 50),
-                dc.point(0, 'Xgti', 'Dornerei', 4, 51, 37, 5, 14, 53),
                 dc.point(0, 'Hf6q', 'Stanzen', 4, 51, 28, 5, 0, 50),
+                dc.point(0, 'Xgti', 'Dornerei', 4, 51, 37, 5, 14, 53),
                 dc.point(0, 'ofEz', 'Funken', 4, 52, 43, 5, 4, 48),
                 dc.point(0, 'lwFq', 'Funken', 4, 54, 43, 5, 4, 48),
                 dc.point(0, 'ox0d', 'Funken', 4, 56, 43, 5, 10, 53),
@@ -129,8 +129,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'ox0d', 'Roboter', 10, 47, 31, 11, 11, 34),
                 dc.point(0, 'pMaq', 'Stanzen', 10, 55, 50, 11, 3, 31),
                 dc.point(0, 'pMaq', 'Roboter', 11, 3, 31, 11, 15, 50),
-                dc.point(0, 'LLz2', 'Dornerei', 11, 11, 42, 11, 37, 50),
                 dc.point(0, 'ox0d', 'Funken', 11, 11, 34, 11, 29, 24),
+                dc.point(0, 'LLz2', 'Dornerei', 11, 11, 42, 11, 37, 50),
                 dc.point(0, 'pMaq', 'Stanzen', 11, 15, 50, 12, 6, 51),
                 dc.point(0, 'ox0d', 'Funken', 11, 31, 34, 11, 37, 31),
                 dc.point(0, 'ox0d', 'Roboter', 11, 37, 31, 11, 43, 24),
@@ -153,10 +153,10 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'WGSU', 'Stanzen', 13, 23, 51, 13, 29, 12),
                 dc.point(0, 'n4gK', 'Stanzen', 13, 23, 51, 13, 29, 12),
                 dc.point(0, 'pMaq', 'Roboter', 13, 27, 31, 14, 28, 55),
-                dc.point(0, 'lwFq', 'Stanzen', 13, 29, 51, 15, 58, 57),
                 dc.point(0, 'nnhk', 'Dornerei', 13, 29, 12, 13, 37, 51),
-                dc.point(0, 'WGSU', 'Stanzen', 13, 31, 51, 13, 46, 57),
+                dc.point(0, 'lwFq', 'Stanzen', 13, 29, 51, 15, 58, 57),
                 dc.point(0, 'ox0d', 'Funken', 13, 31, 35, 13, 42, 11),
+                dc.point(0, 'WGSU', 'Stanzen', 13, 31, 51, 13, 46, 57),
                 dc.point(0, 'n4gK', 'Stanzen', 13, 31, 51, 13, 46, 57),
                 dc.point(0, 'nnhk', 'Stanzen', 13, 37, 51, 13, 45, 37),
                 dc.point(0, 'ox0d', 'Funken', 13, 46, 55, 13, 53, 24),
@@ -195,8 +195,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'Hf6q', 'Roboter', 16, 30, 51, 16, 44, 15),
                 dc.point(0, 'LLz2', 'Dornerei', 16, 34, 58, 16, 43, 11),
                 dc.point(0, 'Hf6q', 'Funken', 16, 44, 15, 17, 10, 51),
-                dc.point(0, 'lwFq', 'Stanzen', 16, 45, 11, 18, 6, 58),
                 dc.point(0, 'LLz2', 'Dornerei', 16, 44, 58, 17, 17, 11),
+                dc.point(0, 'lwFq', 'Stanzen', 16, 45, 11, 18, 6, 58),
                 dc.point(0, 'pMaq', 'Roboter', 17, 0, 51, 17, 8, 31),
                 dc.point(0, 'pMaq', 'Stanzen', 17, 8, 31, 17, 16, 55),
                 dc.point(0, 'Hf6q', 'Roboter', 17, 16, 51, 17, 38, 55),
@@ -215,8 +215,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'lwFq', 'Stanzen', 18, 25, 12, 18, 30, 58),
                 dc.point(0, 'ox0d', 'Funken', 18, 25, 25, 18, 38, 55),
                 dc.point(0, 'Hf6q', 'Roboter', 18, 27, 31, 18, 42, 55),
-                dc.point(0, 'LLz2', 'Stanzen', 18, 31, 12, 18, 52, 58),
                 dc.point(0, 'lwFq', 'Dornerei', 18, 30, 58, 18, 45, 12),
+                dc.point(0, 'LLz2', 'Stanzen', 18, 31, 12, 18, 52, 58),
                 dc.point(0, 'Hf6q', 'Funken', 18, 42, 55, 18, 58, 52),
                 dc.point(0, 'ox0d', 'Funken', 18, 43, 25, 18, 58, 56),
                 dc.point(0, 'lwFq', 'Stanzen', 18, 45, 12, 18, 54, 58),
@@ -248,8 +248,8 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'lwFq', 'Dornerei', 20, 54, 59, 21, 15, 12),
                 dc.point(0, 'ox0d', 'Roboter', 20, 58, 52, 21, 14, 56),
                 dc.point(0, 'LLz2', 'Stanzen', 21, 9, 12, 21, 22, 59),
-                dc.point(0, 'lwFq', 'Stanzen', 21, 15, 12, 21, 32, 59),
                 dc.point(0, 'ox0d', 'Funken', 21, 14, 56, 21, 50, 52),
+                dc.point(0, 'lwFq', 'Stanzen', 21, 15, 12, 21, 32, 59),
                 dc.point(0, 'Hf6q', 'Roboter', 21, 18, 52, 21, 35, 36),
                 dc.point(0, 'pMaq', 'Roboter', 21, 21, 32, 21, 34, 56),
                 dc.point(0, 'LLz2', 'Stanzen', 21, 27, 12, 22, 20, 59),
@@ -286,7 +286,7 @@ export const OVERVIEW_2019_01_20 = (dc) => {
                 dc.point(0, 'LLz2', 'Dornerei', 23, 42, 59, 23, 55, 12),
                 dc.point(0, 'Hf6q', 'Funken', 23, 47, 36, 23, 54, 12),
                 dc.point(0, 'lwFq', 'Dornerei', 23, 52, 59, 23, 59, 12)
-            ]
+            ])
         )
     ]
 };
