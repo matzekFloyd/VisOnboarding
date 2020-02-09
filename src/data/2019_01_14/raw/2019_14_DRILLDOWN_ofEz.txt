@@ -1,0 +1,4 @@
+type,tag,location,startH,startM,startS,endH,endM,endS
+1,'ofEz','Roboter',9,7,31,9,21,32,
+1,'ofEz','Funken',9,21,32,9,31,31,
+1,'ofEz','Roboter',9,31,31,12,1,34
