@@ -65,7 +65,10 @@ export default class Chart extends PureComponent {
                     BEACON(Xgti), BEACON(ofEz)
                 ]);
             case JAN_20:
-                return ChartCfg(new Date('2019-01-20T01:00:00'), []);
+                return ChartCfg(new Date('2019-01-20T01:00:00'), [
+                    BEACON(pMaq), BEACON(ox0d), BEACON(GmK6), BEACON(Hf6q), BEACON(ofEz), BEACON(LLz2), BEACON(Xgti),
+                    BEACON(lwFq), BEACON(oiFK), BEACON(UUWO), BEACON(WGSU), BEACON(n4gK), BEACON(nnhk)
+                ]);
         }
     }
 
