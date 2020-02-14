@@ -263,14 +263,14 @@ export class DataCruncher {
      */
     static getColor(location) {
         switch (location) {
-            case FUNKEN:
-                return "#7F3C8D";
-            case ROBOTER:
-                return "#11A579";
-            case DORNEREI:
-                return "#3969AC";
-            case STANZEN:
-                return "#F2B701";
+            case FUNKEN.name:
+                return FUNKEN.color;
+            case ROBOTER.name:
+                return ROBOTER.color;
+            case DORNEREI.name:
+                return DORNEREI.color;
+            case STANZEN.name:
+                return STANZEN.color;
         }
     }
 }

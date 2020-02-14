@@ -32,14 +32,43 @@ a.nav {
   display: none;
 }
 
+//TODO image width height for resolution 1920x1080 -> 400x270 ??
+//$img-width: 400px;
+//$img-height: 270px;
+
+$img-width: 470px;
+$img-height: 317px;
+
 .image.layout {
-  //TODO is this even still needed
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ width: $img-width;
+ height: $img-height;
+ max-width: $img-width;
+ min-width: $img-width;
+ max-height: $img-height;
+ min-height: $img-height;
 }
 
 .chart-nav-btn.active {
   color: white;
   background-color: #2b6cb0;
+}
+
+//TODO
+#charts-content {
+  position: relative;
+}
+
+#controls-container {
+  border: 1px solid #ccc;
+  border-radius: 16px;
+}
+
+#toggle-control {
+  //TODO change this to have an icon; should align with highcharts settings button
+  position:absolute;
+  top: 10px;
+  right: 10px;
 }

@@ -20,12 +20,12 @@ export const JAN_18 = "JAN_18";
 export const JAN_19 = "JAN_19";
 export const JAN_20 = "JAN_20";
 
-export const FUNKEN = "Funken";
-export const ROBOTER = "Roboter";
-export const DORNEREI = "Dornerei";
-export const STANZEN = "Stanzen";
+export const FUNKEN = {name: "Funken", color: "#7F3C8D"};
+export const ROBOTER = {name: "Roboter", color: "#11A579"};
+export const DORNEREI = {name: "Dornerei", color: "#3969AC"};
+export const STANZEN = {name: "Stanzen", color: "#F2B701"};
 
-export const LOCATIONS = [FUNKEN, ROBOTER, DORNEREI, STANZEN];
+export const LOCATIONS = [FUNKEN.name, ROBOTER.name, DORNEREI.name, STANZEN.name];
 
 export const LLz2 = "LLz2";
 export const GmK6 = "GmK6";

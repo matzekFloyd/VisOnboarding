@@ -5,12 +5,12 @@ import Highcharts from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import highchartsGantt from "highcharts/modules/gantt";
 import drilldown from 'highcharts/modules/drilldown';
-import {
-    BEACON, GmK6, GYPG, Hf6q, JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20, JWwq, LLz2, lwFq, n4gK, nnhk,
-    ofEz, oiFK, ox0d, pMaq, QuLX, Sfo7, UUWO, WGSU, Xgti
-} from "../../../constants";
+import {LOCATIONS} from "../../../constants";
 import {Empty} from "../components";
 import {ChartCfg} from "../../util/ChartCfg";
+import {DataCruncher} from "../../util/DataCruncher";
+import {Series} from "../../util/models";
+import equal from 'fast-deep-equal';
 
 export default class Chart extends PureComponent {
 
@@ -21,55 +21,44 @@ export default class Chart extends PureComponent {
             highchartsGantt(Highcharts);
             drilldown(Highcharts);
         }
-        this.state = {config: null, loading: true};
+        this.state = {config: null, loading: true, filter: props.filter};
+        this.categories = props.categories;
+        this.date = props.date;
+        this.dataCruncher = new DataCruncher(this.date, this.categories);
     }
 
     componentDidMount() {
-        this.setState({config: this.getChartCfg(this.props.identifier)}, () => {
+        this.setState({config: ChartCfg(this.date, this.categories)}, () => {
             this.setState({loading: false})
         });
     }
 
-    /**
-     *
-     * @param {string} identifier
-     */
-    getChartCfg(identifier) {
-        switch (identifier) {
-            case JAN_14:
-            default:
-                return ChartCfg(new Date('2019-01-14T01:00:00'), [
-                    BEACON(GYPG), BEACON(Hf6q), BEACON(ofEz), BEACON(JWwq), BEACON(ox0d), BEACON(n4gK), BEACON(QuLX),
-                    BEACON(pMaq), BEACON(GmK6), BEACON(lwFq), BEACON(oiFK)]);
-            case JAN_15:
-                return ChartCfg(new Date('2019-01-15T01:00:00'), [
-                    BEACON(lwFq), BEACON(ofEz), BEACON(pMaq), BEACON(LLz2), BEACON(Hf6q), BEACON(Xgti), BEACON(GYPG),
-                    BEACON(GmK6), BEACON(n4gK), BEACON(ox0d), BEACON(QuLX), BEACON(oiFK)
-                ]);
-            case JAN_16:
-                return ChartCfg(new Date('2019-01-16T01:00:00'), [BEACON(n4gK), BEACON(ofEz),
-                    BEACON(Xgti), BEACON(pMaq), BEACON(lwFq), BEACON(Hf6q), BEACON(LLz2), BEACON(ox0d),
-                    BEACON(GmK6), BEACON(UUWO)]);
-            case JAN_17:
-                return ChartCfg(new Date('2019-01-17T01:00:00'), [BEACON(pMaq), BEACON(ox0d),
-                    BEACON(Hf6q), BEACON(lwFq), BEACON(LLz2), BEACON(Xgti), BEACON(GmK6), BEACON(n4gK), BEACON(ofEz),
-                    BEACON(WGSU), BEACON(nnhk)]);
-            case JAN_18:
-                return ChartCfg(new Date('2019-01-18T01:00:00'), [
-                    BEACON(n4gK), BEACON(ofEz), BEACON(LLz2), BEACON(Hf6q), BEACON(pMaq), BEACON(GmK6), BEACON(lwFq),
-                    BEACON(ox0d), BEACON(UUWO), BEACON(Xgti), BEACON(Sfo7), BEACON(oiFK)
-                ]);
-            case JAN_19:
-                return ChartCfg(new Date('2019-01-19T01:00:00'), [
-                    BEACON(ox0d), BEACON(GmK6), BEACON(Hf6q), BEACON(pMaq), BEACON(oiFK), BEACON(lwFq), BEACON(LLz2),
-                    BEACON(Xgti), BEACON(ofEz)
-                ]);
-            case JAN_20:
-                return ChartCfg(new Date('2019-01-20T01:00:00'), [
-                    BEACON(pMaq), BEACON(ox0d), BEACON(GmK6), BEACON(Hf6q), BEACON(ofEz), BEACON(LLz2), BEACON(Xgti),
-                    BEACON(lwFq), BEACON(oiFK), BEACON(UUWO), BEACON(WGSU), BEACON(n4gK), BEACON(nnhk)
-                ]);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //TODO change filtering to persist only for one chart, not for all of them
+        if (!equal(this.props.filter, prevProps.filter)) {
+            this.filter();
         }
+    }
+
+    filter() {
+        let filter = this.props.filter;
+        let cfg = ChartCfg(this.date, this.categories);
+        let series = this.dataCruncher.getSeries(0, this.date);
+        let data = series[0].data;
+
+        if (!LOCATIONS.includes(filter)) {
+            cfg.series = [Series('Overview', 'overview', data)];
+            this.setState({config: cfg});
+        }
+
+        let newData = [];
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location === filter) {
+                newData.push(data[i]);
+            }
+        }
+        cfg.series = [Series('Overview', 'overview', newData)];
+        this.setState({config: cfg});
     }
 
     render() {
@@ -87,5 +76,8 @@ export default class Chart extends PureComponent {
 
 Chart.propTypes = {
     identifier: PropTypes.string.isRequired,
+    date: PropTypes.isRequired,
+    categories: PropTypes.array.isRequired,
+    filter: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired
 };

@@ -41,32 +41,37 @@ export const ChartCfg = (date, beacons) => {
                 visible: false
             },
         },
+        navigation: {
+            buttonOptions: {
+                x: -50
+            }
+        },
         scrollbar: {
             enabled: true,
             showFull: false
         },
-        rangeSelector: {
-            enabled: true,
-            inputEnabled: false,
-            buttons: [
-                {
-                    type: 'hour',
-                    count: 1,
-                    text: '1h'
-                }, {
-                    type: 'hour',
-                    count: 3,
-                    text: '3h'
-                }, {
-                    type: 'hour',
-                    count: 6,
-                    text: '6h'
-                }, {
-                    type: 'all',
-                    text: 'All'
-                }
-            ]
-        },
+        // rangeSelector: {
+        //     enabled: true,
+        //     inputEnabled: false,
+        //     buttons: [
+        //         {
+        //             type: 'hour',
+        //             count: 1,
+        //             text: '1h'
+        //         }, {
+        //             type: 'hour',
+        //             count: 3,
+        //             text: '3h'
+        //         }, {
+        //             type: 'hour',
+        //             count: 6,
+        //             text: '6h'
+        //         }, {
+        //             type: 'all',
+        //             text: 'All'
+        //         }
+        //     ]
+        // },
         title: {
             text: '<b>Asset Tracking - Overview</b>',
             textAlign: 'center',
