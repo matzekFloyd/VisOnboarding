@@ -1,17 +1,7 @@
 import React, {PureComponent} from 'react';
 import {
-    BEACON,
-    DORNEREI,
-    FUNKEN, GmK6, GYPG, Hf6q,
-    JAN_14,
-    JAN_15,
-    JAN_16,
-    JAN_17,
-    JAN_18,
-    JAN_19,
-    JAN_20, JWwq, LLz2, lwFq, n4gK, nnhk, ofEz, oiFK, ox0d, pMaq, QuLX,
-    ROBOTER, Sfo7,
-    STANZEN, UUWO, WGSU, Xgti
+    BEACON, DORNEREI, FUNKEN, GmK6, GYPG, Hf6q, JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20, JWwq, LLz2,
+    lwFq, n4gK, nnhk, ofEz, oiFK, ox0d, pMaq, QuLX, ROBOTER, Sfo7, STANZEN, UUWO, WGSU, Xgti
 } from "../../../constants";
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
@@ -31,6 +21,7 @@ const DATES = [
     {selector: JAN_20, btnTxt: "20.01.2019"}
 ];
 
+//TODO reset filter button needed
 export default class ChartManager extends PureComponent {
 
     constructor(props, context) {
@@ -77,8 +68,8 @@ export default class ChartManager extends PureComponent {
     initCharts() {
         let charts = [];
         for (let i = 0; i < DATES.length; i++) {
-            let date = "";
-            let categories = "";
+            let date = null;
+            let categories = [];
             switch (DATES[i].selector) {
                 case JAN_14:
                     date = new Date('2019-01-14T01:00:00');
@@ -140,12 +131,13 @@ export default class ChartManager extends PureComponent {
 
     initFilter() {
         //TODO
-        let html = [];
-        html.push(<span>Active filter: {this.state.filter}</span>);
-        return html;
+        return <span>Active filter: {this.state.filter}</span>;
     }
 
     setFilter(location) {
+        //TODO this needs a better solution
+        let filterEnabled = document.getElementsByClassName("highcharts-pathfinder-group").length > 0;
+        if (filterEnabled) return;
         this.setState({filter: location});
     }
 

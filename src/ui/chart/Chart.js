@@ -41,6 +41,7 @@ export default class Chart extends PureComponent {
     }
 
     filter() {
+        //TODO maybe indicate spinning/loading state here, until filtering is done
         let filter = this.props.filter;
         let cfg = ChartCfg(this.date, this.categories);
         let series = this.dataCruncher.getSeries(0, this.date);
@@ -76,8 +77,8 @@ export default class Chart extends PureComponent {
 
 Chart.propTypes = {
     identifier: PropTypes.string.isRequired,
-    date: PropTypes.isRequired,
-    categories: PropTypes.array.isRequired,
+    //date: PropTypes.isRequired,
+    //categories: PropTypes.array.isRequired,
     filter: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired
 };
