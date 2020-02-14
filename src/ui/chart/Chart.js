@@ -44,14 +44,14 @@ export default class Chart extends PureComponent {
         //TODO maybe indicate spinning/loading state here, until filtering is done
         let filter = this.props.filter;
         let cfg = ChartCfg(this.date, this.categories);
-        let series = this.dataCruncher.getSeries(0, this.date);
-        let data = series[0].data;
 
         if (!LOCATIONS.includes(filter)) {
-            cfg.series = [Series('Overview', 'overview', data)];
             this.setState({config: cfg});
+            return;
         }
 
+        let series = this.dataCruncher.getSeries(0, this.date);
+        let data = series[0].data;
         let newData = [];
         for (let i = 0; i < data.length; i++) {
             if (data[i].location === filter) {
