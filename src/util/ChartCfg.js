@@ -63,7 +63,13 @@ export const ChartCfg = (dataCruncher) => {
         yAxis: dataCruncher.yAxis.overview,
         series: dataCruncher.getSeries(0),
         drilldown: {
-            series: dataCruncher.getSeries(1)
+            series: dataCruncher.getSeries(1),
+            drillUpButton: {
+                position: {
+                    x: 10,
+                    align: "left"
+                }
+            }
         }
     };
 };
