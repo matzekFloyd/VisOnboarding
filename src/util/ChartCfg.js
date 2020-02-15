@@ -2,30 +2,19 @@ import {DataCruncher} from "./DataCruncher";
 
 /**
  *
- * @param {Date} date
- * @param {Array} beacons
- * @return {{scrollbar: {showFull: boolean, enabled: boolean}, drilldown: {series: *}, yAxis: [{grid: {columns: [{categories: *, title: {text: string}}, {categories: *, title: {text: string}}]}, type: string}], xAxis: {crosshair: {color: string, enabled: boolean, snap: boolean}, min: *, max: *}, credits: {enabled: boolean}, rangeSelector: {buttons: [{count: number, text: string, type: string}, {count: number, text: string, type: string}, {count: number, text: string, type: string}, {text: string, type: string}], inputEnabled: boolean, enabled: boolean}, series: *, navigator: {margin: number, series: {visible: boolean}, liveRedraw: boolean, enabled: boolean, height: number}, tooltip: {formatter: (function(): string), padding: number, shape: string}, title: {margin: number, textAlign: string, useHtml: boolean, text: string}, chart: {events: {drilldown: chart.events.drilldown, drillup: chart.events.drillup}}}}
+ * @param {DataCruncher} dataCruncher
+ * @return {{scrollbar: {showFull: boolean, enabled: boolean}, drilldown: {series: *}, yAxis: [{grid: {columns: [{categories: *, title: {text: string}}, {categories: *, title: {text: string}}]}, type: string}], exporting: {buttons: {contextButton: {x: number, y: number}}}, xAxis: {crosshair: {color: string, enabled: boolean, snap: boolean}, min: *, max: *}, credits: {enabled: boolean}, series: *, navigator: {margin: number, series: {visible: boolean}, liveRedraw: boolean, enabled: boolean, height: number}, tooltip: {formatter: (function(): string), padding: number, shape: string}, title: {margin: number, textAlign: string, useHtml: boolean, text: string}, chart: {events: {drilldown: chart.events.drilldown, drillup: chart.events.drillup}}}}
  * @constructor
  */
-export const ChartCfg = (date, beacons) => {
-    let dc = new DataCruncher(date, beacons);
+export const ChartCfg = (dataCruncher) => {
     return {
         chart: {
-            /*
-            zoomType: 'x',
-            resetZoomButton: {
-                position: {
-                    x: 0,
-                    y: -30
-                }
-            },
-            */
             events: {
                 drilldown: function (e) {
-                    dc.drilldown(e, this);
+                    dataCruncher.drilldown(e, this);
                 },
                 drillup: function (e) {
-                    dc.drillup(e, this);
+                    dataCruncher.drillup(e, this);
                 }
             }
         },
@@ -53,28 +42,6 @@ export const ChartCfg = (date, beacons) => {
             enabled: true,
             showFull: false
         },
-        // rangeSelector: {
-        //     enabled: true,
-        //     inputEnabled: false,
-        //     buttons: [
-        //         {
-        //             type: 'hour',
-        //             count: 1,
-        //             text: '1h'
-        //         }, {
-        //             type: 'hour',
-        //             count: 3,
-        //             text: '3h'
-        //         }, {
-        //             type: 'hour',
-        //             count: 6,
-        //             text: '6h'
-        //         }, {
-        //             type: 'all',
-        //             text: 'All'
-        //         }
-        //     ]
-        // },
         title: {
             text: '<b>Asset Tracking - Overview</b>',
             textAlign: 'center',
@@ -93,8 +60,8 @@ export const ChartCfg = (date, beacons) => {
             }
         },
         xAxis: {
-            min: dc.xAxis.min,
-            max: dc.xAxis.max,
+            min: dataCruncher.xAxis.min,
+            max: dataCruncher.xAxis.max,
             crosshair: {
                 enabled: true,
                 snap: false,
@@ -108,23 +75,23 @@ export const ChartCfg = (date, beacons) => {
                     title: {
                         text: "Name"
                     },
-                    categories: dc.categories.map(function (category) {
+                    categories: dataCruncher.categories.map(function (category) {
                         return category.name;
                     })
                 }, {
                     title: {
                         text: "ID"
                     },
-                    categories: dc.categories.map(function (category) {
+                    categories: dataCruncher.categories.map(function (category) {
                         return category.id;
                     })
                 }]
             },
 
         }],
-        series: dc.getSeries(0, date),
+        series: dataCruncher.getSeries(0),
         drilldown: {
-            series: dc.getSeries(1, date)
+            series: dataCruncher.getSeries(1)
         }
     };
 };

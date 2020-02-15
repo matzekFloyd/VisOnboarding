@@ -22,13 +22,11 @@ export default class Chart extends PureComponent {
             drilldown(Highcharts);
         }
         this.state = {config: null, loading: true, filter: props.filter};
-        this.categories = props.categories;
-        this.date = props.date;
-        this.dataCruncher = new DataCruncher(this.date, this.categories);
+        this.dataCruncher = new DataCruncher(props.date, props.categories);
     }
 
     componentDidMount() {
-        this.setState({config: ChartCfg(this.date, this.categories)}, () => {
+        this.setState({config: ChartCfg(this.dataCruncher)}, () => {
             this.setState({loading: false})
         });
     }
@@ -43,14 +41,14 @@ export default class Chart extends PureComponent {
     filter() {
         //TODO maybe indicate spinning/loading state here, until filtering is done
         let filter = this.props.filter;
-        let cfg = ChartCfg(this.date, this.categories);
+        let cfg = ChartCfg(this.dataCruncher);
 
         if (!LOCATIONS.includes(filter)) {
             this.setState({config: cfg});
             return;
         }
 
-        let series = this.dataCruncher.getSeries(0, this.date);
+        let series = this.dataCruncher.getSeries(0);
         let data = series[0].data;
         let newData = [];
         for (let i = 0; i < data.length; i++) {

@@ -149,11 +149,10 @@ export class DataCruncher {
     /**
      *
      * @param {number} type
-     * @param {Date} date
      * @return {*}
      */
-    getSeries(type, date) {
-        switch (date.getUTCDate()) {
+    getSeries(type) {
+        switch (this.startDate.getUTCDate()) {
             case JAN_14:
             default:
                 return type === OVERVIEW ? OVERVIEW_2019_01_14(this) : DRILLDOWN_2019_01_14(this);
