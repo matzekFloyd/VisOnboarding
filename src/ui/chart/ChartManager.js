@@ -5,6 +5,7 @@ import {
 } from "../../../constants";
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
+import {Empty} from "../components";
 
 const CHARTS_CONTAINER_WIDTH = "w-3/4";
 const CONTROLS_CONTAINER_WIDTH = "w-1/4";
@@ -30,6 +31,7 @@ export default class ChartManager extends PureComponent {
             hidden: [],
             controlsCollapsed: false
         };
+        this.filteringEnabled = false;
     }
 
     isSelected(identifier) {
@@ -181,24 +183,25 @@ export default class ChartManager extends PureComponent {
                     </div>
                     <div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>
                         <div id={"controls-content ml-10 h-auto"}>
-                            {this.initFilter()}
                             <div className={CONTROLS_CONTAINER_WIDTH}>
+                                {this.filteringEnabled ? this.initFilter() : <Empty/>}
                                 <img className={"mt-32 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
                                      alt="map" useMap={"#layoutMap"}/>
-                                <map name={"layoutMap"}>
-                                    <area id="area-dornerei" shape={"react"} href={"#"}
-                                          coords={"225,75,275,150"}
-                                          onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
-                                    <area id="area-roboter" shape={"react"} href={"#"}
-                                          coords={"320,155,180,200"}
-                                          onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
-                                    <area id="area-stanzen" shape={"react"} href={"#"}
-                                          coords={"160,210,255,300"}
-                                          onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
-                                    <area id="area-funken" shape={"react"} href={"#"}
-                                          coords={"270,215,408,300"}
-                                          onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
-                                </map>
+                                {this.filteringEnabled ?
+                                    <map name={"layoutMap"}>
+                                        <area id="area-dornerei" shape={"react"} href={"#"}
+                                              coords={"225,75,275,150"}
+                                              onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
+                                        <area id="area-roboter" shape={"react"} href={"#"}
+                                              coords={"320,155,180,200"}
+                                              onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
+                                        <area id="area-stanzen" shape={"react"} href={"#"}
+                                              coords={"160,210,255,300"}
+                                              onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
+                                        <area id="area-funken" shape={"react"} href={"#"}
+                                              coords={"270,215,408,300"}
+                                              onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
+                                    </map> : <Empty/>}
                             </div>
                             <div className={CONTROLS_CONTAINER_WIDTH}>
                                 {this.initChartNav()}
