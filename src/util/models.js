@@ -1,17 +1,17 @@
 import {DataCruncher} from "./DataCruncher";
+import {BEACON} from "../../constants";
 
 /**
  *
- * @param {string} name
- * @param {string} id
+ * @param {Date} date
  * @param {Array} data
- * @return {{data: *, name: Series.props, id: *}}
+ * @return {{data: *, name: string, id: string}}
  * @constructor
  */
-export let Series = (name, id, data) => {
+export let Series = (date, data) => {
     return {
-        name: name,
-        id: id,
+        name: "Overview - " + DataCruncher.formatDateToString(date, false),
+        id: "overview_" + date.getTime(),
         data: data
     }
 };
@@ -19,14 +19,15 @@ export let Series = (name, id, data) => {
 /**
  *
  * @param {BEACON} beacon
+ * @param {Date} date
  * @param {Array} data
- * @return {{data: *, allowPointSelect: boolean, name: string, id: *}}
+ * @return {{data: *, allowPointSelect: boolean, name: string, id: string}}
  * @constructor
  */
-export let SeriesDrill = (beacon, data) => {
+export let SeriesDrill = (beacon, date, data) => {
     return {
-        name: beacon.name + " (" + beacon.id + ")",
-        id: beacon.id,
+        name: "Detail - " + DataCruncher.formatDateToString(date, false) + " - " + beacon.name + " (" + beacon.id + ")",
+        id: beacon.id + "_" + date.getTime(),
         allowPointSelect: true,
         data: DataCruncher.setDependencies(data)
     }

@@ -56,7 +56,7 @@ export default class Chart extends PureComponent {
                 newData.push(data[i]);
             }
         }
-        cfg.series = [Series('Overview', 'overview', newData)];
+        cfg.series = [Series(this.dataCruncher.startDate, newData)];
         this.setState({config: cfg});
     }
 

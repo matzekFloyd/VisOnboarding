@@ -53,12 +53,7 @@ export const ChartCfg = (dataCruncher) => {
             showFull: false
         },
         series: dataCruncher.getSeries(0),
-        title: {
-            margin: 0,
-            text: '<b>Asset Tracking - Overview</b>',
-            textAlign: 'center',
-            useHtml: true
-        },
+        title: dataCruncher.title.overview,
         tooltip: {
             formatter: function () {
                 return '<b> ' + this.point.name + '</b><br />' +

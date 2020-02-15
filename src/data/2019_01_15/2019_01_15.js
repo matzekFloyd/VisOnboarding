@@ -12,8 +12,7 @@ import {typeCheck} from "../../util/helpers";
 export const OVERVIEW_2019_01_15 = (dc) => {
     if (!typeCheck(dc, DataCruncher)) return [];
     return [
-        Series('Overview', 'overview',
-            [
+        Series(dc.startDate, [
                 dc.point(0, 'n4gK', 'Roboter', 0, 4, 13, 10, 29, 36),
                 dc.point(0, 'lwFq', 'Roboter', 0, 14, 13, 0, 26, 14),
                 dc.point(0, 'Hf6q', 'Funken', 0, 25, 34, 0, 35, 36),
@@ -264,7 +263,7 @@ export const OVERVIEW_2019_01_15 = (dc) => {
 export const DRILLDOWN_2019_01_15 = (dc) => {
     if (!typeCheck(dc, DataCruncher)) return [];
     return [
-        SeriesDrill(BEACON(lwFq), [
+        SeriesDrill(BEACON(lwFq), dc.startDate, [
             dc.point(1, 'lwFq', 'Roboter', 0, 14, 13, 0, 26, 14),
             dc.point(1, 'lwFq', 'Funken', 0, 26, 14, 0, 34, 56),
             dc.point(1, 'lwFq', 'Funken', 0, 35, 34, 0, 42, 56),
@@ -298,7 +297,7 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'lwFq', 'Roboter', 15, 21, 35, 19, 59, 37),
             dc.point(1, 'lwFq', 'Roboter', 20, 3, 36, 21, 22, 20)
         ]),
-        SeriesDrill(BEACON(ofEz), [
+        SeriesDrill(BEACON(ofEz), dc.startDate, [
             dc.point(1, 'ofEz', 'Funken', 0, 25, 36, 0, 35, 33),
             dc.point(1, 'ofEz', 'Roboter', 0, 35, 33, 2, 43, 37),
             dc.point(1, 'ofEz', 'Roboter', 2, 50, 14, 3, 1, 35),
@@ -332,7 +331,7 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'ofEz', 'Roboter', 14, 24, 15, 17, 4, 58),
             dc.point(1, 'ofEz', 'Roboter', 17, 5, 35, 21, 3, 39)
         ]),
-        SeriesDrill(BEACON(n4gK), [
+        SeriesDrill(BEACON(n4gK), dc.startDate, [
             dc.point(1, 'n4gK', 'Roboter', 0, 4, 13, 10, 29, 36),
             dc.point(1, 'n4gK', 'Funken', 10, 29, 36, 10, 34, 58),
             dc.point(1, 'n4gK', 'Funken', 10, 42, 18, 10, 59, 38),
@@ -371,7 +370,7 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'n4gK', 'Funken', 23, 26, 19, 23, 33, 36),
             dc.point(1, 'n4gK', 'Roboter', 23, 33, 36, 23, 39, 39)
         ]),
-        SeriesDrill(BEACON(Hf6q), [
+        SeriesDrill(BEACON(Hf6q), dc.startDate, [
             dc.point(1, 'Hf6q', 'Funken', 0, 25, 34, 0, 35, 36),
             dc.point(1, 'Hf6q', 'Funken', 0, 35, 36, 0, 43, 34),
             dc.point(1, 'Hf6q', 'Funken', 0, 43, 34, 0, 59, 33),
@@ -413,7 +412,7 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'Hf6q', 'Roboter', 23, 15, 36, 23, 21, 39),
             dc.point(1, 'Hf6q', 'Funken', 23, 21, 39, 23, 33, 36)
         ]),
-        SeriesDrill(BEACON(QuLX), [
+        SeriesDrill(BEACON(QuLX), dc.startDate, [
             dc.point(1, 'QuLX', 'Roboter', 0, 50, 13, 2, 20, 17),
             dc.point(1, 'QuLX', 'Roboter', 2, 21, 34, 3, 2, 57),
             dc.point(1, 'QuLX', 'Roboter', 3, 5, 34, 3, 19, 37),
@@ -429,10 +428,10 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'QuLX', 'Funken', 5, 39, 37, 5, 47, 34),
             dc.point(1, 'QuLX', 'Roboter', 5, 51, 34, 6, 5, 34)
         ]),
-        SeriesDrill(BEACON(oiFK), [
+        SeriesDrill(BEACON(oiFK), dc.startDate, [
             dc.point(1, 'oiFK', 'Stanzen', 2, 13, 37, 18, 4, 15)
         ]),
-        SeriesDrill(BEACON(GmK6), [
+        SeriesDrill(BEACON(GmK6), dc.startDate, [
             dc.point(1, 'GmK6', 'Funken', 4, 36, 55, 5, 4, 14),
             dc.point(1, 'GmK6', 'Roboter', 5, 4, 14, 5, 9, 35),
             dc.point(1, 'GmK6', 'Funken', 5, 9, 35, 5, 16, 14),
@@ -444,7 +443,7 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'GmK6', 'Roboter', 10, 25, 35, 13, 58, 16),
             dc.point(1, 'GmK6', 'Funken', 13, 58, 16, 16, 6, 55)
         ]),
-        SeriesDrill(BEACON(pMaq), [
+        SeriesDrill(BEACON(pMaq), dc.startDate, [
             dc.point(1, 'pMaq', 'Funken', 5, 3, 35, 5, 9, 34),
             dc.point(1, 'pMaq', 'Roboter', 5, 9, 34, 6, 55, 35),
             dc.point(1, 'pMaq', 'Funken', 6, 55, 35, 7, 41, 34),
@@ -483,13 +482,13 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'pMaq', 'Roboter', 22, 8, 56, 23, 2, 17),
             dc.point(1, 'pMaq', 'Funken', 23, 2, 17, 23, 44, 56)
         ]),
-        SeriesDrill(BEACON(LLz2), [
+        SeriesDrill(BEACON(LLz2), dc.startDate, [
             dc.point(1, 'LLz2', 'Dornerei', 9, 15, 34, 10, 5, 38),
             dc.point(1, 'LLz2', 'Dornerei', 10, 7, 34, 10, 19, 38),
             dc.point(1, 'LLz2', 'Stanzen', 10, 27, 38, 10, 33, 34),
             dc.point(1, 'LLz2', 'Dornerei', 10, 33, 34, 10, 39, 38)
         ]),
-        SeriesDrill(BEACON(Xgti), [
+        SeriesDrill(BEACON(Xgti), dc.startDate, [
             dc.point(1, 'Xgti', 'Funken', 9, 45, 37, 10, 27, 36),
             dc.point(1, 'Xgti', 'Funken', 10, 27, 36, 10, 33, 38),
             dc.point(1, 'Xgti', 'Funken', 10, 33, 38, 11, 55, 36),
@@ -509,10 +508,10 @@ export const DRILLDOWN_2019_01_15 = (dc) => {
             dc.point(1, 'Xgti', 'Funken', 21, 51, 39, 21, 59, 37),
             dc.point(1, 'Xgti', 'Funken', 21, 59, 37, 22, 59, 39)
         ]),
-        SeriesDrill(BEACON(GYPG), [
+        SeriesDrill(BEACON(GYPG), dc.startDate, [
             dc.point(1, 'GYPG', 'Stanzen', 9, 55, 38, 10, 4, 54)
         ]),
-        SeriesDrill(BEACON(ox0d), [
+        SeriesDrill(BEACON(ox0d), dc.startDate, [
             dc.point(1, 'ox0d', 'Dornerei', 15, 59, 35, 16, 19, 39),
             dc.point(1, 'ox0d', 'Stanzen', 16, 19, 39, 16, 39, 36),
             dc.point(1, 'ox0d', 'Stanzen', 16, 45, 39, 16, 53, 35),

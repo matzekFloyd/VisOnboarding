@@ -27,6 +27,7 @@ export class DataCruncher {
     startDate;
     day;
     categories;
+    title;
     xAxis;
     yAxis;
 
@@ -40,6 +41,15 @@ export class DataCruncher {
         this.startDate = startDate;
         this.day = day;
         this.categories = categories;
+        this.title = {
+            overview: {
+                margin: 0,
+                text: this.getTitleText(0),
+                textAlign: 'center',
+                useHtml: true
+            },
+            drilldown: null
+        };
         this.xAxis = {
             min: this.startDate.getTime(),
             max: this.startDate.getTime() + this.day,
@@ -93,6 +103,23 @@ export class DataCruncher {
 
     /**
      *
+     * @param {number} level
+     * @param event
+     * @return {string}
+     */
+    getTitleText(level, event = null) {
+        switch (level) {
+            case OVERVIEW:
+            default:
+                return '<b>Overview - ' + DataCruncher.formatDateToString(this.startDate, false) + '</b>';
+            case DRILLDOWN:
+                let beacon = BEACON(event.point.tag);
+                return '<b>Detail - ' + DataCruncher.formatDateToString(this.startDate, false) + ' - ' + beacon.name + " (" + beacon.id + ')</b>';
+        }
+    }
+
+    /**
+     *
      * @param {number} type
      * @param {string} tag
      * @param {string} location
@@ -111,7 +138,7 @@ export class DataCruncher {
             y = this.categories.map((cat) => {
                 return cat.id;
             }).indexOf(tag);
-            drillRef = tag;
+            drillRef = tag + "_" + this.startDate.getTime();
         }
 
         if (type === DRILLDOWN) {
@@ -131,14 +158,14 @@ export class DataCruncher {
      */
     drilldown(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
-        let beacon = BEACON(event.point.tag);
+        this.title.drilldown = {
+            text: this.getTitleText(1, event),
+            textAlign: 'center',
+            margin: 0,
+            uesHtml: true
+        };
         chart.update({
-            title: {
-                text: '<b>Asset Tracking - ' + beacon.name + " (" + beacon.id + ')</b>',
-                textAlign: 'center',
-                margin: 0,
-                uesHtml: true
-            },
+            title: this.title.drilldown,
             yAxis: this.yAxis.drilldown
         });
         setTimeout(function () {
@@ -154,12 +181,7 @@ export class DataCruncher {
     drillup(event, chart) {
         chart.showLoading('Loading...', chart.yAxis, chart.yAxis.type);
         chart.update({
-            title: {
-                text: '<b>Asset Tracking - Overview</b>',
-                textAlign: 'center',
-                margin: 0,
-                useHtml: true
-            },
+            title: this.title.overview,
             yAxis: this.yAxis.overview
         });
         setTimeout(function () {
@@ -250,15 +272,32 @@ export class DataCruncher {
      * @return {string}
      */
     static convertUnixTimestamp(unix) {
-        let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let date = new Date(unix);
+        return DataCruncher.formatDateToString(date);
+    }
+
+    /**
+     *
+     * @param {Date} date
+     * @param {boolean} includeTime
+     * @param {boolean} includeWeekday
+     * @return {string}
+     */
+    static formatDateToString(date, includeTime = true, includeWeekday = false) {
+        let days_arr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let year = date.getFullYear();
         let month = months_arr[date.getMonth()];
         let day = date.getDate();
+        let weekDay = days_arr[date.getDay()];
         let hours = date.getHours();
         let minutes = "0" + date.getMinutes();
         let seconds = "0" + date.getSeconds();
-        return month + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        let dateString = "";
+        if (includeWeekday) dateString += weekDay + " ";
+        dateString += month + ' ' + day + ' ' + year;
+        if (includeTime) dateString += ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        return dateString;
     }
 
     /**

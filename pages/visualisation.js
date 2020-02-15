@@ -11,7 +11,7 @@ export default class Visualisation extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1 className={"mt-12 text-xl font-extrabold"}>Visualisation</h1>
+                <h1 className={"mt-12 text-xl font-extrabold"}>Asset Tracking - Temporal Development</h1>
                 <ChartManager/>
             </Layout>
         );
