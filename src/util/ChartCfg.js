@@ -21,6 +21,15 @@ export const ChartCfg = (dataCruncher) => {
         credits: {
             enabled: false
         },
+        drilldown: {
+            drillUpButton: {
+                position: {
+                    align: "left",
+                    x: 10
+                }
+            },
+            series: dataCruncher.getSeries(1)
+        },
         exporting: {
             buttons: {
                 contextButton: {
@@ -32,8 +41,8 @@ export const ChartCfg = (dataCruncher) => {
         },
         navigator: {
             enabled: true,
-            liveRedraw: true,
             height: 30,
+            liveRedraw: true,
             margin: 0,
             series: {
                 visible: false
@@ -43,34 +52,25 @@ export const ChartCfg = (dataCruncher) => {
             enabled: true,
             showFull: false
         },
+        series: dataCruncher.getSeries(0),
         title: {
+            margin: 0,
             text: '<b>Asset Tracking - Overview</b>',
             textAlign: 'center',
-            margin: 0,
             useHtml: true
         },
         tooltip: {
-            shape: "square",
-            padding: 12,
             formatter: function () {
                 return '<b> ' + this.point.name + '</b><br />' +
                     'Location: ' + this.point.location + '<br />' +
                     'Duration: ' + this.point.duration + '<br />' +
                     'Start: ' + DataCruncher.convertUnixTimestamp(this.point.start) + '<br />' +
                     'End: ' + DataCruncher.convertUnixTimestamp(this.point.end) + '<br />';
-            }
+            },
+            padding: 12,
+            shape: "square"
         },
         xAxis: dataCruncher.xAxis,
-        yAxis: dataCruncher.yAxis.overview,
-        series: dataCruncher.getSeries(0),
-        drilldown: {
-            series: dataCruncher.getSeries(1),
-            drillUpButton: {
-                position: {
-                    x: 10,
-                    align: "left"
-                }
-            }
-        }
+        yAxis: dataCruncher.yAxis.overview
     };
 };
