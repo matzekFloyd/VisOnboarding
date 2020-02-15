@@ -28,6 +28,7 @@ export class DataCruncher {
     day;
     categories;
     xAxis;
+    yAxis;
 
     /**
      *
@@ -41,8 +42,53 @@ export class DataCruncher {
         this.categories = categories;
         this.xAxis = {
             min: this.startDate.getTime(),
-            max: this.startDate.getTime() + this.day
+            max: this.startDate.getTime() + this.day,
+            crosshair: {
+                enabled: true,
+                snap: false,
+                color: "rgba(102,133,194,0.75)"
+            },
         };
+        this.yAxis = {
+            overview: [
+                {
+                    type: 'category',
+                    grid: {
+                        columns: [{
+                            title: {
+                                text: "Name"
+                            },
+                            categories: categories.map(function (category) {
+                                return category.name;
+                            })
+                        }, {
+                            title: {
+                                text: "ID"
+                            },
+                            categories: categories.map(function (category) {
+                                return `<b>${category.id}</b>`;
+                            })
+                        }]
+                    },
+
+                }
+            ],
+            drilldown: [
+                {
+                    type: 'category',
+                    grid: {
+                        columns: [{
+                            title: {
+                                text: "Location"
+                            },
+                            categories: LOCATIONS.map(function (location) {
+                                return `<b>${location}</b>`;
+                            })
+                        }]
+                    }
+                }
+            ]
+        }
     }
 
     /**
@@ -90,17 +136,7 @@ export class DataCruncher {
                 margin: 0,
                 uesHtml: true
             },
-            yAxis: {
-                type: 'category',
-                grid: {
-                    columns: [{
-                        title: {
-                            text: "Location"
-                        },
-                        categories: LOCATIONS
-                    }]
-                }
-            }
+            yAxis: this.yAxis.drilldown
         });
         setTimeout(function () {
             chart.hideLoading();
@@ -121,25 +157,7 @@ export class DataCruncher {
                 margin: 0,
                 useHtml: true
             },
-            yAxis: {
-                grid: {
-                    columns: [{
-                        title: {
-                            text: "Name"
-                        },
-                        categories: this.categories.map(function (category) {
-                            return category.name;
-                        })
-                    }, {
-                        title: {
-                            text: "ID"
-                        },
-                        categories: this.categories.map(function (category) {
-                            return category.id;
-                        })
-                    }]
-                }
-            }
+            yAxis: this.yAxis.overview
         });
         setTimeout(function () {
             chart.hideLoading();

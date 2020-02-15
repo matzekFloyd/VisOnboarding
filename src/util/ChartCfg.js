@@ -3,7 +3,7 @@ import {DataCruncher} from "./DataCruncher";
 /**
  *
  * @param {DataCruncher} dataCruncher
- * @return {{scrollbar: {showFull: boolean, enabled: boolean}, drilldown: {series: *}, yAxis: [{grid: {columns: [{categories: *, title: {text: string}}, {categories: *, title: {text: string}}]}, type: string}], exporting: {buttons: {contextButton: {x: number, y: number}}}, xAxis: {crosshair: {color: string, enabled: boolean, snap: boolean}, min: *, max: *}, credits: {enabled: boolean}, series: *, navigator: {margin: number, series: {visible: boolean}, liveRedraw: boolean, enabled: boolean, height: number}, tooltip: {formatter: (function(): string), padding: number, shape: string}, title: {margin: number, textAlign: string, useHtml: boolean, text: string}, chart: {events: {drilldown: chart.events.drilldown, drillup: chart.events.drillup}}}}
+ * @return {{scrollbar: {showFull: boolean, enabled: boolean}, drilldown: {series: *}, yAxis: [{grid: {columns: [{categories: *[], title: {text: string}}, {categories: string[], title: {text: string}}]}, type: string}], exporting: {buttons: {contextButton: {x: number, y: number}}}, xAxis: ({crosshair: {color: string, enabled: boolean, snap: boolean}, min: *, max}|{min: number, max}), credits: {enabled: boolean}, series: *, navigator: {margin: number, series: {visible: boolean}, liveRedraw: boolean, enabled: boolean, height: number}, tooltip: {formatter: (function(): string), padding: number, shape: string}, title: {margin: number, textAlign: string, useHtml: boolean, text: string}, chart: {events: {drilldown: chart.events.drilldown, drillup: chart.events.drillup}}}}
  * @constructor
  */
 export const ChartCfg = (dataCruncher) => {
@@ -59,36 +59,8 @@ export const ChartCfg = (dataCruncher) => {
                     'Duration: ' + this.point.duration + '<br />';
             }
         },
-        xAxis: {
-            min: dataCruncher.xAxis.min,
-            max: dataCruncher.xAxis.max,
-            crosshair: {
-                enabled: true,
-                snap: false,
-                color: "rgba(102,133,194,0.75)"
-            },
-        },
-        yAxis: [{
-            type: 'category',
-            grid: {
-                columns: [{
-                    title: {
-                        text: "Name"
-                    },
-                    categories: dataCruncher.categories.map(function (category) {
-                        return category.name;
-                    })
-                }, {
-                    title: {
-                        text: "ID"
-                    },
-                    categories: dataCruncher.categories.map(function (category) {
-                        return category.id;
-                    })
-                }]
-            },
-
-        }],
+        xAxis: dataCruncher.xAxis,
+        yAxis: dataCruncher.yAxis.overview,
         series: dataCruncher.getSeries(0),
         drilldown: {
             series: dataCruncher.getSeries(1)
