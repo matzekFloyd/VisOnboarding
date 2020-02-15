@@ -105,8 +105,8 @@ export class DataCruncher {
      * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
      */
     point(type, tag, location, startH, startM, startS, endH, endM, endS) {
-        let y = null;
-        let drillRef = null;
+        let y;
+        let drillRef;
         if (type === OVERVIEW) {
             y = this.categories.map((cat) => {
                 return cat.id;
@@ -118,7 +118,10 @@ export class DataCruncher {
             y = LOCATIONS.indexOf(location);
         }
 
-        return Point(this.startDate, y, tag, location, drillRef, startH, startM, startS, endH, endM, endS);
+        let beacon = BEACON(tag);
+        let name = beacon.name + " (" + beacon.id + ")";
+
+        return Point(this.startDate, y, tag, location, name, drillRef, startH, startM, startS, endH, endM, endS);
     }
 
     /**

@@ -53,11 +53,11 @@ export const ChartCfg = (dataCruncher) => {
             shape: "square",
             padding: 12,
             formatter: function () {
-                return '<b> ' + this.series.name + '</b><br />' +
+                return '<b> ' + this.point.name + '</b><br />' +
                     'Location: ' + this.point.location + '<br />' +
+                    'Duration: ' + this.point.duration + '<br />' +
                     'Start: ' + DataCruncher.convertUnixTimestamp(this.point.start) + '<br />' +
-                    'End: ' + DataCruncher.convertUnixTimestamp(this.point.end) + '<br />' +
-                    'Duration: ' + this.point.duration + '<br />';
+                    'End: ' + DataCruncher.convertUnixTimestamp(this.point.end) + '<br />';
             }
         },
         xAxis: dataCruncher.xAxis,

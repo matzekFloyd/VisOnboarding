@@ -38,6 +38,7 @@ export let SeriesDrill = (beacon, data) => {
  * @param {number} y
  * @param {string} tag
  * @param {string} location
+ * @param {string} name
  * @param {string} drilldown
  * @param {number} startH
  * @param {number} startM
@@ -48,13 +49,13 @@ export let SeriesDrill = (beacon, data) => {
  * @return {{duration: string, drilldown: *, color: string, name: string, start: number, y: *, location: *, end: number, id: *, tag: *}}
  * @constructor
  */
-export let Point = (startDate, y, tag, location, drilldown, startH, startM, startS, endH, endM, endS) => {
+export let Point = (startDate, y, tag, location, name, drilldown, startH, startM, startS, endH, endM, endS) => {
     let start = DataCruncher.calculateTime(startDate, startH, startM, startS);
     let end = DataCruncher.calculateTime(startDate, endH, endM, endS);
     let duration = DataCruncher.calculateDuration(start, end);
     return {
         id: DataCruncher.createId(tag, startH, startM, startS, endH, endM, endS),
-        name: "pt_" + tag + "_" + location,
+        name: name,
         tag: tag,
         location: location,
         y: y,
