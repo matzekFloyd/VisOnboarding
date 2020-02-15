@@ -64,7 +64,7 @@ export default class Chart extends PureComponent {
         const {config} = this.state;
         return (
             <div> {this.state.loading ? <Empty/> :
-                <div className={this.props.active ? "chart show" : "chart hide"}>
+                <div className={this.props.active ? " " : "hidden"}>
                     <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}/>
                 </div>}
             </div>
@@ -77,6 +77,6 @@ Chart.propTypes = {
     identifier: PropTypes.string.isRequired,
     //date: PropTypes.isRequired,
     //categories: PropTypes.array.isRequired,
-    filter: PropTypes.string.isRequired,
+    filter: PropTypes.string,
     active: PropTypes.bool.isRequired
 };

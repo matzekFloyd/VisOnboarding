@@ -6,8 +6,6 @@ import {
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
 
-const btn_styling = "chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-1 w-1/3 h-auto";
-
 const CHARTS_CONTAINER_WIDTH = "w-3/4";
 const CONTROLS_CONTAINER_WIDTH = "w-1/4";
 
@@ -39,18 +37,24 @@ export default class ChartManager extends PureComponent {
     }
 
     setSelected(identifier) {
-        this.setState({selected: identifier})
+        this.setState({selected: identifier});
+        window.dispatchEvent(new Event('resize'));
     }
 
     initChartNav() {
         let firstRow = [];
         let secondRow = [];
+        let base_css = "chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-1 h-auto";
 
         for (let i = 0; i < DATES.length; i++) {
+            let css = base_css;
+            if (this.state.selected === DATES[i].selector) css += " active ";
+            if (i === 4) css += " ml-12 ";
+
             let btn = <button key={"btn_" + DATES[i].selector}
-                              className={this.state.selected === DATES[i].selector ? btn_styling + " active" : btn_styling}
+                              className={css}
                               onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>;
-            if (i < 3) {
+            if (i < 4) {
                 firstRow.push(btn)
             } else {
                 secondRow.push(btn)
@@ -153,6 +157,7 @@ export default class ChartManager extends PureComponent {
 
             chartsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
             chartsDiv.classList.toggle("w-full");
+            chartsDiv.firstChild.classList.toggle("mr-10");
 
             window.dispatchEvent(new Event('resize'));
         });
@@ -160,9 +165,9 @@ export default class ChartManager extends PureComponent {
 
     render() {
         return (<div>
-                <div className={"flex flex-wrap"}>
+                <div className={"flex flex-wrap mt-6"}>
                     <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
-                        <div id={"charts-content"} className={"mt-6 mr-16 h-auto"}>
+                        <div id={"charts-content"} className={"mr-10 h-auto"}>
                             {this.initCharts()}
                             <div id={"toggle-control"}>
                                 {this.state.controlsCollapsed ?
@@ -175,25 +180,29 @@ export default class ChartManager extends PureComponent {
                         </div>
                     </div>
                     <div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>
-                        <div id={"controls-content"}>
+                        <div id={"controls-content ml-10 h-auto"}>
                             {this.initFilter()}
-                            <img className={"mt-48 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
-                                 alt="map" useMap={"#layoutMap"}/>
-                            <map name={"layoutMap"}>
-                                <area id="area-dornerei" shape={"react"} href={"#"}
-                                      coords={"225,75,275,150"}
-                                      onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
-                                <area id="area-roboter" shape={"react"} href={"#"}
-                                      coords={"320,155,180,200"}
-                                      onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
-                                <area id="area-stanzen" shape={"react"} href={"#"}
-                                      coords={"160,210,255,300"}
-                                      onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
-                                <area id="area-funken" shape={"react"} href={"#"}
-                                      coords={"270,215,408,300"}
-                                      onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
-                            </map>
-                            {this.initChartNav()}
+                            <div className={CONTROLS_CONTAINER_WIDTH}>
+                                <img className={"mt-32 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
+                                     alt="map" useMap={"#layoutMap"}/>
+                                <map name={"layoutMap"}>
+                                    <area id="area-dornerei" shape={"react"} href={"#"}
+                                          coords={"225,75,275,150"}
+                                          onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
+                                    <area id="area-roboter" shape={"react"} href={"#"}
+                                          coords={"320,155,180,200"}
+                                          onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
+                                    <area id="area-stanzen" shape={"react"} href={"#"}
+                                          coords={"160,210,255,300"}
+                                          onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
+                                    <area id="area-funken" shape={"react"} href={"#"}
+                                          coords={"270,215,408,300"}
+                                          onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
+                                </map>
+                            </div>
+                            <div className={CONTROLS_CONTAINER_WIDTH}>
+                                {this.initChartNav()}
+                            </div>
                         </div>
                     </div>
                 </div>
