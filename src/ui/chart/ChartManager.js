@@ -29,7 +29,8 @@ export default class ChartManager extends PureComponent {
         this.state = {
             selected: DATES[0].selector,
             filter: null,
-            hidden: []
+            hidden: [],
+            controlsCollapsed: false
         };
     }
 
@@ -143,17 +144,18 @@ export default class ChartManager extends PureComponent {
 
     toggleControlsPanel(event) {
         event.preventDefault();
+        this.setState({controlsCollapsed: !this.state.controlsCollapsed}, () => {
+            let controlsDiv = document.getElementById("controls-container");
+            let chartsDiv = document.getElementById("charts-container");
 
-        let controlsDiv = document.getElementById("controls-container");
-        let chartsDiv = document.getElementById("charts-container");
+            controlsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
+            controlsDiv.style.display === "none" ? controlsDiv.style.display = "block" : controlsDiv.style.display = "none";
 
-        controlsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
-        controlsDiv.style.display === "none" ? controlsDiv.style.display = "block" : controlsDiv.style.display = "none";
+            chartsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
+            chartsDiv.classList.toggle("w-full");
 
-        chartsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
-        chartsDiv.classList.toggle("w-full");
-
-        window.dispatchEvent(new Event('resize'));
+            window.dispatchEvent(new Event('resize'));
+        });
     }
 
     render() {
@@ -162,7 +164,14 @@ export default class ChartManager extends PureComponent {
                     <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
                         <div id={"charts-content"} className={"mt-6 mr-16 h-auto"}>
                             {this.initCharts()}
-                            <button id={"toggle-control"} onClick={(e) => this.toggleControlsPanel(e)}>toggle</button>
+                            <div id={"toggle-control"}>
+                                {this.state.controlsCollapsed ?
+                                    <img src={sanitizePublicPath("static/collapse_decrease.png")}
+                                         onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_decrease"}/> :
+                                    <img src={sanitizePublicPath("static/collapse_increase.png")}
+                                         onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_increase"}/>
+                                }
+                            </div>
                         </div>
                     </div>
                     <div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>

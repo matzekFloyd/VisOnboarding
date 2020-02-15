@@ -67,8 +67,11 @@ $img-height: 317px;
 }
 
 #toggle-control {
-  //TODO change this to have an icon; should align with highcharts settings button
   position:absolute;
-  top: 10px;
+  top: 15px;
   right: 10px;
+
+  img:hover {
+    background-color: #e6e6e6;
+  }
 }

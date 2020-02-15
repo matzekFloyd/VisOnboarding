@@ -32,6 +32,14 @@ export const ChartCfg = (date, beacons) => {
         credits: {
             enabled: false
         },
+        exporting: {
+            buttons: {
+                contextButton: {
+                    x: -24,
+                    y: 1,
+                }
+            }
+        },
         navigator: {
             enabled: true,
             liveRedraw: true,
@@ -40,11 +48,6 @@ export const ChartCfg = (date, beacons) => {
             series: {
                 visible: false
             },
-        },
-        navigation: {
-            buttonOptions: {
-                x: -50
-            }
         },
         scrollbar: {
             enabled: true,
