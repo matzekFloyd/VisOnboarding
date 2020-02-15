@@ -24,6 +24,7 @@ export const ChartCfg = (dataCruncher) => {
         exporting: {
             buttons: {
                 contextButton: {
+                    enabled: false,
                     x: -24,
                     y: 1,
                 }
