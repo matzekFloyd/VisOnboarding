@@ -20,6 +20,7 @@ export default class Chart extends PureComponent {
             HighchartsExporting(Highcharts);
             highchartsGantt(Highcharts);
             drilldown(Highcharts);
+            Highcharts.Tick.prototype.drillable = function () {};
         }
         this.state = {config: null, loading: true, chartLoading: true, filter: props.filter};
         this.dataCruncher = new DataCruncher(props.date, props.categories);
