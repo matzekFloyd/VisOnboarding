@@ -38,12 +38,16 @@ export default class Chart extends PureComponent {
                 }
             }
         };
+        this.resetLocationFilterHandler = () => {
+            this.resetFilter();
+        }
     }
 
     componentDidMount() {
         this.setState({config: ChartCfg(this.dataCruncher)}, () => {
             this.eventEmitter = getEventEmitter();
             this.eventEmitter.on("filterByLocation", this.filterByLocationHandler);
+            this.eventEmitter.on("resetLocationFilter", this.resetLocationFilterHandler);
             this.setState({loading: false})
         });
     }
@@ -57,6 +61,7 @@ export default class Chart extends PureComponent {
 
     componentWillUnmount() {
         this.eventEmitter.removeListener("filterByLocation", this.filterByLocationHandler);
+        this.eventEmitter.removeListener("resetLocationFilter", this.resetLocationFilterHandler);
     }
 
     filterByLocation(location) {
@@ -91,8 +96,10 @@ export default class Chart extends PureComponent {
                 element.getAttribute("fill") === color ? element.style.visibility = "visible" : element.style.visibility = "hidden";
             }
 
-            let pathfinderGroup = document.getElementsByClassName("highcharts-pathfinder-group")[0];
-            if (pathfinderGroup) pathfinderGroup.style.visibility = "hidden";
+            let pathfinderGroups = document.getElementsByClassName("highcharts-pathfinder-group");
+            for(let i = 0; i < pathfinderGroups.length; i++){
+                pathfinderGroups[i].style.visibility = "hidden";
+            }
             this.eventEmitter.emit("activeLocationFilter", this.state.filter);
         });
     }
@@ -112,9 +119,10 @@ export default class Chart extends PureComponent {
                 }
                 element.style.visibility = "visible";
             }
-            let pathfinderGroup = document.getElementsByClassName("highcharts-pathfinder-group")[0];
-            if (pathfinderGroup) pathfinderGroup.style.visibility = "visible";
-            this.eventEmitter.emit("resetLocationFilter");
+            let pathfinderGroups = document.getElementsByClassName("highcharts-pathfinder-group");
+            for(let i = 0; i < pathfinderGroups.length; i++){
+                pathfinderGroups[i].style.visibility = "visible";
+            }
         })
     }
 

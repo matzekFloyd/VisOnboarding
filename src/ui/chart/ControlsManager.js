@@ -12,6 +12,7 @@ export default class ControlsManager extends PureComponent {
 
     componentDidMount() {
         this.eventEmitter = getEventEmitter();
+        this.props.controlsManagerLoadedCallback();
     }
 
     initMap() {

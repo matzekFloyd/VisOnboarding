@@ -12,8 +12,8 @@ export const ChartCfg = (dataCruncher) => {
         chart: {
             events: {
                 drilldown: function (e) {
-                    getEventEmitter().emit("resetLocationFilter");
                     dataCruncher.drilldown(e, this);
+                    getEventEmitter().emit("resetLocationFilter");
                 },
                 drillup: function (e) {
                     dataCruncher.drillup(e, this);

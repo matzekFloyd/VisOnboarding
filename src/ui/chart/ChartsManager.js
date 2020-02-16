@@ -1,53 +1,38 @@
 import React, {PureComponent} from 'react';
 import {
     DATES,
+    CONTROLS_CONTAINER_WIDTH,
+    CHARTS_CONTAINER_WIDTH,
+    JAN_14,
     BEACON,
-    GmK6,
     GYPG,
     Hf6q,
-    JAN_14,
-    JAN_15,
-    JAN_16,
-    JAN_17,
-    JAN_18,
-    JAN_19,
-    JAN_20,
-    JWwq,
-    LLz2,
-    lwFq,
-    n4gK,
-    nnhk,
     ofEz,
-    oiFK,
+    JWwq,
     ox0d,
-    pMaq,
+    n4gK,
     QuLX,
-    Sfo7,
-    UUWO,
-    WGSU,
-    Xgti,
-    CHARTS_CONTAINER_WIDTH,
-    CONTROLS_CONTAINER_WIDTH
+    pMaq,
+    GmK6,
+    lwFq,
+    oiFK,
+    JAN_15,
+    LLz2, Xgti, JAN_16, UUWO, JAN_17, WGSU, nnhk, JAN_18, Sfo7, JAN_19, JAN_20
 } from "../../../constants";
-import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
-import {Empty, LoadingIndicator} from "../components";
 import {getEventEmitter} from "../../util/eventemitter";
-import ControlsManager from "./ControlsManager";
+import Chart from "./Chart";
 
-export default class ChartManager extends PureComponent {
+export default class ChartsManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            selected: DATES[0].selector,
-            filter: null,
-            hidden: [],
             controlsCollapsed: false,
+            filter: null,
             chartsLoaded: null,
             chartsLoading: true
         };
-        this.filteringEnabled = true;
         this.chartCount = DATES.length;
         this.eventEmitter = null;
         this.resetLocationFilterHandler = () => {
@@ -69,12 +54,15 @@ export default class ChartManager extends PureComponent {
         this.eventEmitter.removeListener("activeLocationFilter", this.activeLocationFilterHandler);
     }
 
-    isSelected(identifier) {
-        return this.state.selected === identifier;
-    }
-
-    setSelected(identifier) {
-        this.setState({selected: identifier});
+    chartLoaded() {
+        let newCount = this.state.chartLoaded === null ? 1 : ++this.state.chartsLoaded;
+        this.setState({chartsLoaded: newCount}, () => {
+            if (this.state.chartsLoaded === this.chartCount) {
+                this.setState({chartsLoading: false}, () => {
+                    this.props.chartManagerLoadedCallback();
+                });
+            }
+        });
     }
 
     initCharts() {
@@ -135,17 +123,10 @@ export default class ChartManager extends PureComponent {
             let chartLoadedFunction = this.state.chartsLoading ? {chartLoaded: () => this.chartLoaded()} : {};
             let chartId = "chart_" + i + "_" + DATES[i].selector;
             charts.push(<Chart id={chartId} date={date} categories={categories} key={"chart_" + DATES[i].selector}
-                               identifier={DATES[i].selector} active={this.isSelected(DATES[i].selector)}
+                               identifier={DATES[i].selector} active={this.props.selected === DATES[i].selector}
                                {...chartLoadedFunction}/>);
         }
         return charts;
-    }
-
-    chartLoaded() {
-        let newCount = this.state.chartLoaded === null ? 1 : ++this.state.chartsLoaded;
-        this.setState({chartsLoaded: newCount}, () => {
-            if (this.state.chartsLoaded === this.chartCount) this.setState({chartsLoading: false})
-        });
     }
 
     toggleControlsPanel(event) {
@@ -165,30 +146,19 @@ export default class ChartManager extends PureComponent {
         });
     }
 
-    initializingDisclaimer() {
-        return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>Initializing
-            charts... </b></div>;
-    }
-
     render() {
-        return (<div>
-                {this.state.chartsLoading ? this.initializingDisclaimer() : <Empty/>}
-                <div className={this.state.chartsLoading ? "flex flex-wrap mt-6 hidden" : "flex flex-wrap mt-6 "}>
-                    <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
-                        <div id={"charts-content"} className={"mr-10 h-auto"}>
-                            {this.initCharts()}
-                            <div id={"toggle-control"}>
-                                {this.state.controlsCollapsed ?
-                                    <img src={sanitizePublicPath("static/collapse_decrease.png")}
-                                         onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_decrease"}/> :
-                                    <img src={sanitizePublicPath("static/collapse_increase.png")}
-                                         onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_increase"}/>
-                                }
-                            </div>
-                        </div>
+        return (
+            <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
+                <div id={"charts-content"} className={"mr-10 h-auto"}>
+                    {this.initCharts()}
+                    <div id={"toggle-control"}>
+                        {this.state.controlsCollapsed ?
+                            <img src={sanitizePublicPath("static/collapse_decrease.png")}
+                                 onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_decrease"}/> :
+                            <img src={sanitizePublicPath("static/collapse_increase.png")}
+                                 onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_increase"}/>
+                        }
                     </div>
-                    <ControlsManager selected={this.state.selected}
-                                     setSelected={(identifier) => this.setSelected(identifier)}/>
                 </div>
             </div>
         );
