@@ -21,7 +21,7 @@ export default class Chart extends PureComponent {
             highchartsGantt(Highcharts);
             drilldown(Highcharts);
         }
-        this.state = {config: null, loading: true, filter: props.filter};
+        this.state = {config: null, loading: true, chartLoading: true, filter: props.filter};
         this.dataCruncher = new DataCruncher(props.date, props.categories);
     }
 
@@ -35,6 +35,11 @@ export default class Chart extends PureComponent {
         //TODO change filtering to persist only for one chart, not for all of them
         if (!equal(this.props.filter, prevProps.filter)) {
             this.filter();
+        }
+
+        if (!equal(this.props.active, prevProps.active)) {
+            let chart = this.refs.chart.chart;
+            chart.reflow();
         }
     }
 
@@ -60,13 +65,20 @@ export default class Chart extends PureComponent {
         this.setState({config: cfg});
     }
 
+    chartLoadedCallback() {
+        this.setState({chartLoading: false}, () => {
+            this.props.chartLoaded();
+        });
+    }
+
     render() {
         const {config} = this.state;
+        let chartLoadedCallback = this.props.chartLoaded ? {callback: () => this.chartLoadedCallback()} : {};
         return (
-            <div> {this.state.loading ? <Empty/> :
-                <div className={this.props.active ? " " : "hidden"}>
-                    <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}/>
-                </div>}
+            <div className={this.props.active ? "block " : "hidden "}>
+                {this.state.loading ? <Empty/> :
+                    <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
+                                     ref={'chart'} {...chartLoadedCallback}/>}
             </div>
         );
     }

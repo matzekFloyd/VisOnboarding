@@ -5,7 +5,7 @@ import {
 } from "../../../constants";
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
-import {Empty} from "../components";
+import {Empty, LoadingIndicator} from "../components";
 
 const CHARTS_CONTAINER_WIDTH = "w-3/4";
 const CONTROLS_CONTAINER_WIDTH = "w-1/4";
@@ -29,9 +29,12 @@ export default class ChartManager extends PureComponent {
             selected: DATES[0].selector,
             filter: null,
             hidden: [],
-            controlsCollapsed: false
+            controlsCollapsed: false,
+            chartsLoaded: null,
+            chartsLoading: true
         };
         this.filteringEnabled = false;
+        this.chartCount = DATES.length;
     }
 
     isSelected(identifier) {
@@ -40,7 +43,6 @@ export default class ChartManager extends PureComponent {
 
     setSelected(identifier) {
         this.setState({selected: identifier});
-        window.dispatchEvent(new Event('resize'));
     }
 
     initChartNav() {
@@ -127,13 +129,22 @@ export default class ChartManager extends PureComponent {
                     ];
                     break;
             }
+            let chartLoadedFunction = this.state.chartsLoading ? {chartLoaded: () => this.chartLoaded()} : {};
             charts.push(<Chart date={date} categories={categories}
                                filter={this.state.filter}
                                key={"chart_" + DATES[i].selector}
                                identifier={DATES[i].selector}
-                               active={this.isSelected(DATES[i].selector)}/>);
+                               active={this.isSelected(DATES[i].selector)}
+                               {...chartLoadedFunction}/>);
         }
         return charts;
+    }
+
+    chartLoaded() {
+        let newCount = this.state.chartLoaded === null ? 1 : ++this.state.chartsLoaded;
+        this.setState({chartsLoaded: newCount}, () => {
+            if (this.state.chartsLoaded === this.chartCount) this.setState({chartsLoading: false})
+        });
     }
 
     initFilter() {
@@ -165,9 +176,15 @@ export default class ChartManager extends PureComponent {
         });
     }
 
+    initializingDisclaimer() {
+        return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>Initializing
+            charts... </b></div>;
+    }
+
     render() {
         return (<div>
-                <div className={"flex flex-wrap mt-6"}>
+                {this.state.chartsLoading ? this.initializingDisclaimer() : <Empty/>}
+                <div className={this.state.chartsLoading ? "flex flex-wrap mt-6 hidden" : "flex flex-wrap mt-6 "}>
                     <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
                         <div id={"charts-content"} className={"mr-10 h-auto"}>
                             {this.initCharts()}

@@ -15,3 +15,12 @@ ButtonOutLine.propTypes = {
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
 };
+
+export const LoadingIndicator = React.memo(function LoadingIndicator() {
+    return <div className="lds-ring">
+        <div/>
+        <div/>
+        <div/>
+        <div/>
+    </div>;
+});
