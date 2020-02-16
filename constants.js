@@ -20,6 +20,19 @@ export const JAN_18 = "JAN_18";
 export const JAN_19 = "JAN_19";
 export const JAN_20 = "JAN_20";
 
+export const DATES = [
+    {selector: JAN_14, btnTxt: "14.01.2019"},
+    {selector: JAN_15, btnTxt: "15.01.2019"},
+    {selector: JAN_16, btnTxt: "16.01.2019"},
+    {selector: JAN_17, btnTxt: "17.01.2019"},
+    {selector: JAN_18, btnTxt: "18.01.2019"},
+    {selector: JAN_19, btnTxt: "19.01.2019"},
+    {selector: JAN_20, btnTxt: "20.01.2019"}
+];
+
+export const CONTROLS_CONTAINER_WIDTH = "w-1/4";
+export const CHARTS_CONTAINER_WIDTH = "w-3/4";
+
 export const FUNKEN = {name: "Funken", color: "#7F3C8D"};
 export const ROBOTER = {name: "Roboter", color: "#11A579"};
 export const DORNEREI = {name: "Dornerei", color: "#3969AC"};

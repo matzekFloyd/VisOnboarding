@@ -1,25 +1,39 @@
 import React, {PureComponent} from 'react';
 import {
-    BEACON, DORNEREI, FUNKEN, GmK6, GYPG, Hf6q, JAN_14, JAN_15, JAN_16, JAN_17, JAN_18, JAN_19, JAN_20, JWwq, LLz2,
-    lwFq, n4gK, nnhk, ofEz, oiFK, ox0d, pMaq, QuLX, ROBOTER, Sfo7, STANZEN, UUWO, WGSU, Xgti
+    DATES,
+    BEACON,
+    GmK6,
+    GYPG,
+    Hf6q,
+    JAN_14,
+    JAN_15,
+    JAN_16,
+    JAN_17,
+    JAN_18,
+    JAN_19,
+    JAN_20,
+    JWwq,
+    LLz2,
+    lwFq,
+    n4gK,
+    nnhk,
+    ofEz,
+    oiFK,
+    ox0d,
+    pMaq,
+    QuLX,
+    Sfo7,
+    UUWO,
+    WGSU,
+    Xgti,
+    CHARTS_CONTAINER_WIDTH,
+    CONTROLS_CONTAINER_WIDTH
 } from "../../../constants";
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
 import {Empty, LoadingIndicator} from "../components";
 import {getEventEmitter} from "../../util/eventemitter";
-
-const CHARTS_CONTAINER_WIDTH = "w-3/4";
-const CONTROLS_CONTAINER_WIDTH = "w-1/4";
-
-const DATES = [
-    {selector: JAN_14, btnTxt: "14.01.2019"},
-    {selector: JAN_15, btnTxt: "15.01.2019"},
-    {selector: JAN_16, btnTxt: "16.01.2019"},
-    {selector: JAN_17, btnTxt: "17.01.2019"},
-    {selector: JAN_18, btnTxt: "18.01.2019"},
-    {selector: JAN_19, btnTxt: "19.01.2019"},
-    {selector: JAN_20, btnTxt: "20.01.2019"}
-];
+import ControlsManager from "./ControlsManager";
 
 export default class ChartManager extends PureComponent {
 
@@ -61,35 +75,6 @@ export default class ChartManager extends PureComponent {
 
     setSelected(identifier) {
         this.setState({selected: identifier});
-    }
-
-    initChartNav() {
-        let firstRow = [];
-        let secondRow = [];
-        let base_css = "chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-1 h-auto";
-
-        for (let i = 0; i < DATES.length; i++) {
-            let css = base_css;
-            if (this.state.selected === DATES[i].selector) css += " active ";
-            if (i === 4) css += " ml-12 ";
-
-            let btn = <button key={"btn_" + DATES[i].selector}
-                              className={css}
-                              onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>;
-            if (i < 4) {
-                firstRow.push(btn)
-            } else {
-                secondRow.push(btn)
-            }
-        }
-        return <div className={"chart-nav mt-12"}>
-            <div className={"flex mb-4"}>
-                {firstRow}
-            </div>
-            <div className={"flex mb-4"}>
-                {secondRow}
-            </div>
-        </div>;
     }
 
     initCharts() {
@@ -163,10 +148,6 @@ export default class ChartManager extends PureComponent {
         });
     }
 
-    setFilter(location) {
-        this.eventEmitter.emit("filterByLocation", location);
-    }
-
     toggleControlsPanel(event) {
         event.preventDefault();
         this.setState({controlsCollapsed: !this.state.controlsCollapsed}, () => {
@@ -206,42 +187,8 @@ export default class ChartManager extends PureComponent {
                             </div>
                         </div>
                     </div>
-                    <div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>
-                        <div id={"controls-content ml-10 h-auto"}>
-                            <div className={CONTROLS_CONTAINER_WIDTH}>
-                                <div className={"map-container mt-32"}>
-                                    <img className={"image layout"} src={sanitizePublicPath("static/gf_layout.png")}
-                                         alt="map" useMap={"#layoutMap"}/>
-                                    <map name={"layoutMap"}>
-                                        <area id="area-dornerei" shape={"react"} href={"#"}
-                                              coords={"225,75,275,150"}
-                                              onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
-                                        <area id="area-roboter" shape={"react"} href={"#"}
-                                              coords={"320,155,180,200"}
-                                              onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
-                                        <area id="area-stanzen" shape={"react"} href={"#"}
-                                              coords={"160,210,255,300"}
-                                              onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
-                                        <area id="area-funken" shape={"react"} href={"#"}
-                                              coords={"270,215,408,300"}
-                                              onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
-                                        <area id="area-fremdschleifen" shape={"react"} href={"#"}
-                                              coords={"5,87,123,165"}
-                                              onClick={() => this.setFilter("Fremdschleifen")} alt={""}/>
-                                        <area id="area-lager-stanzen" shape={"react"} href={"#"}
-                                              coords={"100,210,153,305"}
-                                              onClick={() => this.setFilter("LagerStanzen")} alt={""}/>
-                                        <area id="area-rohlager" shape={"react"} href={"#"}
-                                              coords={"283,74,450,153"}
-                                              onClick={() => this.setFilter("Rohlager")} alt={""}/>
-                                    </map>
-                                </div>
-                            </div>
-                            <div className={CONTROLS_CONTAINER_WIDTH}>
-                                {this.initChartNav()}
-                            </div>
-                        </div>
-                    </div>
+                    <ControlsManager selected={this.state.selected}
+                                     setSelected={(identifier) => this.setSelected(identifier)}/>
                 </div>
             </div>
         );
