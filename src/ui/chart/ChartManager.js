@@ -28,12 +28,13 @@ export default class ChartManager extends PureComponent {
         this.state = {
             selected: DATES[0].selector,
             filter: null,
+            filterActive: false,
             hidden: [],
             controlsCollapsed: false,
             chartsLoaded: null,
             chartsLoading: true
         };
-        this.filteringEnabled = false;
+        this.filteringEnabled = true;
         this.chartCount = DATES.length;
     }
 
@@ -153,10 +154,9 @@ export default class ChartManager extends PureComponent {
     }
 
     setFilter(location) {
-        //TODO this needs a better solution
-        let filterEnabled = document.getElementsByClassName("highcharts-pathfinder-group").length > 0;
-        if (filterEnabled) return;
-        this.setState({filter: location});
+        let newFilterActiveState = true;
+        if (this.state.filter === location) newFilterActiveState = false;
+        this.setState({filter: location, filterActive: newFilterActiveState});
     }
 
     toggleControlsPanel(event) {
@@ -179,6 +179,26 @@ export default class ChartManager extends PureComponent {
     initializingDisclaimer() {
         return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>Initializing
             charts... </b></div>;
+    }
+
+    resetFilter() {
+        this.setState({filter: null}, () => {
+            let chartEl = document.getElementsByClassName("chart block");
+            let points = chartEl[0].getElementsByClassName("highcharts-point");
+
+            for (let i = 0; i < points.length; i++) {
+                let point = points[i];
+                let element;
+                if (point.hasChildNodes()) {
+                    element = point.firstChild;
+                } else {
+                    element = point;
+                }
+                element.style.visibility = "visible";
+            }
+            let pathfinderGroup = document.getElementsByClassName("highcharts-pathfinder-group")[0];
+            if (pathfinderGroup) pathfinderGroup.style.visibility = "visible";
+        })
     }
 
     render() {
@@ -204,6 +224,7 @@ export default class ChartManager extends PureComponent {
                                 {this.filteringEnabled ? this.initFilter() : <Empty/>}
                                 <img className={"mt-32 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
                                      alt="map" useMap={"#layoutMap"}/>
+                                <button onClick={() => this.resetFilter()}>RESET FILTER</button>
                                 {this.filteringEnabled ?
                                     <map name={"layoutMap"}>
                                         <area id="area-dornerei" shape={"react"} href={"#"}
