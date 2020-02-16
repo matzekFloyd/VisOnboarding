@@ -6,6 +6,7 @@ import {
 import Chart from "./Chart";
 import {sanitizePublicPath} from "../../util/helpers";
 import {Empty, LoadingIndicator} from "../components";
+import {getEventEmitter} from "../../util/eventemitter";
 
 const CHARTS_CONTAINER_WIDTH = "w-3/4";
 const CONTROLS_CONTAINER_WIDTH = "w-1/4";
@@ -20,7 +21,6 @@ const DATES = [
     {selector: JAN_20, btnTxt: "20.01.2019"}
 ];
 
-//TODO reset filter button needed
 export default class ChartManager extends PureComponent {
 
     constructor(props, context) {
@@ -28,7 +28,6 @@ export default class ChartManager extends PureComponent {
         this.state = {
             selected: DATES[0].selector,
             filter: null,
-            filterActive: false,
             hidden: [],
             controlsCollapsed: false,
             chartsLoaded: null,
@@ -36,6 +35,24 @@ export default class ChartManager extends PureComponent {
         };
         this.filteringEnabled = true;
         this.chartCount = DATES.length;
+        this.eventEmitter = null;
+        this.resetLocationFilterHandler = () => {
+            this.setState({filter: null});
+        };
+        this.activeLocationFilterHandler = (location) => {
+            this.setState({filter: location});
+        };
+    }
+
+    componentDidMount() {
+        this.eventEmitter = getEventEmitter();
+        this.eventEmitter.on("resetLocationFilter", this.resetLocationFilterHandler);
+        this.eventEmitter.on("activeLocationFilter", this.activeLocationFilterHandler);
+    }
+
+    componentWillUnmount() {
+        this.eventEmitter.removeListener("resetLocationFilter", this.resetLocationFilterHandler);
+        this.eventEmitter.removeListener("activeLocationFilter", this.activeLocationFilterHandler);
     }
 
     isSelected(identifier) {
@@ -131,11 +148,9 @@ export default class ChartManager extends PureComponent {
                     break;
             }
             let chartLoadedFunction = this.state.chartsLoading ? {chartLoaded: () => this.chartLoaded()} : {};
-            charts.push(<Chart date={date} categories={categories}
-                               filter={this.state.filter}
-                               key={"chart_" + DATES[i].selector}
-                               identifier={DATES[i].selector}
-                               active={this.isSelected(DATES[i].selector)}
+            let chartId = "chart_" + i + "_" + DATES[i].selector;
+            charts.push(<Chart id={chartId} date={date} categories={categories} key={"chart_" + DATES[i].selector}
+                               identifier={DATES[i].selector} active={this.isSelected(DATES[i].selector)}
                                {...chartLoadedFunction}/>);
         }
         return charts;
@@ -148,15 +163,8 @@ export default class ChartManager extends PureComponent {
         });
     }
 
-    initFilter() {
-        //TODO
-        return <span>Active filter: {this.state.filter}</span>;
-    }
-
     setFilter(location) {
-        let newFilterActiveState = true;
-        if (this.state.filter === location) newFilterActiveState = false;
-        this.setState({filter: location, filterActive: newFilterActiveState});
+        this.eventEmitter.emit("filterByLocation", location);
     }
 
     toggleControlsPanel(event) {
@@ -181,26 +189,6 @@ export default class ChartManager extends PureComponent {
             charts... </b></div>;
     }
 
-    resetFilter() {
-        this.setState({filter: null}, () => {
-            let chartEl = document.getElementsByClassName("chart block");
-            let points = chartEl[0].getElementsByClassName("highcharts-point");
-
-            for (let i = 0; i < points.length; i++) {
-                let point = points[i];
-                let element;
-                if (point.hasChildNodes()) {
-                    element = point.firstChild;
-                } else {
-                    element = point;
-                }
-                element.style.visibility = "visible";
-            }
-            let pathfinderGroup = document.getElementsByClassName("highcharts-pathfinder-group")[0];
-            if (pathfinderGroup) pathfinderGroup.style.visibility = "visible";
-        })
-    }
-
     render() {
         return (<div>
                 {this.state.chartsLoading ? this.initializingDisclaimer() : <Empty/>}
@@ -221,11 +209,9 @@ export default class ChartManager extends PureComponent {
                     <div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>
                         <div id={"controls-content ml-10 h-auto"}>
                             <div className={CONTROLS_CONTAINER_WIDTH}>
-                                {this.filteringEnabled ? this.initFilter() : <Empty/>}
-                                <img className={"mt-32 image layout"} src={sanitizePublicPath("static/gf_layout.png")}
-                                     alt="map" useMap={"#layoutMap"}/>
-                                <button onClick={() => this.resetFilter()}>RESET FILTER</button>
-                                {this.filteringEnabled ?
+                                <div className={"map-container mt-32"}>
+                                    <img className={"image layout"} src={sanitizePublicPath("static/gf_layout.png")}
+                                         alt="map" useMap={"#layoutMap"}/>
                                     <map name={"layoutMap"}>
                                         <area id="area-dornerei" shape={"react"} href={"#"}
                                               coords={"225,75,275,150"}
@@ -239,7 +225,17 @@ export default class ChartManager extends PureComponent {
                                         <area id="area-funken" shape={"react"} href={"#"}
                                               coords={"270,215,408,300"}
                                               onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
-                                    </map> : <Empty/>}
+                                        <area id="area-fremdschleifen" shape={"react"} href={"#"}
+                                              coords={"5,87,123,165"}
+                                              onClick={() => this.setFilter("Fremdschleifen")} alt={""}/>
+                                        <area id="area-lager-stanzen" shape={"react"} href={"#"}
+                                              coords={"100,210,153,305"}
+                                              onClick={() => this.setFilter("LagerStanzen")} alt={""}/>
+                                        <area id="area-rohlager" shape={"react"} href={"#"}
+                                              coords={"283,74,450,153"}
+                                              onClick={() => this.setFilter("Rohlager")} alt={""}/>
+                                    </map>
+                                </div>
                             </div>
                             <div className={CONTROLS_CONTAINER_WIDTH}>
                                 {this.initChartNav()}

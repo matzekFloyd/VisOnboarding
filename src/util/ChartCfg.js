@@ -1,4 +1,5 @@
 import {DataCruncher} from "./DataCruncher";
+import {getEventEmitter} from "./eventemitter";
 
 /**
  *
@@ -11,6 +12,7 @@ export const ChartCfg = (dataCruncher) => {
         chart: {
             events: {
                 drilldown: function (e) {
+                    getEventEmitter().emit("resetLocationFilter");
                     dataCruncher.drilldown(e, this);
                 },
                 drillup: function (e) {
