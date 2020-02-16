@@ -138,7 +138,7 @@ export default class ChartsManager extends PureComponent {
             controlsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
             controlsDiv.style.display === "none" ? controlsDiv.style.display = "block" : controlsDiv.style.display = "none";
 
-            chartsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
+            chartsDiv.classList.toggle(CHARTS_CONTAINER_WIDTH);
             chartsDiv.classList.toggle("w-full");
             chartsDiv.firstChild.classList.toggle("mr-10");
 
