@@ -6,7 +6,6 @@ import HighchartsExporting from "highcharts/modules/exporting";
 import highchartsGantt from "highcharts/modules/gantt";
 import drilldown from 'highcharts/modules/drilldown';
 import {DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
-import {Empty} from "../components";
 import {ChartCfg} from "../../util/ChartCfg";
 import {DataCruncher} from "../../util/DataCruncher";
 import equal from 'fast-deep-equal';
@@ -24,7 +23,7 @@ export default class Chart extends PureComponent {
             };
         }
         this.id = props.id;
-        this.state = {config: null, filter: null, loading: true, chartLoading: true};
+        this.state = {config: null, filter: null, loading: true};
         this.dataCruncher = new DataCruncher(props.date, props.categories);
         this.eventEmitter = null;
         this.filterByLocationHandler = (filter) => {
@@ -48,7 +47,6 @@ export default class Chart extends PureComponent {
             this.eventEmitter = getEventEmitter();
             this.eventEmitter.on("filterByLocation", this.filterByLocationHandler);
             this.eventEmitter.on("resetLocationFilter", this.resetLocationFilterHandler);
-            this.setState({loading: false})
         });
     }
 
@@ -97,7 +95,7 @@ export default class Chart extends PureComponent {
             }
 
             let pathfinderGroups = document.getElementsByClassName("highcharts-pathfinder-group");
-            for(let i = 0; i < pathfinderGroups.length; i++){
+            for (let i = 0; i < pathfinderGroups.length; i++) {
                 pathfinderGroups[i].style.visibility = "hidden";
             }
             this.eventEmitter.emit("activeLocationFilter", this.state.filter);
@@ -120,14 +118,14 @@ export default class Chart extends PureComponent {
                 element.style.visibility = "visible";
             }
             let pathfinderGroups = document.getElementsByClassName("highcharts-pathfinder-group");
-            for(let i = 0; i < pathfinderGroups.length; i++){
+            for (let i = 0; i < pathfinderGroups.length; i++) {
                 pathfinderGroups[i].style.visibility = "visible";
             }
         })
     }
 
     chartLoadedCallback() {
-        this.setState({chartLoading: false}, () => {
+        this.setState({loading: false}, () => {
             this.props.chartLoaded();
         });
     }
@@ -137,9 +135,8 @@ export default class Chart extends PureComponent {
         let chartLoadedCallback = this.props.chartLoaded ? {callback: () => this.chartLoadedCallback()} : {};
         return (
             <div className={this.props.active ? "chart block " : "chart hidden "}>
-                {this.state.loading ? <Empty/> :
-                    <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
-                                     ref={'chart'} {...chartLoadedCallback}/>}
+                <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
+                                 ref={'chart'} {...chartLoadedCallback}/>
             </div>
         );
     }

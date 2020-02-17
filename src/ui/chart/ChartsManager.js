@@ -19,7 +19,10 @@ import {
 } from "../../../constants";
 import {sanitizePublicPath} from "../../util/helpers";
 import {getEventEmitter} from "../../util/eventemitter";
-import Chart from "./Chart";
+import dynamic from 'next/dynamic';
+import {Empty} from "../components";
+
+const Chart = dynamic(() => import('./Chart'));
 
 export default class ChartsManager extends PureComponent {
 
@@ -28,10 +31,8 @@ export default class ChartsManager extends PureComponent {
         this.state = {
             controlsCollapsed: false,
             filter: null,
-            chartsLoaded: null,
-            chartsLoading: true
+            chartLoading: true
         };
-        this.chartCount = DATES.length;
         this.eventEmitter = null;
         this.resetLocationFilterHandler = () => {
             this.setState({filter: null});
@@ -52,22 +53,15 @@ export default class ChartsManager extends PureComponent {
         this.eventEmitter.removeListener("activeLocationFilter", this.activeLocationFilterHandler);
     }
 
-    chartLoaded() {
-        let newCount = this.state.chartLoaded === null ? 1 : ++this.state.chartsLoaded;
-        this.setState({chartsLoaded: newCount}, () => {
-            if (this.state.chartsLoaded === this.chartCount) {
-                this.setState({chartsLoading: false}, () => {
-                    this.props.chartManagerLoadedCallback();
-                });
-            }
-        });
-    }
-
-    initCharts() {
-        let charts = [];
-        for (let i = 0; i < DATES.length; i++) {
+    chart(date) {
+        if (this.props.selected === date) {
             let date = null;
             let categories = [];
+            let selectors = [];
+            for (let i = 0; i < DATES.length; i++) {
+                selectors.push(DATES[i].selector);
+            }
+            let i = selectors.indexOf(this.props.selected);
             switch (DATES[i].selector) {
                 case JAN_14:
                     date = new Date('2019-01-14T01:00:00');
@@ -118,13 +112,21 @@ export default class ChartsManager extends PureComponent {
                     ];
                     break;
             }
-            let chartLoadedFunction = this.state.chartsLoading ? {chartLoaded: () => this.chartLoaded()} : {};
+            let chartLoadedFunction = this.state.chartLoading ? {chartLoaded: () => this.chartLoaded()} : {};
             let chartId = "chart_" + i + "_" + DATES[i].selector;
-            charts.push(<Chart id={chartId} date={date} categories={categories} key={"chart_" + DATES[i].selector}
-                               identifier={DATES[i].selector} active={this.props.selected === DATES[i].selector}
-                               {...chartLoadedFunction}/>);
+            return <Chart id={chartId} date={date} categories={categories} key={"chart_" + DATES[i].selector}
+                          identifier={DATES[i].selector}
+                          active={this.props.selected === DATES[i].selector} {...chartLoadedFunction}
+            />;
+        } else {
+            return <Empty/>;
         }
-        return charts;
+    }
+
+    chartLoaded() {
+        this.setState({chartLoading: false}, () => {
+            this.props.chartManagerLoadedCallback();
+        });
     }
 
     toggleControlsPanel(event) {
@@ -148,7 +150,13 @@ export default class ChartsManager extends PureComponent {
         return (
             <div id="charts-container" className={"w-3/4 h-auto"}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
-                    {this.initCharts()}
+                    {this.chart(JAN_14)}
+                    {this.chart(JAN_15)}
+                    {this.chart(JAN_16)}
+                    {this.chart(JAN_17)}
+                    {this.chart(JAN_18)}
+                    {this.chart(JAN_19)}
+                    {this.chart(JAN_20)}
                     <div id={"toggle-control"}>
                         {this.state.controlsCollapsed ?
                             <img src={sanitizePublicPath("static/collapse_decrease.png")}
