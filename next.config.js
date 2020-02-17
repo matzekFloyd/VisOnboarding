@@ -13,12 +13,15 @@ const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
 const isProd = process.env.NODE_ENV === 'production';
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true'
+});
 
 /* CONFIG */
-module.exports = withImages(withSass(withCSS({
+module.exports = withBundleAnalyzer(withImages(withSass(withCSS({
     exportPathMap: async function () {
         return ROUTES;
     },
     distDir: 'build',
     assetPrefix: isProd ? BASE_URI : ''
-})));
+}))));
