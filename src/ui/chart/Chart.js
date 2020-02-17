@@ -10,6 +10,7 @@ import {ChartCfg} from "../../util/ChartCfg";
 import {DataCruncher} from "../../util/DataCruncher";
 import equal from 'fast-deep-equal';
 import {getEventEmitter} from "../../util/eventemitter";
+import {Empty} from "../components";
 
 export default class Chart extends PureComponent {
 
@@ -135,8 +136,8 @@ export default class Chart extends PureComponent {
         let chartLoadedCallback = this.props.chartLoaded ? {callback: () => this.chartLoadedCallback()} : {};
         return (
             <div className={this.props.active ? "chart block " : "chart hidden "}>
-                <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
-                                 ref={'chart'} {...chartLoadedCallback}/>
+                {config ? <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
+                                           ref={'chart'} {...chartLoadedCallback}/> : <Empty/>}
             </div>
         );
     }
