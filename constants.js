@@ -30,9 +30,6 @@ export const DATES = [
     {selector: JAN_20, btnTxt: "20.01.2019"}
 ];
 
-export const CONTROLS_CONTAINER_WIDTH = "w-1/4";
-export const CHARTS_CONTAINER_WIDTH = "w-3/4";
-
 export const FUNKEN = {name: "Funken", color: "#7F3C8D"};
 export const ROBOTER = {name: "Roboter", color: "#11A579"};
 export const DORNEREI = {name: "Dornerei", color: "#3969AC"};

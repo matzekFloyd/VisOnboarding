@@ -12,8 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.7.4",
+    "fast-deep-equal": "latest",
     "highcharts": "^8.0.0",
     "highcharts-react-official": "^2.2.2",
     "next": "^9.2.1",
@@ -21,8 +23,7 @@
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "url-search-params-polyfill": "^8.0.0",
-    "fast-deep-equal": "latest"
+    "url-search-params-polyfill": "^8.0.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.5",

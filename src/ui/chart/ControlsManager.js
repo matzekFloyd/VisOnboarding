@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN, CONTROLS_CONTAINER_WIDTH} from "../../../constants";
+import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "../../../constants";
 import {sanitizePublicPath} from "../../util/helpers";
 import {getEventEmitter} from "../../util/eventemitter";
 
@@ -16,7 +16,7 @@ export default class ControlsManager extends PureComponent {
     }
 
     initMap() {
-        return <div className={CONTROLS_CONTAINER_WIDTH}>
+        return <div className={"w-1/4"}>
             <div className={"map-container mt-32"}>
                 <img className={"image layout"} src={sanitizePublicPath("static/gf_layout.png")}
                      alt="map" useMap={"#layoutMap"}/>
@@ -66,7 +66,7 @@ export default class ControlsManager extends PureComponent {
                 secondRow.push(btn)
             }
         }
-        return <div className={CONTROLS_CONTAINER_WIDTH}>
+        return <div className={"w-1/4"}>
             <div className={"chart-nav-container mt-12"}>
                 <div className={"flex mb-4"}>
                     {firstRow}
@@ -87,7 +87,7 @@ export default class ControlsManager extends PureComponent {
     }
 
     render() {
-        return (<div id="controls-container" className={CONTROLS_CONTAINER_WIDTH + " h-auto"}>
+        return (<div id="controls-container" className={"w-1/4 h-auto"}>
                 <div id={"controls-content ml-10 h-auto"}>
                     {this.initMap()}
                     {this.initDatesNavigation()}

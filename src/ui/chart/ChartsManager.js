@@ -1,8 +1,6 @@
 import React, {PureComponent} from 'react';
 import {
     DATES,
-    CONTROLS_CONTAINER_WIDTH,
-    CHARTS_CONTAINER_WIDTH,
     JAN_14,
     BEACON,
     GYPG,
@@ -135,10 +133,10 @@ export default class ChartsManager extends PureComponent {
             let controlsDiv = document.getElementById("controls-container");
             let chartsDiv = document.getElementById("charts-container");
 
-            controlsDiv.classList.toggle(CONTROLS_CONTAINER_WIDTH);
+            controlsDiv.classList.toggle("w-1/4");
             controlsDiv.style.display === "none" ? controlsDiv.style.display = "block" : controlsDiv.style.display = "none";
 
-            chartsDiv.classList.toggle(CHARTS_CONTAINER_WIDTH);
+            chartsDiv.classList.toggle("w-3/4");
             chartsDiv.classList.toggle("w-full");
             chartsDiv.firstChild.classList.toggle("mr-10");
 
@@ -148,7 +146,7 @@ export default class ChartsManager extends PureComponent {
 
     render() {
         return (
-            <div id="charts-container" className={CHARTS_CONTAINER_WIDTH + " h-auto"}>
+            <div id="charts-container" className={"w-3/4 h-auto"}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
                     {this.initCharts()}
                     <div id={"toggle-control"}>
