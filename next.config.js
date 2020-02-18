@@ -10,7 +10,6 @@ const ROUTES = {
     '/visualisation': {page: '/visualisation'},
 };
 const withSass = require('@zeit/next-sass');
-const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
 const isProd = process.env.NODE_ENV === 'production';
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -18,10 +17,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 /* CONFIG */
-module.exports = withBundleAnalyzer(withImages(withSass(withCSS({
+module.exports = withBundleAnalyzer(withImages(withSass({
     exportPathMap: async function () {
         return ROUTES;
     },
     distDir: 'build',
     assetPrefix: isProd ? BASE_URI : ''
-}))));
+})));
