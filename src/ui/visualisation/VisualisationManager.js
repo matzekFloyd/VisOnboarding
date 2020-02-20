@@ -4,7 +4,7 @@ import {Empty, LoadingIndicator} from "../components";
 import ControlsManager from "./ControlsManager";
 import ChartsManager from "./ChartsManager";
 
-export default class VisManager extends PureComponent {
+export default class VisualisationManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);

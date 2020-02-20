@@ -1,5 +1,6 @@
-import {DataCruncher} from "./DataCruncher";
-import {BEACON} from "../../constants";
+import {DataCruncher} from "../../util/visualisation/DataCruncher";
+import {BEACON} from "../../../constants";
+import {formatDateString} from "../../util/helpers";
 
 /**
  *
@@ -10,7 +11,7 @@ import {BEACON} from "../../constants";
  */
 export let Series = (date, data) => {
     return {
-        name: "Overview - " + DataCruncher.formatDateToString(date, false),
+        name: "Overview - " + formatDateString(date, true, true, true, false, false),
         id: "overview_" + date.getTime(),
         data: data
     }
@@ -26,7 +27,7 @@ export let Series = (date, data) => {
  */
 export let SeriesDrill = (beacon, date, data) => {
     return {
-        name: "Detail - " + DataCruncher.formatDateToString(date, false) + " - " + beacon.name + " (" + beacon.id + ")",
+        name: "Detail - " + formatDateString(date, true, true, true, false, false) + " - " + beacon.name + " (" + beacon.id + ")",
         id: beacon.id + "_" + date.getTime(),
         allowPointSelect: true,
         data: DataCruncher.setDependencies(data)

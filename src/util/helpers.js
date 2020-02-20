@@ -48,3 +48,51 @@ export function typeCheck(parameter, type) {
     }
     return true;
 }
+
+/**
+ *
+ * @param unix
+ * @param incYear
+ * @param incMonth
+ * @param incDay
+ * @param incWeekDay
+ * @param incTime
+ * @return {string}
+ */
+export function convertUnixToString(unix, incYear = true, incMonth = true, incDay = true, incWeekDay = true, incTime = true) {
+    let date = new Date(unix);
+    return formatDateString(date, incYear, incMonth, incDay, incWeekDay, incTime);
+}
+
+/**
+ *
+ * @param date
+ * @param incYear
+ * @param incMonth
+ * @param incDay
+ * @param incWeekDay
+ * @param incTime
+ * @return {string}
+ */
+export function formatDateString(date, incYear = true, incMonth = true, incDay = true, incWeekDay = true, incTime = true) {
+
+    let days_arr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    let year = date.getFullYear();
+    let month = months_arr[date.getMonth()];
+    let day = date.getDate();
+    let weekDay = days_arr[date.getDay()];
+    let hours = date.getHours();
+    let minutes = "0" + date.getMinutes();
+    let seconds = "0" + date.getSeconds();
+    let dateString = "";
+
+    if (incWeekDay) dateString += weekDay + " ";
+    if (incMonth) dateString += month + " ";
+    if (incDay) dateString += day + " ";
+    if (incYear) dateString += year;
+    if (incTime) dateString += ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+    return dateString;
+}

@@ -1,12 +1,13 @@
-import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../constants";
-import {Point} from "./models";
-import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../data/2019_01_15/2019_01_15";
-import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../data/2019_01_16/2019_01_16";
-import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../data/2019_01_17/2019_01_17";
-import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../data/2019_01_14/2019_01_14";
-import {DRILLDOWN_2019_01_18, OVERVIEW_2019_01_18} from "../data/2019_01_18/2019_01_18";
-import {DRILLDOWN_2019_01_19, OVERVIEW_2019_01_19} from "../data/2019_01_19/2019_01_19";
-import {DRILLDOWN_2019_01_20, OVERVIEW_2019_01_20} from "../data/2019_01_20/2019_01_20";
+import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
+import {Point} from "../../data/visualisation/models";
+import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../../data/visualisation/2019_01_15/2019_01_15";
+import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../../data/visualisation/2019_01_16/2019_01_16";
+import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../../data/visualisation/2019_01_17/2019_01_17";
+import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../../data/visualisation/2019_01_14/2019_01_14";
+import {DRILLDOWN_2019_01_18, OVERVIEW_2019_01_18} from "../../data/visualisation/2019_01_18/2019_01_18";
+import {DRILLDOWN_2019_01_19, OVERVIEW_2019_01_19} from "../../data/visualisation/2019_01_19/2019_01_19";
+import {DRILLDOWN_2019_01_20, OVERVIEW_2019_01_20} from "../../data/visualisation/2019_01_20/2019_01_20";
+import {formatDateString} from "../helpers";
 
 const OVERVIEW = 0;
 const DRILLDOWN = 1;
@@ -111,10 +112,10 @@ export class DataCruncher {
         switch (level) {
             case OVERVIEW:
             default:
-                return '<b>Overview - ' + DataCruncher.formatDateToString(this.startDate, false) + '</b>';
+                return '<b>Overview - ' + formatDateString(this.startDate, true, true, true, false, false) + '</b>';
             case DRILLDOWN:
                 let beacon = BEACON(event.point.tag);
-                return '<b>Detail - ' + DataCruncher.formatDateToString(this.startDate, false) + ' - ' + beacon.name + " (" + beacon.id + ')</b>';
+                return '<b>Detail - ' + formatDateString(this.startDate, true, true, true, false, false) + ' - ' + beacon.name + " (" + beacon.id + ')</b>';
         }
     }
 
@@ -264,40 +265,6 @@ export class DataCruncher {
             diff = Math.floor(diff / units[i].d);
         }
         return s;
-    }
-
-    /**
-     *
-     * @param {number} unix
-     * @return {string}
-     */
-    static convertUnixTimestamp(unix) {
-        let date = new Date(unix);
-        return DataCruncher.formatDateToString(date);
-    }
-
-    /**
-     *
-     * @param {Date} date
-     * @param {boolean} includeTime
-     * @param {boolean} includeWeekday
-     * @return {string}
-     */
-    static formatDateToString(date, includeTime = true, includeWeekday = false) {
-        let days_arr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        let months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        let year = date.getFullYear();
-        let month = months_arr[date.getMonth()];
-        let day = date.getDate();
-        let weekDay = days_arr[date.getDay()];
-        let hours = date.getHours();
-        let minutes = "0" + date.getMinutes();
-        let seconds = "0" + date.getSeconds();
-        let dateString = "";
-        if (includeWeekday) dateString += weekDay + " ";
-        dateString += month + ' ' + day + ' ' + year;
-        if (includeTime) dateString += ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-        return dateString;
     }
 
     /**

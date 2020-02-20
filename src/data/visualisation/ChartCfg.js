@@ -1,5 +1,6 @@
-import {DataCruncher} from "./DataCruncher";
-import {getEventEmitter} from "./eventemitter";
+import {DataCruncher} from "../../util/visualisation/DataCruncher";
+import {getEventEmitter} from "../../util/eventemitter";
+import {convertUnixToString} from "../../util/helpers";
 
 /**
  *
@@ -60,8 +61,8 @@ export const ChartCfg = (dataCruncher) => {
                 return '<b> ' + this.point.name + '</b><br />' +
                     'Location: ' + this.point.location + '<br />' +
                     'Duration: ' + this.point.duration + '<br />' +
-                    'Start: ' + DataCruncher.convertUnixTimestamp(this.point.start) + '<br />' +
-                    'End: ' + DataCruncher.convertUnixTimestamp(this.point.end) + '<br />';
+                    'Start: ' + convertUnixToString(this.point.start, true, true, true, false) + '<br />' +
+                    'End: ' + convertUnixToString(this.point.end, true, true, true, false) + '<br />';
             },
             padding: 12,
             shape: "square"

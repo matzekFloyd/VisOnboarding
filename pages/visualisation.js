@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import Layout from '../src/ui/Layout';
-import VisManager from "../src/ui/chart/VisManager";
+import VisualisationManager from "../src/ui/visualisation/VisualisationManager";
 
 export default class Visualisation extends PureComponent {
 
@@ -12,7 +12,7 @@ export default class Visualisation extends PureComponent {
         return (
             <Layout>
                 <h1 className={"mt-12 text-xl font-extrabold"}>Asset Tracking - Temporal Development</h1>
-                <VisManager/>
+                <VisualisationManager/>
             </Layout>
         );
     }
