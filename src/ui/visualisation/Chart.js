@@ -6,7 +6,7 @@ import HighchartsExporting from "highcharts/modules/exporting";
 import highchartsGantt from "highcharts/modules/gantt";
 import drilldown from 'highcharts/modules/drilldown';
 import {DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
-import {ChartCfg} from "../../data/visualisation/ChartCfg";
+import {ChartCfg} from "../../config/visualisation/ChartCfg";
 import {DataCruncher} from "../../util/visualisation/DataCruncher";
 import equal from 'fast-deep-equal';
 import {getEventEmitter} from "../../util/eventemitter";

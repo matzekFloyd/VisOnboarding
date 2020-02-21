@@ -1,12 +1,12 @@
 import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
-import {Point} from "../../data/visualisation/models";
-import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../../data/visualisation/2019_01_15/2019_01_15";
-import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../../data/visualisation/2019_01_16/2019_01_16";
-import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../../data/visualisation/2019_01_17/2019_01_17";
-import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../../data/visualisation/2019_01_14/2019_01_14";
-import {DRILLDOWN_2019_01_18, OVERVIEW_2019_01_18} from "../../data/visualisation/2019_01_18/2019_01_18";
-import {DRILLDOWN_2019_01_19, OVERVIEW_2019_01_19} from "../../data/visualisation/2019_01_19/2019_01_19";
-import {DRILLDOWN_2019_01_20, OVERVIEW_2019_01_20} from "../../data/visualisation/2019_01_20/2019_01_20";
+import {Point} from "../../config/visualisation/models";
+import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../../config/visualisation/2019_01_15/2019_01_15";
+import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../../config/visualisation/2019_01_16/2019_01_16";
+import {DRILLDOWN_2019_01_17, OVERVIEW_2019_01_17} from "../../config/visualisation/2019_01_17/2019_01_17";
+import {DRILLDOWN_2019_01_14, OVERVIEW_2019_01_14} from "../../config/visualisation/2019_01_14/2019_01_14";
+import {DRILLDOWN_2019_01_18, OVERVIEW_2019_01_18} from "../../config/visualisation/2019_01_18/2019_01_18";
+import {DRILLDOWN_2019_01_19, OVERVIEW_2019_01_19} from "../../config/visualisation/2019_01_19/2019_01_19";
+import {DRILLDOWN_2019_01_20, OVERVIEW_2019_01_20} from "../../config/visualisation/2019_01_20/2019_01_20";
 import {formatDateString} from "../helpers";
 
 const OVERVIEW = 0;
