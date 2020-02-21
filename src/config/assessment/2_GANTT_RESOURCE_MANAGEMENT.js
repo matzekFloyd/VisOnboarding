@@ -2,7 +2,7 @@ import {TASK_GANTT_RESOURCE_MANAGEMENT} from "../../../constants";
 
 export const GANTT_RESOURCE_MANAGEMENT = {
     identifier: TASK_GANTT_RESOURCE_MANAGEMENT,
-    image: "collapse_increase.png",
+    image: {id: "", src: ""},
     task: "",
     options: [
         {text: "Q", correct: false},

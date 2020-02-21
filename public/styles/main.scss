@@ -64,9 +64,19 @@ $img-height: 317px;
 }
 
 .task-container {
-  img {
-    width: 50%;
-    //max-height: 800px;
+  #img-gantt-project-management {
+    min-width: 400px; //1/4 of original width
+    min-height: 405px; //1/4 of original height
+  }
+
+  #img-usd-to-eur-exchange-rate {
+    min-width: 600px; //1/2 of original width
+    min-height: 400px; //1/2 of original height
+  }
+
+  #img-snow-depth-at-vikjafjell {
+    min-width: 600px; //1/2 of original width
+    min-height: 400px; //1/2 of original height
   }
 }
 
@@ -77,6 +87,7 @@ $img-height: 317px;
   width: 32px;
   height: 32px;
 }
+
 .lds-ring div {
   box-sizing: border-box;
   display: block;
@@ -89,15 +100,19 @@ $img-height: 317px;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #000 transparent transparent transparent;
 }
+
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
+
 .lds-ring div:nth-child(2) {
   animation-delay: -0.3s;
 }
+
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);

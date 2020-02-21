@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import equal from "fast-deep-equal";
 import {sanitizePublicPath} from "../../util/helpers";
+import {Empty} from "../components";
 
 export default class Task extends PureComponent {
 
@@ -30,11 +31,11 @@ export default class Task extends PureComponent {
         let html = [];
         for (let i = 0; i < this.config.options.length; i++) {
             html.push(
-                <div key={"task_input_" + i} className={"mt-2 mb-2"}>
-                    <label>
+                <div key={"task_input_" + i} className={"mt-10 mb-2"}>
+                    <label className={"cursor-pointer p-2 hover:bg-blue-500 hover:text-white"}>
                         <input type="checkbox" className="form-checkbox text-indigo-600"
                                onClick={(e, index) => this.setAnswer(e, index)}/>
-                        <span className="ml-2">{this.config.options[i].text}</span>
+                        <span className="ml-2 ">{this.config.options[i].text}</span>
                     </label>
                 </div>
             )
@@ -61,18 +62,20 @@ export default class Task extends PureComponent {
 
     render() {
         return (<div
-                className={this.state.active ? "flex justify-content task-container block" : "flex task-container hidden"}>
-                <div className={"w-3/4 h-auto"}>
-                    <div className={"flex justify-content"}>
-                        <img src={sanitizePublicPath("static/" + this.config.image)} alt={"task_img"}/>
-                    </div>
+                className={this.state.active ? "flex h-screen ml-32 mr-32 task-container block" : "flex task-container hidden"}>
+                <div className={"w-2/4 m-auto mr-20"}>
+                    {this.config.image.src !== "" ?
+                        <img id={this.config.image.id} src={sanitizePublicPath("static/" + this.config.image.src)}
+                             alt={this.config.image.id}/> : <Empty/>}
                 </div>
-                <div className={"w-1/4 h-auto"}>
-                    <div className={"flex-1"}>
-                        {this.config.task}
-                        {this.initStatements()}
-                        <button onClick={() => this.evaluate()}>Next</button>
-                    </div>
+                <div className={"w-2/4 m-auto ml-20"}>
+                    <strong>{this.index + 1 + ". " + this.config.task}</strong>
+                    {this.initStatements()}
+                    <br/>
+                    <button
+                        className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"}
+                        onClick={() => this.evaluate()}>Next
+                    </button>
                 </div>
             </div>
         );

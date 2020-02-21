@@ -2,7 +2,7 @@ import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../../constants";
 
 export const GANTT_PROJECT_MANAGEMENT = {
     identifier: TASK_GANTT_PROJECT_MANAGEMENT,
-    image: "gantt-project-management.png",
+    image: {id: "img-gantt-project-management", src: "gantt-project-management.png"},
     task: "Select the statements that are correct",
     options: [
         {text: "\"New Offices\" is dependent on \"New Product Launch\"", correct: false},

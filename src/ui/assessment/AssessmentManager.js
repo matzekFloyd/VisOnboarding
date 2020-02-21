@@ -56,25 +56,23 @@ export default class AssessmentManager extends PureComponent {
     }
 
     render() {
-        return (<div className={"flex justify-content"}>
-                {this.state.assessmentCompleted ? <Empty/> : <div className={""}>
-                    <Task index={0}
-                          taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                          config={this.getConfig(TASK_GANTT_PROJECT_MANAGEMENT)} active={this.state.current === 0}/>
-                    <Task index={1}
-                          taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                          config={this.getConfig(TASK_DATA_SET_VISUALISATION)} active={this.state.current === 1}/>
-                    <Task index={2}
-                          taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                          config={this.getConfig(TASK_IRREGULAR_TIME_SERIES)} active={this.state.current === 2}/>
-                    <Task index={3}
-                          taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                          config={this.getConfig(TASK_LINE_TIME_SERIES)} active={this.state.current === 3}/>
-                    <Task index={4}
-                          taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                          config={this.getConfig(TASK_GANTT_RESOURCE_MANAGEMENT)} active={this.state.current === 4}/>
-                </div>
-                }
+        return (
+            this.state.assessmentCompleted ? <Empty/> : <div className={""}>
+                <Task index={0}
+                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                      config={this.getConfig(TASK_GANTT_PROJECT_MANAGEMENT)} active={this.state.current === 0}/>
+                <Task index={1}
+                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                      config={this.getConfig(TASK_DATA_SET_VISUALISATION)} active={this.state.current === 1}/>
+                <Task index={2}
+                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                      config={this.getConfig(TASK_IRREGULAR_TIME_SERIES)} active={this.state.current === 2}/>
+                <Task index={3}
+                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                      config={this.getConfig(TASK_LINE_TIME_SERIES)} active={this.state.current === 3}/>
+                <Task index={4}
+                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                      config={this.getConfig(TASK_GANTT_RESOURCE_MANAGEMENT)} active={this.state.current === 4}/>
             </div>
         );
     }
