@@ -63,6 +63,13 @@ $img-height: 317px;
   margin-top: 7.5%;
 }
 
+.task-container {
+  img {
+    width: 50%;
+    //max-height: 800px;
+  }
+}
+
 // LOADING INDICATOR
 .lds-ring {
   display: inline-block;

@@ -1,13 +1,13 @@
 import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../../constants";
-import {sanitizePublicPath} from "../../util/helpers";
 
 export const GANTT_PROJECT_MANAGEMENT = {
     identifier: TASK_GANTT_PROJECT_MANAGEMENT,
-    image: sanitizePublicPath("static/gantt-project-management.png"),
-    tasks: [
-        {question: "A", correct: true},
-        {question: "B", correct: false},
-        {question: "C", correct: true},
-        {question: "D", correct: false},
+    image: "gantt-project-management.png",
+    task: "Select the statements that are correct",
+    options: [
+        {text: "\"New Offices\" is dependent on \"New Product Launch\"", correct: false},
+        {text: "\"Development\" will be finished in Week 8", correct: true},
+        {text: "\"Prepare Office Building\" will be finished in Week 7", correct: false},
+        {text: "\"Relocate Cantina\" is dependent on \"Inspect Building\"", correct: true},
     ]
 };

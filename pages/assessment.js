@@ -11,7 +11,7 @@ export default class Assessment extends PureComponent {
     constructor(props, context) {
         super(props, context);
         this.hideOnboardingButton = true;
-        this.tasks = this.shuffle(TASKS);
+        this.tasks = TASKS();
     }
 
     navigate(event, to) {
@@ -21,22 +21,9 @@ export default class Assessment extends PureComponent {
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
     }
 
-    shuffle(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
-        while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-        return array;
-    }
-
     render() {
         return (
             <Layout>
-                <h1>Assessment</h1>
                 <div>
                     <AssessmentManager tasks={this.tasks}/>
                     {this.hideOnboardingButton ? <Empty/> :

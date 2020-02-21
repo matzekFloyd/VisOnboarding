@@ -123,8 +123,19 @@ export const BEACON = function (key) {
 
 export const TASK_GANTT_PROJECT_MANAGEMENT = 'GANTT_PROJECT_MANAGEMENT';
 export const TASK_GANTT_RESOURCE_MANAGEMENT = 'GANTT_RESOURCE_MANAGEMENT';
+export const TASK_DATA_SET_VISUALISATION = 'DATA_SET_VISUALISATION';
 export const TASK_LINE_TIME_SERIES = 'LINE_TIME_SERIES';
+export const TASK_IRREGULAR_TIME_SERIES = 'IRREGULAR_TIME_SERIES';
 
-export const TASKS = [
-    TASK_GANTT_PROJECT_MANAGEMENT, TASK_GANTT_RESOURCE_MANAGEMENT, //TASK_LINE_TIME_SERIES
-];
+export const TASKS = () => {
+    let tasks = [TASK_GANTT_PROJECT_MANAGEMENT, TASK_GANTT_RESOURCE_MANAGEMENT, TASK_DATA_SET_VISUALISATION, TASK_LINE_TIME_SERIES, TASK_IRREGULAR_TIME_SERIES];
+    let currentIndex = tasks.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = tasks[currentIndex];
+        tasks[currentIndex] = tasks[randomIndex];
+        tasks[randomIndex] = temporaryValue;
+    }
+    return tasks;
+};
