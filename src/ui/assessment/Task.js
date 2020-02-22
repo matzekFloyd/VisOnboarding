@@ -11,11 +11,18 @@ export default class Task extends PureComponent {
             active: props.active,
             answers: [false, false, false, false],
             success: null,
-            confirmed: false
+            confirmed: false,
+            startTime: null,
+            endTime: null,
+            time: null
         };
         this.config = props.config;
         this.identifier = props.config.identifier;
         this.index = props.index;
+    }
+
+    componentDidMount() {
+        this.setState({startTime: new Date()})
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -27,7 +34,7 @@ export default class Task extends PureComponent {
     initOptions() {
         let html = [];
         for (let i = 0; i < this.config.options.length; i++) {
-            html.push(<Option key={"task_input_" + i} text={this.config.options[i].text}
+            html.push(<Option key={"task_option_" + i} text={this.config.options[i].text}
                               onClick={(e) => this.setAnswer(e, i)}/>);
         }
         return html;
@@ -45,12 +52,15 @@ export default class Task extends PureComponent {
         for (let i = 0; i < this.config.options.length; i++) {
             if (this.state.answers[i] !== this.config.options[i].correct) isCorrect = false;
         }
-        this.setState({success: isCorrect, confirmed: true});
+        let startTime = this.state.startTime;
+        let endTime = new Date();
+        let newTime = (endTime.getTime() - startTime) / 1000;
+        this.setState({success: isCorrect, endTime: endTime, time: newTime, confirmed: true});
     }
 
     next() {
         if (this.state.confirmed) {
-            this.props.taskCompleted(this.index, this.identifier, this.state.success);
+            this.props.taskCompleted(this.index, this.identifier, this.state.success, this.state.time);
         }
     }
 

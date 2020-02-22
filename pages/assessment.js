@@ -11,7 +11,7 @@ export default class Assessment extends PureComponent {
     constructor(props, context) {
         super(props, context);
         this.hideOnboardingButton = true;
-        this.tasks = TASKS();
+        this.tasks = TASKS;
     }
 
     navigate(event, to) {

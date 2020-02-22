@@ -13,6 +13,7 @@ import {Empty} from "../components";
 import Router from "next/router";
 import {URL} from "../../../constants";
 import dynamic from 'next/dynamic';
+import PropTypes from 'prop-types';
 
 const Task = dynamic(() => import('./Task'));
 
@@ -27,13 +28,14 @@ export default class AssessmentManager extends PureComponent {
         };
     }
 
-    addCompletedTask(index, identifier, success) {
+    addCompletedTask(index, identifier, success, time) {
         let newIndex = index + 1;
         this.setState({current: newIndex}, () => {
-            this.state.finishedTasks.push({task: identifier, success: success});
+            this.state.finishedTasks.push({task: identifier, success: success, time: time});
             if (newIndex >= this.props.tasks.length) {
+                //TODO
                 this.setState({assessmentCompleted: true}, () => {
-                    let to = URL.onboarding.basic; //TODO
+                    let to = URL.onboarding.basic;
                     let rand = Math.floor(Math.random() * 100);
                     let href = to + "?res=" + rand.toString();
                     Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
@@ -57,23 +59,24 @@ export default class AssessmentManager extends PureComponent {
         }
     }
 
-    task(i, identifier) {
-        return this.state.current === i ? <Task index={i}
-                                                taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                                                config={this.getConfig(identifier)}
-                                                active={this.state.current === i}/> : <Empty/>;
+    task() {
+        let html = [];
+        for (let i = 0; i < this.props.tasks.length; i++) {
+            let task = this.state.current === i ? <Task key={"task_" + i} index={i}
+                                                        taskCompleted={(index, taskIdentifier, success, time) => this.addCompletedTask(index, taskIdentifier, success, time)}
+                                                        config={this.getConfig(this.props.tasks[i])}
+                                                        active={this.state.current === i}/> :
+                <Empty key={"task_" + i}/>;
+            html.push(task);
+        }
+        return html;
     }
 
     render() {
-        return (
-            this.state.assessmentCompleted ? <Empty/> : <div>
-                {this.task(0, TASK_GANTT_PROJECT_MANAGEMENT)}
-                {this.task(1, TASK_DATA_SET_VISUALISATION)}
-                {this.task(2, TASK_IRREGULAR_TIME_SERIES)}
-                {this.task(3, TASK_LINE_TIME_SERIES)}
-                {this.task(4, TASK_GANTT_RESOURCE_MANAGEMENT)}
-            </div>
-        );
+        return (this.state.assessmentCompleted ? <Empty/> : this.task());
     }
 
 }
+AssessmentManager.propTypes = {
+    tasks: PropTypes.array.isRequired
+};
