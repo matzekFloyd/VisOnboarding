@@ -23,9 +23,7 @@ export default class VisualisationManager extends PureComponent {
         let chartsManagerLoadedFunction = this.state.chartsManagerLoaded ? {} : {chartManagerLoadedCallback: () => this.setState({chartsManagerLoaded: true})};
         let controlsManagerLoadedFunction = this.state.controlsManagerLoaded ? {} : {controlsManagerLoadedCallback: () => this.setState({controlsManagerLoaded: true})};
         return (<div>
-                {this.state.chartsManagerLoaded && this.state.controlsManagerLoaded ? <Empty/> :
-                    <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>Initializing
-                        charts... </b></div>}
+                {this.state.chartsManagerLoaded && this.state.controlsManagerLoaded ? <Empty/> : <LoadingMessage/>}
                 <div className={this.state.chartsManagerLoaded ? "flex mt-6 " : "flex mt-6 hidden"}>
                     <ChartsManager {...chartsManagerLoadedFunction} selected={this.state.selected}/>
                     <ControlsManager {...controlsManagerLoadedFunction} selected={this.state.selected}
@@ -36,3 +34,8 @@ export default class VisualisationManager extends PureComponent {
     }
 
 }
+
+export const LoadingMessage = React.memo(function LoadingMessage() {
+    return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>Initializing
+        charts... </b></div>;
+});

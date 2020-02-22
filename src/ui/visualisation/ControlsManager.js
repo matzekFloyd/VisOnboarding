@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "../../../constants";
 import {sanitizePublicPath} from "../../util/helpers";
 import {getEventEmitter} from "../../util/eventemitter";
+import PropTypes from "prop-types";
 
 export default class ControlsManager extends PureComponent {
 
@@ -15,38 +16,6 @@ export default class ControlsManager extends PureComponent {
         this.props.controlsManagerLoadedCallback();
     }
 
-    initMap() {
-        return <div className={"w-1/4"}>
-            <div className={"map-container mt-32"}>
-                <img className={"image layout"} src={sanitizePublicPath("static/gf_layout.png")}
-                     alt="map" useMap={"#layoutMap"}/>
-                <map name={"layoutMap"}>
-                    <area id="area-dornerei" shape={"react"} href={"#"}
-                          coords={"225,75,275,150"}
-                          onClick={() => this.setFilter(DORNEREI.name)} alt={""}/>
-                    <area id="area-roboter" shape={"react"} href={"#"}
-                          coords={"320,155,180,200"}
-                          onClick={() => this.setFilter(ROBOTER.name)} alt={""}/>
-                    <area id="area-stanzen" shape={"react"} href={"#"}
-                          coords={"160,210,255,300"}
-                          onClick={() => this.setFilter(STANZEN.name)} alt={""}/>
-                    <area id="area-funken" shape={"react"} href={"#"}
-                          coords={"270,215,408,300"}
-                          onClick={() => this.setFilter(FUNKEN.name)} alt={""}/>
-                    <area id="area-fremdschleifen" shape={"react"} href={"#"}
-                          coords={"5,87,123,165"}
-                          onClick={() => this.setFilter("Fremdschleifen")} alt={""}/>
-                    <area id="area-lager-stanzen" shape={"react"} href={"#"}
-                          coords={"100,210,153,305"}
-                          onClick={() => this.setFilter("LagerStanzen")} alt={""}/>
-                    <area id="area-rohlager" shape={"react"} href={"#"}
-                          coords={"283,74,450,153"}
-                          onClick={() => this.setFilter("Rohlager")} alt={""}/>
-                </map>
-            </div>
-        </div>;
-    }
-
     initDatesNavigation() {
         let firstRow = [];
         let secondRow = [];
@@ -57,9 +26,9 @@ export default class ControlsManager extends PureComponent {
             if (this.props.selected === DATES[i].selector) css += " active ";
             if (i === 4) css += " ml-12 ";
 
-            let btn = <button key={"btn_" + DATES[i].selector}
-                              className={css}
-                              onClick={() => this.setSelected(DATES[i].selector)}>{DATES[i].btnTxt}</button>;
+            let btn = <DateNavBtn key={"date_nav_btn_" + i} css={css}
+                                  onClick={() => this.setSelected(DATES[i].selector)}
+                                  text={DATES[i].btnTxt}/>;
             if (i < 4) {
                 firstRow.push(btn)
             } else {
@@ -89,7 +58,27 @@ export default class ControlsManager extends PureComponent {
     render() {
         return (<div id="controls-container" className={"w-1/4 h-auto"}>
                 <div id={"controls-content ml-10 h-auto"}>
-                    {this.initMap()}
+                    <div className={"w-1/4"}>
+                        <div className={"map-container mt-32"}>
+                            <MapImage src={sanitizePublicPath("static/gf_layout.png")} mapName={"layoutMap"}/>
+                            <Map>
+                                <MapArea id={"area-dornerei"} coords={"225,75,275,150"}
+                                         onClick={() => this.setFilter(DORNEREI.name)}/>
+                                <MapArea id="area-roboter" coords={"320,155,180,200"}
+                                         onClick={() => this.setFilter(ROBOTER.name)}/>
+                                <MapArea id="area-stanzen" coords={"160,210,255,300"}
+                                         onClick={() => this.setFilter(STANZEN.name)}/>
+                                <MapArea id="area-funken" coords={"270,215,408,300"}
+                                         onClick={() => this.setFilter(FUNKEN.name)}/>
+                                <MapArea id="area-fremdschleifen" coords={"5,87,123,165"}
+                                         onClick={() => this.setFilter("Fremdschleifen")}/>
+                                <MapArea id="area-lager-stanzen" coords={"100,210,153,305"}
+                                         onClick={() => this.setFilter("LagerStanzen")}/>
+                                <MapArea id="area-rohlager" coords={"283,74,450,153"}
+                                         onClick={() => this.setFilter("Rohlager")}/>
+                            </Map>
+                        </div>
+                    </div>
                     {this.initDatesNavigation()}
                 </div>
             </div>
@@ -97,3 +86,36 @@ export default class ControlsManager extends PureComponent {
     }
 
 }
+ControlsManager.propTypes = {
+    selected: PropTypes.string.isRequired
+};
+
+const MapImage = React.memo(function MapImage(props) {
+    return <img className={"image layout"} src={props.src} alt={"map_image"} useMap={"#" + props.mapName}/>
+});
+MapImage.propTypes = {
+    src: PropTypes.string.isRequired,
+    mapName: PropTypes.string.isRequired
+};
+
+const Map = React.memo(function Map(props) {
+    return <map name={"layoutMap"}>{props.children}</map>;
+});
+
+const MapArea = React.memo(function MapArea(props) {
+    return <area id={props.id} shape={"react"} href={"#"} coords={props.coords} onClick={props.onClick} alt={""}/>
+});
+MapArea.propTypes = {
+    id: PropTypes.string.isRequired,
+    coords: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+};
+
+const DateNavBtn = React.memo(function DateNavBtn(props) {
+    return <button className={props.css} onClick={props.onClick}>{props.text}</button>;
+});
+DateNavBtn.propTypes = {
+    css: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
+};
