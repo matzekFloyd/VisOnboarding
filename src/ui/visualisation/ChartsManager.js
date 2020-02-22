@@ -21,6 +21,7 @@ import {sanitizePublicPath} from "../../util/helpers";
 import {getEventEmitter} from "../../util/eventemitter";
 import dynamic from 'next/dynamic';
 import {Empty} from "../components";
+import PropTypes from "prop-types";
 
 const Chart = dynamic(() => import('./Chart'));
 
@@ -115,9 +116,7 @@ export default class ChartsManager extends PureComponent {
             let chartLoadedFunction = this.state.chartLoading ? {chartLoaded: () => this.chartLoaded()} : {};
             let chartId = "chart_" + i + "_" + DATES[i].selector;
             return <Chart id={chartId} date={date} categories={categories} key={"chart_" + DATES[i].selector}
-                          identifier={DATES[i].selector}
-                          active={this.props.selected === DATES[i].selector} {...chartLoadedFunction}
-            />;
+                          identifier={DATES[i].selector} {...chartLoadedFunction}/>;
         } else {
             return <Empty/>;
         }
@@ -148,7 +147,7 @@ export default class ChartsManager extends PureComponent {
 
     render() {
         return (
-            <div id="charts-container" className={"w-3/4 h-auto"}>
+            <div id={"charts-container"} className={"w-3/4 h-auto"}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
                     {this.chart(JAN_14)}
                     {this.chart(JAN_15)}
@@ -157,17 +156,27 @@ export default class ChartsManager extends PureComponent {
                     {this.chart(JAN_18)}
                     {this.chart(JAN_19)}
                     {this.chart(JAN_20)}
-                    <div id={"toggle-control"}>
-                        {this.state.controlsCollapsed ?
-                            <img src={sanitizePublicPath("static/collapse_decrease.png")}
-                                 onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_decrease"}/> :
-                            <img src={sanitizePublicPath("static/collapse_increase.png")}
-                                 onClick={(e) => this.toggleControlsPanel(e)} alt={"collapse_increase"}/>
-                        }
-                    </div>
+                    <ControlsToggle controlsCollapsed={this.state.controlsCollapsed}
+                                    onClick={(e) => this.toggleControlsPanel(e)}/>
                 </div>
             </div>
         );
     }
 
 }
+ChartsManager.propTypes = {
+    chartManagerLoadedCallback: PropTypes.func,
+    selected: PropTypes.string.isRequired
+};
+
+const ControlsToggle = React.memo(function ControlsToggle(props) {
+    return <div id={"toggle-control"}> {props.controlsCollapsed ?
+        <img src={sanitizePublicPath("static/collapse_decrease.png")}
+             onClick={props.onClick} alt={"collapse_decrease"}/> :
+        <img src={sanitizePublicPath("static/collapse_increase.png")}
+             onClick={props.onClick} alt={"collapse_increase"}/>} </div>;
+});
+ControlsToggle.propTypes = {
+    controlsCollapsed: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired
+};

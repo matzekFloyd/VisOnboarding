@@ -8,7 +8,6 @@ import drilldown from 'highcharts/modules/drilldown';
 import {DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
 import {ChartCfg} from "../../config/visualisation/ChartCfg";
 import {DataCruncher} from "../../util/visualisation/DataCruncher";
-import equal from 'fast-deep-equal';
 import {getEventEmitter} from "../../util/eventemitter";
 import {Empty} from "../components";
 
@@ -28,14 +27,12 @@ export default class Chart extends PureComponent {
         this.dataCruncher = new DataCruncher(props.date, props.categories);
         this.eventEmitter = null;
         this.filterByLocationHandler = (filter) => {
-            if (this.props.active === true) {
-                if (!LOCATIONS.includes(filter)) {
-                    this.resetFilter();
-                } else if (this.state.filter !== filter) {
-                    this.filterByLocation(filter);
-                } else {
-                    this.resetFilter();
-                }
+            if (!LOCATIONS.includes(filter)) {
+                this.resetFilter();
+            } else if (this.state.filter !== filter) {
+                this.filterByLocation(filter);
+            } else {
+                this.resetFilter();
             }
         };
         this.resetLocationFilterHandler = () => {
@@ -51,13 +48,6 @@ export default class Chart extends PureComponent {
         });
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!equal(this.props.active, prevProps.active)) {
-            let chart = this.refs.chart.chart;
-            chart.reflow();
-        }
-    }
-
     componentWillUnmount() {
         this.eventEmitter.removeListener("filterByLocation", this.filterByLocationHandler);
         this.eventEmitter.removeListener("resetLocationFilter", this.resetLocationFilterHandler);
@@ -65,7 +55,7 @@ export default class Chart extends PureComponent {
 
     filterByLocation(location) {
         this.setState({filter: location}, () => {
-            let chartEl = document.getElementsByClassName("chart block");
+            let chartEl = document.getElementsByClassName("chart");
             let points = chartEl[0].getElementsByClassName("highcharts-point");
 
             let color;
@@ -105,7 +95,7 @@ export default class Chart extends PureComponent {
 
     resetFilter() {
         this.setState({filter: null}, () => {
-            let chartEl = document.getElementsByClassName("chart block");
+            let chartEl = document.getElementsByClassName("chart");
             let points = chartEl[0].getElementsByClassName("highcharts-point");
 
             for (let i = 0; i < points.length; i++) {
@@ -135,7 +125,7 @@ export default class Chart extends PureComponent {
         const {config} = this.state;
         let chartLoadedCallback = this.props.chartLoaded ? {callback: () => this.chartLoadedCallback()} : {};
         return (
-            <div className={this.props.active ? "chart block " : "chart hidden "}>
+            <div className={"chart"}>
                 {config ? <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
                                            ref={'chart'} {...chartLoadedCallback}/> : <Empty/>}
             </div>
@@ -143,11 +133,8 @@ export default class Chart extends PureComponent {
     }
 
 }
-
 Chart.propTypes = {
-    identifier: PropTypes.string.isRequired,
-    //date: PropTypes.isRequired,
-    //categories: PropTypes.array.isRequired,
-    filter: PropTypes.string,
-    active: PropTypes.bool.isRequired
+    id: PropTypes.string.isRequired,
+    categories: PropTypes.array.isRequired,
+    identifier: PropTypes.string.isRequired
 };
