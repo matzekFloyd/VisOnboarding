@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import equal from "fast-deep-equal";
 import {sanitizePublicPath} from "../../util/helpers";
 import PropTypes from 'prop-types';
 
@@ -8,7 +7,6 @@ export default class Task extends PureComponent {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            active: props.active,
             answers: [false, false, false, false],
             success: null,
             confirmed: false,
@@ -23,12 +21,6 @@ export default class Task extends PureComponent {
 
     componentDidMount() {
         this.setState({startTime: new Date()})
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!equal(this.props.active, prevProps.active)) {
-            this.setState({active: this.props.active});
-        }
     }
 
     initOptions() {
@@ -65,8 +57,7 @@ export default class Task extends PureComponent {
     }
 
     render() {
-        let containerClasses = "flex h-screen ml-32 mr-32 task-container ";
-        return (<div className={this.state.active ? containerClasses + "block" : containerClasses + " hidden"}>
+        return (<div className={"flex h-screen ml-32 mr-32 task-container"}>
                 <div className={"w-2/4 m-auto mr-20 border border-solid"}>
                     <TaskImage id={this.config.image.id}
                                src={sanitizePublicPath("static/" + this.config.image.src)}/>
@@ -91,8 +82,7 @@ export default class Task extends PureComponent {
 Task.propTypes = {
     index: PropTypes.number.isRequired,
     taskCompleted: PropTypes.func.isRequired,
-    config: PropTypes.object.isRequired,
-    active: PropTypes.bool.isRequired
+    config: PropTypes.object.isRequired
 };
 
 const TaskImage = React.memo(function TaskImage(props) {

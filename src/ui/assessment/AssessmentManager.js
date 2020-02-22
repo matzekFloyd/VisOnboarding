@@ -64,8 +64,7 @@ export default class AssessmentManager extends PureComponent {
         for (let i = 0; i < this.props.tasks.length; i++) {
             let task = this.state.current === i ? <Task key={"task_" + i} index={i}
                                                         taskCompleted={(index, taskIdentifier, success, time) => this.addCompletedTask(index, taskIdentifier, success, time)}
-                                                        config={this.getConfig(this.props.tasks[i])}
-                                                        active={this.state.current === i}/> :
+                                                        config={this.getConfig(this.props.tasks[i])}/> :
                 <Empty key={"task_" + i}/>;
             html.push(task);
         }
