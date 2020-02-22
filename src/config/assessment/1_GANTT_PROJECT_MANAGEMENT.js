@@ -3,11 +3,11 @@ import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../../constants";
 export const GANTT_PROJECT_MANAGEMENT = {
     identifier: TASK_GANTT_PROJECT_MANAGEMENT,
     image: {id: "img-gantt-project-management", src: "gantt-project-management.png"},
-    task: "Select the statements that are correct",
+    task: "Select the statements that are correct:",
     options: [
-        {text: "\"New Offices\" is dependent on \"New Product Launch\"", correct: false},
-        {text: "\"Development\" will be finished in Week 8", correct: true},
-        {text: "\"Prepare Office Building\" will be finished in Week 7", correct: false},
-        {text: "\"Relocate Cantina\" is dependent on \"Inspect Building\"", correct: true},
+        {text: "<i>New Offices</i> is dependent on <i>New Product Launch</i>.", correct: false},
+        {text: "<i>Development</i> will be finished in Week 8.", correct: true},
+        {text: "<i>Prepare Office Building</i> will be finished in Week 7.", correct: false},
+        {text: "<i>Relocate Cantina</i> is dependent on <i>Inspect Building</i>.", correct: true},
     ]
 };

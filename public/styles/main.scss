@@ -3,12 +3,13 @@
 /* Fonts */
 $txt-main-font: 'Lato', sans-serif;
 $txt-headline-font: 'Merriweather', serif;
-$txt-floating-size: 16px;
+$txt-floating-size: 18px;
 
 $col-background: white;
 
 body {
   font-family: $txt-main-font;
+  font-size: $txt-floating-size;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -87,6 +88,18 @@ $img-height: 317px;
   #img-georg-fischer-data-set {
     min-width: 515px; //1/2 of original width
     min-height: 299px; //1/2 of original height
+  }
+}
+
+.option-container {
+  input {
+    vertical-align: text-top;
+  }
+
+  img {
+    display: inline;
+    height: 70px;
+    margin: 0 5px 0 5px;
   }
 }
 

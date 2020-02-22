@@ -27,15 +27,15 @@ export default class Task extends PureComponent {
         this.setState({selected: identifier});
     }
 
-    initStatements() {
+    initOptions() {
         let html = [];
         for (let i = 0; i < this.config.options.length; i++) {
             html.push(
-                <div key={"task_input_" + i} className={"mt-10 mb-2"}>
+                <div key={"task_input_" + i} className={"option-container ml-12 mt-10 mb-2"}>
                     <label className={"cursor-pointer p-2 hover:bg-blue-500 hover:text-white"}>
                         <input type="checkbox" className="form-checkbox text-indigo-600"
                                onClick={(e, index) => this.setAnswer(e, index)}/>
-                        <span className="ml-2 ">{this.config.options[i].text}</span>
+                        <span className="ml-2 " dangerouslySetInnerHTML={{__html: this.config.options[i].text}}/>
                     </label>
                 </div>
             )
@@ -68,14 +68,16 @@ export default class Task extends PureComponent {
                         <img id={this.config.image.id} src={sanitizePublicPath("static/" + this.config.image.src)}
                              alt={this.config.image.id}/> : <Empty/>}
                 </div>
-                <div className={"w-2/4 m-auto ml-20"}>
-                    <strong>{this.index + 1 + ". " + this.config.task}</strong>
-                    {this.initStatements()}
-                    <br/>
-                    <button
-                        className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"}
-                        onClick={() => this.evaluate()}>Next
-                    </button>
+                <div className={"w-2/4 m-auto ml-20 border-solid border-2 bg-gray-100"}>
+                    <div className={"p-3"}>
+                        <strong>{this.index + 1 + ". " + this.config.task}</strong>
+                        {this.initOptions()}
+                        <br/>
+                        <button
+                            className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
+                            onClick={() => this.evaluate()}>Next
+                        </button>
+                    </div>
                 </div>
             </div>
         );
