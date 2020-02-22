@@ -33,7 +33,7 @@ export default class Task extends PureComponent {
             html.push(
                 <div key={"task_input_" + i} className={"option-container ml-12 mt-10 mb-2"}>
                     <label className={"cursor-pointer p-2 hover:bg-blue-500 hover:text-white"}>
-                        <input type="checkbox" className="form-checkbox text-indigo-600"
+                        <input type="checkbox" className="form-checkbox bg-gray-100 text-blue-600"
                                onClick={(e, index) => this.setAnswer(e, index)}/>
                         <span className="ml-2 " dangerouslySetInnerHTML={{__html: this.config.options[i].text}}/>
                     </label>
@@ -63,12 +63,12 @@ export default class Task extends PureComponent {
     render() {
         return (<div
                 className={this.state.active ? "flex h-screen ml-32 mr-32 task-container block" : "flex task-container hidden"}>
-                <div className={"w-2/4 m-auto mr-20"}>
+                <div className={"w-2/4 m-auto mr-20 border border-solid"}>
                     {this.config.image.src !== "" ?
                         <img id={this.config.image.id} src={sanitizePublicPath("static/" + this.config.image.src)}
                              alt={this.config.image.id}/> : <Empty/>}
                 </div>
-                <div className={"w-2/4 m-auto ml-20 border-solid border-2 bg-gray-100"}>
+                <div className={"w-2/4 m-auto ml-20 border border-solid"}>
                     <div className={"p-3"}>
                         <strong>{this.index + 1 + ". " + this.config.task}</strong>
                         {this.initOptions()}
