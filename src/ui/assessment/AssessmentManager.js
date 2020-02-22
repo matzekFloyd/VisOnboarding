@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import Task from "./Task";
 import {
     TASK_DATA_SET_VISUALISATION,
     TASK_GANTT_PROJECT_MANAGEMENT,
@@ -13,6 +12,9 @@ import {IRREGULAR_TIME_SERIES} from "../../config/assessment/5_IRREGULAR_TIME_SE
 import {Empty} from "../components";
 import Router from "next/router";
 import {URL} from "../../../constants";
+import dynamic from 'next/dynamic';
+
+const Task = dynamic(() => import('./Task'));
 
 export default class AssessmentManager extends PureComponent {
 
@@ -55,24 +57,21 @@ export default class AssessmentManager extends PureComponent {
         }
     }
 
+    task(i, identifier) {
+        return this.state.current === i ? <Task index={i}
+                                                taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
+                                                config={this.getConfig(identifier)}
+                                                active={this.state.current === i}/> : <Empty/>;
+    }
+
     render() {
         return (
-            this.state.assessmentCompleted ? <Empty/> : <div className={""}>
-                <Task index={0}
-                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                      config={this.getConfig(TASK_GANTT_PROJECT_MANAGEMENT)} active={this.state.current === 0}/>
-                <Task index={1}
-                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                      config={this.getConfig(TASK_DATA_SET_VISUALISATION)} active={this.state.current === 1}/>
-                <Task index={2}
-                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                      config={this.getConfig(TASK_IRREGULAR_TIME_SERIES)} active={this.state.current === 2}/>
-                <Task index={3}
-                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                      config={this.getConfig(TASK_LINE_TIME_SERIES)} active={this.state.current === 3}/>
-                <Task index={4}
-                      taskCompleted={(index, taskIdentifier, success) => this.addCompletedTask(index, taskIdentifier, success)}
-                      config={this.getConfig(TASK_GANTT_RESOURCE_MANAGEMENT)} active={this.state.current === 4}/>
+            this.state.assessmentCompleted ? <Empty/> : <div>
+                {this.task(0, TASK_GANTT_PROJECT_MANAGEMENT)}
+                {this.task(1, TASK_DATA_SET_VISUALISATION)}
+                {this.task(2, TASK_IRREGULAR_TIME_SERIES)}
+                {this.task(3, TASK_LINE_TIME_SERIES)}
+                {this.task(4, TASK_GANTT_RESOURCE_MANAGEMENT)}
             </div>
         );
     }
