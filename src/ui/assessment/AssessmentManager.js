@@ -25,30 +25,40 @@ export default class AssessmentManager extends PureComponent {
         this.state = {
             current: 0,
             finishedTasks: [],
-            assessmentCompleted: false
+            assessmentCompleted: false,
+            pointsTotal: 0
         };
     }
 
     addCompletedTask(index, identifier, success, time) {
         let newIndex = index + 1;
         this.setState({current: newIndex}, () => {
-            this.state.finishedTasks.push({task: identifier, success: success, time: time});
+            let minutes = Math.floor(time / 60);
+            let points = 0;
+            if (success) {
+                points = 20;
+                if (minutes >= 2) points = points - minutes;
+            }
+            let result = {task: identifier, success: success, time: time, points: points};
+            this.state.finishedTasks.push(result);
             if (newIndex >= this.props.tasks.length) {
-                //TODO
-                this.setState({assessmentCompleted: true}, () => {
-                    // let to = URL.onboarding.basic;
-                    // let rand = Math.floor(Math.random() * 100);
-                    // let href = to + "?res=" + rand.toString();
-                    // Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
-                });
+                let pointsTotal = 0;
+                for (let i = 0; i < this.state.finishedTasks.length; i++) {
+                    pointsTotal += this.state.finishedTasks[i].points;
+                }
+                this.setState({assessmentCompleted: true, pointsTotal: pointsTotal});
             }
         });
     }
 
     redirect() {
-        let to = URL.onboarding.basic;
-        let rand = Math.floor(Math.random() * 100);
-        let href = to + "?res=" + rand.toString();
+        let to = "";
+        let points = this.state.pointsTotal;
+        if (points <= 40) to = URL.onboarding.basic;
+        if (points >= 41 && points <= 95) to = URL.onboarding.advanced;
+        if (points >= 96 && points <= 100) to = URL.onboarding.proficient;
+
+        let href = to + "?pts=" + points;
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
     }
 
@@ -81,7 +91,8 @@ export default class AssessmentManager extends PureComponent {
 
     render() {
         return (this.state.assessmentCompleted ?
-            <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} onClick={() => this.redirect()}/> : this.task());
+            <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
+                                       onClick={() => this.redirect()}/> : this.task());
     }
 
 }

@@ -7,7 +7,7 @@ class Basic extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {score: parseInt(props.router.query.res) || null};
+        this.state = {score: parseInt(props.router.query.pts) || null};
     }
 
     render() {

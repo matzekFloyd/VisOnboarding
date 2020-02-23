@@ -24,28 +24,18 @@ const TASK_TEXT_MAPPING = (task) => {
 
 export const AssessmentCompletedScreen = React.memo(function AssessmentCompletedScreen(props) {
     let results = [];
-    let pointsTotal = 0;
     for (let i = 0; i < props.finishedTasks.length; i++) {
         let cur = props.finishedTasks[i];
-
         let index = i + 1;
         let title = TASK_TEXT_MAPPING(cur.task).title;
         let category = TASK_TEXT_MAPPING(cur.task).category;
         let min = Math.floor(cur.time / 60);
         let sec = Math.floor(cur.time % 60);
-
-        let points = 0;
-        if (cur.success) {
-            points = 20;
-            if (min >= 2) points = points - min;
-        }
-        pointsTotal = pointsTotal + points;
-
         results.push(<AssessmentResult key={"assessment_result_" + i} index={index} title={title} category={category}
                                        min={min} sec={sec}
-                                       success={cur.success} points={points}/>);
+                                       success={cur.success} points={cur.points}/>);
     }
-    results.push(<AssessmentResultTotal pointsTotal={pointsTotal}/>);
+    results.push(<AssessmentResultTotal key={"assessment_result_total"} pointsTotal={props.pointsTotal}/>);
 
     return <div className="flex h-screen">
         <div className={"w-2/4 m-auto border border-solid h-auto"}>
@@ -72,11 +62,12 @@ export const AssessmentCompletedScreen = React.memo(function AssessmentCompleted
 });
 AssessmentCompletedScreen.propTypes = {
     finishedTasks: PropTypes.array.isRequired,
+    pointsTotal: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired
 };
 
 const AssessmentCompletedTitle = React.memo(function AssessmentCompletedTitle() {
-    return <p className={"text-center"}><strong>You have successfully passed the assessment test!</strong></p>;
+    return <p className={"text-center"}><strong>You have successfully finished the assessment test!</strong></p>;
 });
 
 const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
