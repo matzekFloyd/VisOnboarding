@@ -13,8 +13,10 @@ export class Proficient extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1>Proficient</h1>
-                <p>{this.state.score}</p>
+                <div className={"h-screen border-8 border-yellow-700"}>
+                    <h1>Proficient</h1>
+                    <p>{this.state.score}</p>
+                </div>
             </Layout>
         );
     }

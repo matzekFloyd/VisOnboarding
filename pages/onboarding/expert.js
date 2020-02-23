@@ -13,8 +13,10 @@ export class Expert extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1>Expert</h1>
-                <p>{this.state.score}</p>
+                <div className={"h-screen border-8 border-red-700"}>
+                    <h1>Expert</h1>
+                    <p>{this.state.score}</p>
+                </div>
             </Layout>
         );
     }

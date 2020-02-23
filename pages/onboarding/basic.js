@@ -13,8 +13,10 @@ class Basic extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1>Basic</h1>
-                <p>{this.state.score}</p>
+                <div className={"h-screen border-8 border-green-700"}>
+                    <h1>Basic</h1>
+                    <p>{this.state.score}</p>
+                </div>
             </Layout>
         );
     }
