@@ -5,8 +5,8 @@ const ROUTES = {
     '/assessment': {page: '/assessment'},
     '/context': {page: '/context'},
     '/onboarding/basic': {page: '/onboarding/basic'},
-    '/onboarding/advanced': {page: '/onboarding/advanced'},
     '/onboarding/proficient': {page: '/onboarding/proficient'},
+    '/onboarding/expert': {page: '/onboarding/expert'},
     '/visualisation': {page: '/visualisation'},
 };
 const withSass = require('@zeit/next-sass');

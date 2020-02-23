@@ -6,8 +6,8 @@ export const URL = {
     context: sanitizeRouteUrl("/context"),
     onboarding: {
         basic: sanitizeRouteUrl("/onboarding/basic"),
-        advanced: sanitizeRouteUrl("/onboarding/advanced"),
         proficient: sanitizeRouteUrl("/onboarding/proficient"),
+        expert: sanitizeRouteUrl("/onboarding/expert"),
     },
     visualisation: sanitizeRouteUrl("/visualisation"),
 };

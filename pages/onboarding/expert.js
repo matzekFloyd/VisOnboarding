@@ -3,7 +3,7 @@ import Layout from "../../src/ui/Layout";
 import {withPageRouter} from "../../src/util/helpers";
 
 //TODO basic/advanced/proficient -> DRY
-export class Advanced extends PureComponent {
+export class Expert extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
@@ -13,7 +13,7 @@ export class Advanced extends PureComponent {
     render() {
         return (
             <Layout>
-                <h1>Advanced</h1>
+                <h1>Expert</h1>
                 <p>{this.state.score}</p>
             </Layout>
         );
@@ -21,4 +21,4 @@ export class Advanced extends PureComponent {
 
 }
 
-export default withPageRouter(Advanced);
+export default withPageRouter(Expert);

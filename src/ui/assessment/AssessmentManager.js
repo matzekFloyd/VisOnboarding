@@ -18,6 +18,10 @@ import {AssessmentCompletedScreen} from "./AssessmentCompletedScreen";
 
 const Task = dynamic(() => import('./Task'));
 
+const ACCESS_BASIC = (points) => points >= 0 && points <= 40;
+const ACCESS_PROFICIENT = (points) => points >= 41 && points <= 95;
+const ACCESS_EXPERT = (points) => points >= 96 && points <= 100;
+
 export default class AssessmentManager extends PureComponent {
 
     constructor(props, context) {
@@ -51,13 +55,12 @@ export default class AssessmentManager extends PureComponent {
         });
     }
 
-    redirect() {
+    redirectToOnboarding() {
         let to = "";
         let points = this.state.pointsTotal;
-        if (points <= 40) to = URL.onboarding.basic;
-        if (points >= 41 && points <= 95) to = URL.onboarding.advanced;
-        if (points >= 96 && points <= 100) to = URL.onboarding.proficient;
-
+        if (ACCESS_BASIC(points)) to = URL.onboarding.basic;
+        if (ACCESS_PROFICIENT(points)) to = URL.onboarding.advanced;
+        if (ACCESS_EXPERT(points)) to = URL.onboarding.expert;
         let href = to + "?pts=" + points;
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
     }
@@ -92,7 +95,7 @@ export default class AssessmentManager extends PureComponent {
     render() {
         return (this.state.assessmentCompleted ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
-                                       onClick={() => this.redirect()}/> : this.task());
+                                       onClick={() => this.redirectToOnboarding()}/> : this.task());
     }
 
 }
