@@ -103,6 +103,12 @@ $img-height: 317px;
   }
 }
 
+.task-heading {
+  img {
+    display: inline;
+  }
+}
+
 // LOADING INDICATOR
 .lds-ring {
   display: inline-block;

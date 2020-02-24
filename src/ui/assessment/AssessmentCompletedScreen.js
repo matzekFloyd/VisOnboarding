@@ -12,7 +12,7 @@ const TASK_TEXT_MAPPING = (task) => {
         case TASK_GANTT_PROJECT_MANAGEMENT:
             return {title: "Project management", category: "Gantt Chart"};
         case TASK_DATA_SET_VISUALISATION:
-            return {title: "Dataset visualisation", category: ""};
+            return {title: "Dataset visualisation", category: "Visualisation techniques"};
         case TASK_IRREGULAR_TIME_SERIES:
             return {title: "Snow depth at Vikjafjell", category: "Data over time"};
         case TASK_GANTT_RESOURCE_MANAGEMENT:

@@ -95,12 +95,21 @@ TaskImage.propTypes = {
 
 const TaskHeading = React.memo(function TaskHeading(props) {
     let txt = props.index + 1 + ". " + props.text;
-    return <strong>{txt}</strong>
+    return <p className={"task-heading"}>
+        <span dangerouslySetInnerHTML={{__html: txt}}/>
+        <TaskHeadingInfo/>
+    </p>
 });
 TaskHeading.propTypes = {
     index: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired
 };
+
+const TaskHeadingInfo = React.memo(function TaskHeadingInfo() {
+    return <span className={"ml-2 text-sm"}><img src={sanitizePublicPath("static/error_outline-24px.svg")}
+                                                 alt={""}
+                                                 className={"text-green-800"}/>Multiple answers possible!</span>;
+});
 
 const Option = React.memo(function Option(props) {
     return <div className={"option-container ml-12 mt-10 mb-2"}>
