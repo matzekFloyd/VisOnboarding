@@ -92,6 +92,11 @@ $img-height: 317px;
 }
 
 .option-container {
+
+  label {
+    user-select: none;
+  }
+
   input {
     vertical-align: text-top;
   }
