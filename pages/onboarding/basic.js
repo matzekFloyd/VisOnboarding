@@ -14,6 +14,7 @@ class Basic extends PureComponent {
         return (
             <Layout>
                 <div className={"h-screen border-8 border-green-700"}>
+                    <strong className={"text-red-800"}>THIS PAGE IS UNDER CONSTRUCTION</strong>
                     <h1>Basic</h1>
                     <p>{this.state.score}</p>
                 </div>

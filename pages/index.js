@@ -18,6 +18,7 @@ export default class Home extends PureComponent {
     render() {
         return (
             <Layout>
+                <strong className={"text-red-800"}>THIS PAGE IS UNDER CONSTRUCTION</strong>
                 <div id={"cards-flex-container"} className="flex flex-wrap">
                     <div
                         className="w-1/4 ml-auto hover:bg-green-400 max-w-sm rounded overflow-hidden shadow-lg mr-6 cursor-pointer"

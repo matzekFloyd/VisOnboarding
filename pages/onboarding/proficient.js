@@ -14,6 +14,7 @@ export class Proficient extends PureComponent {
         return (
             <Layout>
                 <div className={"h-screen border-8 border-yellow-700"}>
+                    <strong className={"text-red-800"}>THIS PAGE IS UNDER CONSTRUCTION</strong>
                     <h1>Proficient</h1>
                     <p>{this.state.score}</p>
                 </div>
