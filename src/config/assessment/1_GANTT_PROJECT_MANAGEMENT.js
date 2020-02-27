@@ -13,7 +13,7 @@ export const GANTT_PROJECT_MANAGEMENT = {
     subQuestion: {
         question: "asdf",
         options: [
-            {text: "a", correct: false},
+            {text: "a", correct: true},
             {text: "b", correct: false},
             {text: "c", correct: false},
             {text: "d", correct: false},

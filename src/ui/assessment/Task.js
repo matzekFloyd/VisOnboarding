@@ -3,12 +3,15 @@ import {sanitizePublicPath} from "../../util/helpers";
 import PropTypes from 'prop-types';
 import Question from "./Question";
 
+const REQUIRE_SUB_QUESTION_TIME_LIMIT = 120;
+
 export default class Task extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
             success: false,
+            subSuccess: null,
             askSubQuestion: false
         };
         this.config = props.config;
@@ -23,11 +26,11 @@ export default class Task extends PureComponent {
             return;
         }
 
-
         if (this.state.askSubQuestion) {
+            this.setState({subSuccess: success});
             this.resolveTask(success, requiredTime);
         } else {
-            if (!success || (success && requiredTime < 120)) {
+            if (!success || (success && requiredTime < REQUIRE_SUB_QUESTION_TIME_LIMIT)) {
                 this.resolveTask(success, requiredTime);
             } else {
                 this.setState({askSubQuestion: true});
@@ -42,7 +45,7 @@ export default class Task extends PureComponent {
             endTime: new Date().getTime(),
             time: requiredTime
         }, () => {
-            this.props.taskCompleted(this.index, this.identifier, this.state.success, this.state.time, skipped);
+            this.props.taskCompleted(this.index, this.identifier, this.state.success, this.state.subSuccess, this.state.time, skipped);
         });
     }
 
@@ -51,8 +54,7 @@ export default class Task extends PureComponent {
             resolveQuestion={(success, requiredTime) => this.resolveQuestion(success, requiredTime)}
             resolveTask={(success, requiredTime, skipped) => this.resolveTask(success, requiredTime, skipped)}
             config={this.state.askSubQuestion ? this.config.subQuestion : this.config}
-            isSubQuestion={this.state.askSubQuestion}
-            index={this.index}/>;
+            isSubQuestion={this.state.askSubQuestion} index={this.index}/>;
 
         return (<div className={"flex h-screen ml-32 mr-32 task-container"}>
                 <div className={"w-2/4 m-auto mr-20 border border-solid"}>

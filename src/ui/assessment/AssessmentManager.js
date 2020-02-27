@@ -22,6 +22,8 @@ const ACCESS_BASIC = (points) => points >= 0 && points <= 40;
 const ACCESS_PROFICIENT = (points) => points >= 41 && points <= 95;
 const ACCESS_EXPERT = (points) => points >= 96 && points <= 100;
 
+const FULL_POINTS = 20;
+
 export default class AssessmentManager extends PureComponent {
 
     constructor(props, context) {
@@ -35,15 +37,10 @@ export default class AssessmentManager extends PureComponent {
         this.enableAssessmentCompletedScreen = false;
     }
 
-    addCompletedTask(index, identifier, success, time, skipped) {
+    addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
         let newIndex = index + 1;
         this.setState({current: newIndex}, () => {
-            let minutes = Math.floor(time / 60);
-            let points = 0;
-            if (success) {
-                points = 20;
-                if (minutes >= 2) points = points - minutes;
-            }
+            let points = this.calculatePoints(success, subSuccess, time);
             let result = {task: identifier, success: success, time: time, points: points, skipped: skipped};
             this.state.finishedTasks.push(result);
             if (newIndex >= this.props.tasks.length) {
@@ -56,6 +53,24 @@ export default class AssessmentManager extends PureComponent {
                 });
             }
         });
+    }
+
+    calculatePoints(success, subSuccess, time) {
+        let points;
+        let minutes = Math.floor(time / 60);
+        let subtractMinutes = (points, minutes) => {
+            if (minutes >= points) return 0;
+            let pts = points - minutes;
+            return pts <= 0 ? 0 : pts;
+        };
+
+        if (subSuccess === null) {
+            success ? points = FULL_POINTS : points = 0;
+        } else {
+            subSuccess ? points = FULL_POINTS / 2 : points = 0;
+        }
+
+        return subtractMinutes(points, minutes);
     }
 
     redirectToOnboarding() {
@@ -87,7 +102,7 @@ export default class AssessmentManager extends PureComponent {
         let html = [];
         for (let i = 0; i < this.props.tasks.length; i++) {
             let task = this.state.current === i ? <Task key={"task_" + i} index={i}
-                                                        taskCompleted={(index, taskIdentifier, success, time, skipped) => this.addCompletedTask(index, taskIdentifier, success, time, skipped)}
+                                                        taskCompleted={(index, taskIdentifier, success, subSuccess, time, skipped) => this.addCompletedTask(index, taskIdentifier, success, subSuccess, time, skipped)}
                                                         config={this.getConfig(this.props.tasks[i])}/> :
                 <Empty key={"task_" + i}/>;
             html.push(task);
