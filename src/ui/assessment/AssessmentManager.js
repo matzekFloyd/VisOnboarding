@@ -32,6 +32,7 @@ export default class AssessmentManager extends PureComponent {
             assessmentCompleted: false,
             pointsTotal: 0
         };
+        this.enableAssessmentCompletedScreen = false;
     }
 
     addCompletedTask(index, identifier, success, time, skipped) {
@@ -50,7 +51,9 @@ export default class AssessmentManager extends PureComponent {
                 for (let i = 0; i < this.state.finishedTasks.length; i++) {
                     pointsTotal += this.state.finishedTasks[i].points;
                 }
-                this.setState({assessmentCompleted: true, pointsTotal: pointsTotal});
+                this.setState({assessmentCompleted: true, pointsTotal: pointsTotal}, () => {
+                    if (!this.enableAssessmentCompletedScreen) this.redirectToOnboarding();
+                });
             }
         });
     }
@@ -93,7 +96,7 @@ export default class AssessmentManager extends PureComponent {
     }
 
     render() {
-        return (this.state.assessmentCompleted ?
+        return (this.state.assessmentCompleted && this.enableAssessmentCompletedScreen ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
                                        onClick={() => this.redirectToOnboarding()}/> : this.task());
     }
