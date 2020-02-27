@@ -3,7 +3,7 @@ import {TASK_LINE_TIME_SERIES} from "../../../constants";
 export const LINE_TIME_SERIES = {
     identifier: TASK_LINE_TIME_SERIES,
     image: {id: "img-usd-to-eur-exchange-rate", src: "usd-to-eur-exchange-rate.png"},
-    task: "<strong>Select all applicable statements</strong>:",
+    question: "<strong>Select all applicable statements</strong>:",
     options: [
         {text: "In the second half of 2012 the exchange rate was rising.", correct: false},
         {text: "The highest exchange rate was 0.988.", correct: false},
