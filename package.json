@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "test": "jest",
     "build": "next build && next export",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
@@ -33,9 +34,10 @@
     "@fullhuman/postcss-purgecss": "^2.0.6",
     "@tailwindcss/custom-forms": "^0.2.1",
     "cssnano": "^4.1.10",
+    "jest": "^25.1.0",
     "postcss-cli": "^7.1.0",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.2.0",
-    "prop-types": "latest"
+    "prop-types": "latest",
+    "tailwindcss": "^1.2.0"
   }
 }
