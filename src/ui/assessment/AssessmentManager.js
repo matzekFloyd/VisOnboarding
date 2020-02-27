@@ -34,7 +34,7 @@ export default class AssessmentManager extends PureComponent {
         };
     }
 
-    addCompletedTask(index, identifier, success, time) {
+    addCompletedTask(index, identifier, success, time, skipped) {
         let newIndex = index + 1;
         this.setState({current: newIndex}, () => {
             let minutes = Math.floor(time / 60);
@@ -43,7 +43,7 @@ export default class AssessmentManager extends PureComponent {
                 points = 20;
                 if (minutes >= 2) points = points - minutes;
             }
-            let result = {task: identifier, success: success, time: time, points: points};
+            let result = {task: identifier, success: success, time: time, points: points, skipped: skipped};
             this.state.finishedTasks.push(result);
             if (newIndex >= this.props.tasks.length) {
                 let pointsTotal = 0;
@@ -84,7 +84,7 @@ export default class AssessmentManager extends PureComponent {
         let html = [];
         for (let i = 0; i < this.props.tasks.length; i++) {
             let task = this.state.current === i ? <Task key={"task_" + i} index={i}
-                                                        taskCompleted={(index, taskIdentifier, success, time) => this.addCompletedTask(index, taskIdentifier, success, time)}
+                                                        taskCompleted={(index, taskIdentifier, success, time, skipped) => this.addCompletedTask(index, taskIdentifier, success, time, skipped)}
                                                         config={this.getConfig(this.props.tasks[i])}/> :
                 <Empty key={"task_" + i}/>;
             html.push(task);

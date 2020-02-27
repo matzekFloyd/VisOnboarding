@@ -9,7 +9,6 @@ export default class Task extends PureComponent {
         this.state = {
             answers: [false, false, false, false],
             success: null,
-            confirmed: false,
             startTime: null,
             endTime: null,
             time: null
@@ -33,27 +32,32 @@ export default class Task extends PureComponent {
     }
 
     setAnswer(event, index) {
-        this.setState({confirmed: false});
         let answers = this.state.answers;
         answers[index] = event.target.checked;
         this.setState({answers: {...answers}});
     }
 
-    confirm() {
+    getTimeRequired() {
+        let startTime = this.state.startTime;
+        return (new Date().getTime() - startTime) / 1000;
+    }
+
+    skip() {
+        this.finishTask(false, this.getTimeRequired(), true)
+    }
+
+    next() {
         let isCorrect = true;
         for (let i = 0; i < this.config.options.length; i++) {
             if (this.state.answers[i] !== this.config.options[i].correct) isCorrect = false;
         }
-        let startTime = this.state.startTime;
-        let endTime = new Date();
-        let newTime = (endTime.getTime() - startTime) / 1000;
-        this.setState({success: isCorrect, endTime: endTime, time: newTime, confirmed: true});
+        this.finishTask(isCorrect, this.getTimeRequired());
     }
 
-    next() {
-        if (this.state.confirmed) {
-            this.props.taskCompleted(this.index, this.identifier, this.state.success, this.state.time);
-        }
+    finishTask(success, requiredTime, skipped = false) {
+        this.setState({success: success, endTime: new Date().getTime(), time: requiredTime}, () => {
+            this.props.taskCompleted(this.index, this.identifier, this.state.success, this.state.time, skipped);
+        });
     }
 
     render() {
@@ -69,8 +73,8 @@ export default class Task extends PureComponent {
                         <div className={"flex mt-8 ml-8"}>
                             <ProgressBar index={this.index}/>
                             <div className={"w-2/4"}>
-                                <NextBtn confirmed={this.state.confirmed} onClick={() => this.next()}/>
-                                <ConfirmBtn confirmed={this.state.confirmed} onClick={() => this.confirm()}/>
+                                <NextBtn onClick={() => this.next()}/>
+                                <SkipBtn onClick={() => this.skip()}/>
                             </div>
                         </div>
                     </div>
@@ -142,23 +146,20 @@ ProgressBar.propTypes = {
 };
 
 const NextBtn = React.memo(function NextBtn(props) {
-    let btnActive = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right";
-    let btnDisabled = "bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded opacity-50 cursor-not-allowed float-right";
-    return <button className={props.confirmed ? btnActive : btnDisabled} onClick={props.onClick}>Next</button>;
+    return <button
+        className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
+        onClick={props.onClick}>Next</button>;
 });
 NextBtn.propTypes = {
-    confirmed: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired
 };
 
-const ConfirmBtn = React.memo(function ConfirmBtn(props) {
-    let btnActive = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right";
-    let btnConfirmed = "bg-green-500 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right";
-    return <button className={props.confirmed ? "mr-4 " + btnConfirmed : "mr-4 " + btnActive}
-                   onClick={props.onClick}>{props.confirmed ? "Confirmed!" : "Confirm Answer"}
+const SkipBtn = React.memo(function SkipBtn(props) {
+    return <button
+        className={"mr-4 bg-gray-300 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
+        onClick={props.onClick}>{"Skip"}
     </button>
 });
-ConfirmBtn.propTypes = {
-    confirmed: PropTypes.bool.isRequired,
+SkipBtn.propTypes = {
     onClick: PropTypes.func.isRequired
 };
