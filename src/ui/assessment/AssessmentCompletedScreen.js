@@ -32,10 +32,9 @@ export const AssessmentCompletedScreen = React.memo(function AssessmentCompleted
         let min = Math.floor(cur.time / 60);
         let sec = Math.floor(cur.time % 60);
         results.push(<AssessmentResult key={"assessment_result_" + i} index={index} title={title} category={category}
-                                       min={min} sec={sec}
+                                       min={min} sec={sec} skipped={cur.skipped}
                                        success={cur.success} points={cur.points}/>);
     }
-    results.push(<AssessmentResultTotal key={"assessment_result_total"} pointsTotal={props.pointsTotal}/>);
 
     return <div className="flex h-screen">
         <div className={"w-2/4 m-auto border border-solid h-auto"}>
@@ -53,6 +52,7 @@ export const AssessmentCompletedScreen = React.memo(function AssessmentCompleted
                     </table>
                     <br/>
                     <div className={"flex"}>
+                        <AssessmentResultTotal pointsTotal={props.pointsTotal}/>
                         <RedirectOnboardingBtn onClick={props.onClick}/>
                     </div>
                 </div>
@@ -67,14 +67,14 @@ AssessmentCompletedScreen.propTypes = {
 };
 
 const AssessmentCompletedTitle = React.memo(function AssessmentCompletedTitle() {
-    return <p className={"text-center"}><strong>You have successfully finished the assessment test!</strong></p>;
+    return <p className={"text-center"}>You have successfully finished the assessment test!</p>;
 });
 
 const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
     return <tr>
         <th className="px-4 py-2">#</th>
-        <th className="px-4 py-2">Task</th>
-        <th className="px-4 py-2">Category</th>
+        <th align={"start"} className="px-4 py-2">Task</th>
+        <th align={"start"} className="px-4 py-2">Category</th>
         <th className="px-4 py-2">Time</th>
         <th className="px-4 py-2">Result</th>
         <th className="px-4 py-2">Points</th>
@@ -82,19 +82,25 @@ const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
 });
 
 const AssessmentResult = React.memo(function AssessmentResult(props) {
-    let classes = "border px-4 py-2";
+    let classes = "border px-4 py-2 ";
+    let time = props.min + "m " + props.sec + "s";
+    let icon = props.success ?
+        <img src={sanitizePublicPath("static/check-24px.svg")} alt={""}/> :
+        <img src={sanitizePublicPath("static/close-24px.svg")} alt={""}/>;
+
+    if (props.skipped) {
+        classes += "bg-gray-100";
+        icon = <img src={sanitizePublicPath("static/remove-24px.svg")} alt={""}/>
+    } else {
+        props.success ? classes += "bg-green-200" : classes += "bg-red-200";
+    }
     return <tr>
         <td className={classes}>{props.index}</td>
         <td className={classes}>{props.title}</td>
         <td className={classes}>{props.category}</td>
-        <td className={classes}>{props.min + "m " + props.sec + "s"}</td>
-        <td align={"center"}
-            className={props.success ? "bg-green-300 " + classes : "bg-red-300 " + classes}>{props.success ?
-            <img src={sanitizePublicPath("static/check-24px.svg")} alt={""}/> :
-            <img src={sanitizePublicPath("static/close-24px.svg")} alt={""}/>}
-        </td>
-        <td align={"center"}
-            className={props.success ? "bg-green-300 " + classes : "bg-red-300 " + classes}>{props.points}</td>
+        <td className={classes}>{time}</td>
+        <td align={"center"} className={classes}>{icon}</td>
+        <td align={"center"} className={classes}>{props.points}</td>
     </tr>
 });
 AssessmentResult.propTypes = {
@@ -105,17 +111,14 @@ AssessmentResult.propTypes = {
     sec: PropTypes.number.isRequired,
     success: PropTypes.bool.isRequired,
     points: PropTypes.number.isRequired,
+    skipped: PropTypes.bool.isRequired
 };
 
 const AssessmentResultTotal = React.memo(function AssessmentResultTotal(props) {
-    return <tr>
-        <td className="invisible border px-4 py-2"/>
-        <td className="invisible border px-4 py-2"/>
-        <td className="invisible border px-4 py-2"/>
-        <td className="invisible border px-4 py-2"/>
-        <td className="invisible border px-4 py-2"/>
-        <td align={"center"} className="bg-green-300 font-bold border border-black px-4 py-2">{props.pointsTotal}</td>
-    </tr>
+    return <div className={"m-auto content-center"}>
+        <span>Final Score: <strong>{props.pointsTotal} / 100</strong></span>
+        <br/>
+    </div>;
 });
 AssessmentResultTotal.propTypes = {
     pointsTotal: PropTypes.number.isRequired
