@@ -87,7 +87,7 @@ QuestionHeading.propTypes = {
 };
 
 const Option = React.memo(function Option(props) {
-    return <div className={"option-container ml-12 mt-10 mb-2"}>
+    return <div className={"option-container ml-6 mt-10 mb-2"}>
         <label className={"cursor-pointer p-2 hover:bg-blue-500 hover:text-white"}>
             <input readOnly={true} checked={props.checked} type="checkbox"
                    className="cursor-pointer form-checkbox h-5 w-5 bg-gray-500 text-green-500"
