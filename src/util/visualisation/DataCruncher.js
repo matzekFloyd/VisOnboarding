@@ -1,4 +1,4 @@
-import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../../constants";
+import {BEACON, DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "./constants";
 import {Point} from "../../config/visualisation/models";
 import {DRILLDOWN_2019_01_15, OVERVIEW_2019_01_15} from "../../config/visualisation/2019_01_15/2019_01_15";
 import {DRILLDOWN_2019_01_16, OVERVIEW_2019_01_16} from "../../config/visualisation/2019_01_16/2019_01_16";

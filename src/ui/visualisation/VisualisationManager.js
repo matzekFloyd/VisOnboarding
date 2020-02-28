@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import {DATES} from "../../../constants";
 import {Empty, LoadingIndicator} from "../components";
 import ControlsManager from "./ControlsManager";
 import ChartsManager from "./ChartsManager";
+import {DATES} from "../../util/visualisation/constants";
 
 export default class VisualisationManager extends PureComponent {
 

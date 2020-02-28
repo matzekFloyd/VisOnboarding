@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "../../../constants";
+import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "../../util/visualisation/constants";
 import {sanitizePublicPath} from "../../util/helpers";
 import {getEventEmitter} from "../../util/eventemitter";
 import PropTypes from "prop-types";

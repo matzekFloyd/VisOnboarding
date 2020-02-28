@@ -1,7 +1,19 @@
 import {DataCruncher} from "../../../util/visualisation/DataCruncher";
 import {Series, SeriesDrill} from "../models";
-import {BEACON, GmK6, Hf6q, LLz2, lwFq, n4gK, nnhk, ofEz, oiFK, ox0d, pMaq, UUWO, WGSU, Xgti} from "../../../../constants";
 import {typeCheck} from "../../../util/helpers";
+import {
+    BEACON,
+    GmK6,
+    Hf6q,
+    LLz2,
+    lwFq, n4gK, nnhk,
+    ofEz,
+    oiFK,
+    ox0d,
+    pMaq,
+    UUWO, WGSU,
+    Xgti
+} from "../../../util/visualisation/constants";
 
 /**
  *
