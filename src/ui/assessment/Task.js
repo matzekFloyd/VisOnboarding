@@ -77,7 +77,11 @@ Task.propTypes = {
 };
 
 const TaskImage = React.memo(function TaskImage(props) {
-    return <img id={props.id} src={props.src} alt={props.id}/>
+    return <div className={"flex content-center"}>
+        <div className={"w-9/10 m-auto"}>
+            <img id={props.id} src={props.src} alt={props.id}/>
+        </div>
+    </div>
 });
 TaskImage.propTypes = {
     id: PropTypes.string.isRequired,
