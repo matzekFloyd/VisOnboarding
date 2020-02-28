@@ -1,6 +1,6 @@
-import {DataCruncher} from "../../util/visualisation/DataCruncher";
-import {getEventEmitter} from "../../util/eventemitter";
-import {convertUnixToString} from "../../util/helpers";
+import {DataCruncher} from "src/util/visualisation/DataCruncher";
+import {getEventEmitter} from "src/util/eventemitter";
+import {convertUnixToString} from "src/util/helpers";
 
 /**
  *

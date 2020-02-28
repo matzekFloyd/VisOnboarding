@@ -1,24 +1,26 @@
 /* CONSTANTS */
-const BASE_URI = "/vis";
-const ROUTES = {
-    '/': {page: '/'},
-    '/assessment': {page: '/assessment'},
-    '/context': {page: '/context'},
-    '/onboarding': {page: '/onboarding'},
-    '/visualisation': {page: '/visualisation'},
-};
 const withSass = require('@zeit/next-sass');
 const withImages = require('next-images');
-const isProd = process.env.NODE_ENV === 'production';
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true'
 });
+const path = require('path');
 
 /* CONFIG */
 module.exports = withBundleAnalyzer(withImages(withSass({
     exportPathMap: async function () {
-        return ROUTES;
+        return {
+            '/': {page: '/'},
+            '/assessment': {page: '/assessment'},
+            '/context': {page: '/context'},
+            '/onboarding': {page: '/onboarding'},
+            '/visualisation': {page: '/visualisation'},
+        };
     },
     distDir: 'build',
-    assetPrefix: isProd ? BASE_URI : ''
+    assetPrefix: process.env.NODE_ENV === 'production' ? "/vis" : "",
+    webpack(config, options) {
+        config.resolve.alias['src'] = path.join(__dirname, "/src");
+        return config
+    },
 })));

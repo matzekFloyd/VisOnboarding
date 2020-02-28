@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
-import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "../../util/visualisation/constants";
-import {sanitizePublicPath} from "../../util/helpers";
-import {getEventEmitter} from "../../util/eventemitter";
+import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "src/util/visualisation/constants";
+import {sanitizePublicPath} from "src/util/helpers";
+import {getEventEmitter} from "src/util/eventemitter";
 import PropTypes from "prop-types";
 
 export default class ControlsManager extends PureComponent {

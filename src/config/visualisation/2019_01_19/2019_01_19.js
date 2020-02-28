@@ -1,7 +1,7 @@
-import {DataCruncher} from "../../../util/visualisation/DataCruncher";
+import {DataCruncher} from "src/util/visualisation/DataCruncher";
 import {Series, SeriesDrill} from "../models";
-import {typeCheck} from "../../../util/helpers";
-import {BEACON, GmK6, Hf6q, LLz2, lwFq, ofEz, oiFK, ox0d, pMaq, Xgti} from "../../../util/visualisation/constants";
+import {typeCheck} from "src/util/helpers";
+import {BEACON, GmK6, Hf6q, LLz2, lwFq, ofEz, oiFK, ox0d, pMaq, Xgti} from "src/util/visualisation/constants";
 
 /**
  *

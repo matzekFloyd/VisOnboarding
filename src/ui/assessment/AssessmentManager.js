@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react';
-import {GANTT_PROJECT_MANAGEMENT} from "../../config/assessment/1_GANTT_PROJECT_MANAGEMENT";
-import {GANTT_RESOURCE_MANAGEMENT} from "../../config/assessment/2_GANTT_RESOURCE_MANAGEMENT";
-import {DATA_SET_VISUALISATION} from "../../config/assessment/3_DATASET_VISUALISATION";
-import {LINE_TIME_SERIES} from "../../config/assessment/4_LINE_TIME_SERIES";
-import {IRREGULAR_TIME_SERIES} from "../../config/assessment/5_IRREGULAR_TIME_SERIES";
+import {GANTT_PROJECT_MANAGEMENT} from "src/config/assessment/1_GANTT_PROJECT_MANAGEMENT";
+import {GANTT_RESOURCE_MANAGEMENT} from "src/config/assessment/2_GANTT_RESOURCE_MANAGEMENT";
+import {DATA_SET_VISUALISATION} from "src/config/assessment/3_DATASET_VISUALISATION";
+import {LINE_TIME_SERIES} from "src/config/assessment/4_LINE_TIME_SERIES";
+import {IRREGULAR_TIME_SERIES} from "src/config/assessment/5_IRREGULAR_TIME_SERIES";
 import {Empty} from "../components";
 import Router from "next/router";
 import {URL} from "../../../constants";

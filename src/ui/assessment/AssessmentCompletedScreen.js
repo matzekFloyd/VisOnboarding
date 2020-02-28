@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {sanitizePublicPath} from "../../util/helpers";
+import {sanitizePublicPath} from "src/util/helpers";
 import {
     TASK_DATA_SET_VISUALISATION,
     TASK_GANTT_PROJECT_MANAGEMENT, TASK_GANTT_RESOURCE_MANAGEMENT,
     TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
-} from "../../util/assessment/constants";
+} from "src/util/assessment/constants";
 
 const TASK_TEXT_MAPPING = (task) => {
     switch (task) {

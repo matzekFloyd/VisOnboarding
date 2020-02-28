@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {sanitizePublicPath} from "../../util/helpers";
+import {sanitizePublicPath} from "src/util/helpers";
 import PropTypes from 'prop-types';
 import Question from "./Question";
 

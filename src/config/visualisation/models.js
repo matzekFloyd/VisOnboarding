@@ -1,6 +1,6 @@
-import {DataCruncher} from "../../util/visualisation/DataCruncher";
-import {BEACON} from "../../../constants";
-import {formatDateString} from "../../util/helpers";
+import {DataCruncher} from "src/util/visualisation/DataCruncher";
+import {BEACON} from "src/util/visualisation/constants";
+import {formatDateString} from "src/util/helpers";
 
 /**
  *

@@ -1,4 +1,4 @@
-import {sanitizeRouteUrl} from "./src/util/helpers";
+import {sanitizeRouteUrl} from "src/util/helpers";
 
 export const URL = {
     home: sanitizeRouteUrl("/"),

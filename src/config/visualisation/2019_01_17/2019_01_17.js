@@ -1,6 +1,6 @@
 import {Series, SeriesDrill} from "../models";
-import {DataCruncher} from "../../../util/visualisation/DataCruncher";
-import {typeCheck} from "../../../util/helpers";
+import {DataCruncher} from "src/util/visualisation/DataCruncher";
+import {typeCheck} from "src/util/helpers";
 import {
     BEACON,
     GmK6,
@@ -13,7 +13,7 @@ import {
     pMaq,
     WGSU,
     Xgti
-} from "../../../util/visualisation/constants";
+} from "src/util/visualisation/constants";
 
 /**
  *

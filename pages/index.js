@@ -1,6 +1,6 @@
-import Layout from '../src/ui/Layout';
+import Layout from 'src/ui/Layout';
 import React, {PureComponent} from 'react';
-import {sanitizePublicPath} from "../src/util/helpers";
+import {sanitizePublicPath} from "src/util/helpers";
 import Router from "next/router";
 import {URL} from "../constants";
 

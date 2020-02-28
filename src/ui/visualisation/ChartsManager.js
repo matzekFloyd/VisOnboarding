@@ -17,8 +17,8 @@ import {
     JAN_15,
     LLz2, Xgti, JAN_16, UUWO, JAN_17, WGSU, nnhk, JAN_18, Sfo7, JAN_19, JAN_20
 } from "../../util/visualisation/constants";
-import {sanitizePublicPath} from "../../util/helpers";
-import {getEventEmitter} from "../../util/eventemitter";
+import {sanitizePublicPath} from "src/util/helpers";
+import {getEventEmitter} from "src/util/eventemitter";
 import dynamic from 'next/dynamic';
 import {Empty} from "../components";
 import PropTypes from "prop-types";

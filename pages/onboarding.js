@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import Layout from "../src/ui/Layout";
-import {withPageRouter} from "../src/util/helpers";
-import OnboardingManager from "../src/ui/onboarding/OnboardingManager";
-import {BASIC, EXPERT, PROFICIENT} from "../src/util/onboarding/constants";
+import Layout from "src/ui/Layout";
+import {withPageRouter} from "src/util/helpers";
+import OnboardingManager from "src/ui/onboarding/OnboardingManager";
+import {BASIC, EXPERT, PROFICIENT} from "src/util/onboarding/constants";
 
 class Onboarding extends PureComponent {
 
