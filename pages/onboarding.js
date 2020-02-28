@@ -18,15 +18,15 @@ class Onboarding extends PureComponent {
         const ACCESS_EXPERT = (points) => points >= 91 && points <= 100;
 
         if (ACCESS_BASIC(assessmentScore)) {
-            return {identifier: BASIC};
+            return {identifier: BASIC, steps: 6};
         }
 
         if (ACCESS_PROFICIENT(assessmentScore)) {
-            return {identifier: PROFICIENT};
+            return {identifier: PROFICIENT, steps: 4};
         }
 
         if (ACCESS_EXPERT(assessmentScore)) {
-            return {identifier: EXPERT};
+            return {identifier: EXPERT, steps: 2};
         }
     }
 
