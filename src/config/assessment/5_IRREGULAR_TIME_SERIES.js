@@ -2,6 +2,7 @@ import {TASK_IRREGULAR_TIME_SERIES} from "../../../constants";
 
 export const IRREGULAR_TIME_SERIES = {
     identifier: TASK_IRREGULAR_TIME_SERIES,
+    points: 18,
     image: {id: "img-snow-depth-at-vikjafjell", src: "snow-depth-at-vikjafjell.png"},
     question: "<strong>When was the snow depth higher than 2 meters?</strong>",
     options: [

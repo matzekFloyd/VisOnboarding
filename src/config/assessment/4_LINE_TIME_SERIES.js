@@ -2,6 +2,7 @@ import {TASK_LINE_TIME_SERIES} from "../../../constants";
 
 export const LINE_TIME_SERIES = {
     identifier: TASK_LINE_TIME_SERIES,
+    points: 18,
     image: {id: "img-usd-to-eur-exchange-rate", src: "usd-to-eur-exchange-rate.png"},
     question: "<strong>Select all applicable statements</strong>:",
     options: [

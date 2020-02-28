@@ -2,6 +2,7 @@ import {TASK_GANTT_RESOURCE_MANAGEMENT} from "../../../constants";
 
 export const GANTT_RESOURCE_MANAGEMENT = {
     identifier: TASK_GANTT_RESOURCE_MANAGEMENT,
+    points: 21,
     image: {id: "img-car-rental-schedule", src: "car-rental-schedule.png"},
     question: "<strong>Which assumptions can be made from reading this chart</strong>:",
     options: [

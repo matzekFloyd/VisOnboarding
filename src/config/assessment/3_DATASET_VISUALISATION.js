@@ -8,6 +8,7 @@ const VENN_DIAGRAM_SRC = sanitizePublicPath("static/venn_diagram.svg");
 
 export const DATA_SET_VISUALISATION = {
     identifier: TASK_DATA_SET_VISUALISATION,
+    points: 22,
     image: {id: "img-georg-fischer-data-set", src: "georg-fischer-data-set.png"},
     question: "<strong>Which of the following data visualization methods fits this data set</strong>:",
     options: [

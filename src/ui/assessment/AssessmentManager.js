@@ -18,11 +18,9 @@ import {AssessmentCompletedScreen} from "./AssessmentCompletedScreen";
 
 const Task = dynamic(() => import('./Task'));
 
-const ACCESS_BASIC = (points) => points >= 0 && points <= 40;
-const ACCESS_PROFICIENT = (points) => points >= 41 && points <= 95;
-const ACCESS_EXPERT = (points) => points >= 96 && points <= 100;
-
-const FULL_POINTS = 20;
+const ACCESS_BASIC = (points) => points >= 0 && points <= 45;
+const ACCESS_PROFICIENT = (points) => points >= 46 && points <= 90;
+const ACCESS_EXPERT = (points) => points >= 91 && points <= 100;
 
 export default class AssessmentManager extends PureComponent {
 
@@ -40,7 +38,7 @@ export default class AssessmentManager extends PureComponent {
     addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
         let newIndex = index + 1;
         this.setState({current: newIndex}, () => {
-            let points = this.calculatePoints(success, subSuccess, time);
+            let points = this.calculatePoints(identifier, success, subSuccess, time);
             let result = {task: identifier, success: success, time: time, points: points, skipped: skipped};
             this.state.finishedTasks.push(result);
             if (newIndex >= this.props.tasks.length) {
@@ -55,7 +53,7 @@ export default class AssessmentManager extends PureComponent {
         });
     }
 
-    calculatePoints(success, subSuccess, time) {
+    calculatePoints(identifier, success, subSuccess, time) {
         let points;
         let minutes = Math.floor(time / 60);
         let subtractMinutes = (points, minutes) => {
@@ -64,10 +62,11 @@ export default class AssessmentManager extends PureComponent {
             return pts <= 0 ? 0 : pts;
         };
 
+        let full_points = this.getConfig(identifier).points;
         if (subSuccess === null) {
-            success ? points = FULL_POINTS : points = 0;
+            success ? points = full_points : points = 0;
         } else {
-            subSuccess ? points = FULL_POINTS / 2 : points = 0;
+            subSuccess ? points = full_points - 5 : points = 0;
         }
 
         return subtractMinutes(points, minutes);

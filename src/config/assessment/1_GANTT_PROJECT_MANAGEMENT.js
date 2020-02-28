@@ -2,6 +2,7 @@ import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../../constants";
 
 export const GANTT_PROJECT_MANAGEMENT = {
     identifier: TASK_GANTT_PROJECT_MANAGEMENT,
+    points: 21,
     image: {id: "img-gantt-project-management", src: "gantt-project-management.png"},
     question: "<strong>Select all applicable statements</strong>:",
     options: [
