@@ -1,9 +1,4 @@
 import React, {PureComponent} from 'react';
-import {
-    TASK_DATA_SET_VISUALISATION,
-    TASK_GANTT_PROJECT_MANAGEMENT,
-    TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES,
-} from "../../../constants";
 import {GANTT_PROJECT_MANAGEMENT} from "../../config/assessment/1_GANTT_PROJECT_MANAGEMENT";
 import {GANTT_RESOURCE_MANAGEMENT} from "../../config/assessment/2_GANTT_RESOURCE_MANAGEMENT";
 import {DATA_SET_VISUALISATION} from "../../config/assessment/3_DATASET_VISUALISATION";
@@ -15,12 +10,13 @@ import {URL} from "../../../constants";
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import {AssessmentCompletedScreen} from "./AssessmentCompletedScreen";
+import {
+    TASK_DATA_SET_VISUALISATION,
+    TASK_GANTT_PROJECT_MANAGEMENT,
+    TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
+} from "../../util/assessment/constants";
 
 const Task = dynamic(() => import('./Task'));
-
-const ACCESS_BASIC = (points) => points >= 0 && points <= 45;
-const ACCESS_PROFICIENT = (points) => points >= 46 && points <= 90;
-const ACCESS_EXPERT = (points) => points >= 91 && points <= 100;
 
 export default class AssessmentManager extends PureComponent {
 
@@ -73,13 +69,8 @@ export default class AssessmentManager extends PureComponent {
     }
 
     redirectToOnboarding() {
-        let to = "";
-        let points = this.state.pointsTotal;
-        if (ACCESS_BASIC(points)) to = URL.onboarding.basic;
-        if (ACCESS_PROFICIENT(points)) to = URL.onboarding.advanced;
-        if (ACCESS_EXPERT(points)) to = URL.onboarding.expert;
-        let href = to + "?pts=" + points;
-        Router.push(href, href, {}).then(() => console.log("Redirecting: ", to));
+        let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
+        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
     }
 
     getConfig(identifier) {

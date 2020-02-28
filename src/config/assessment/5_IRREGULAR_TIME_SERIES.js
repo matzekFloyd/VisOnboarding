@@ -1,4 +1,4 @@
-import {TASK_IRREGULAR_TIME_SERIES} from "../../../constants";
+import {TASK_IRREGULAR_TIME_SERIES} from "../../util/assessment/constants";
 
 export const IRREGULAR_TIME_SERIES = {
     identifier: TASK_IRREGULAR_TIME_SERIES,

@@ -47,7 +47,8 @@ const StepsManager = React.memo(function StepsManager(props) {
     let steps = [];
     for (let i = 0; i < props.stepCount; i++) {
         let index = i + 1;
-        steps.push(<Step onClick={() => props.onClick(index)} index={index} active={props.activeStep === index}/>)
+        steps.push(<Step key={"step_" + i} onClick={() => props.onClick(index)} index={index}
+                         active={props.activeStep === index}/>)
     }
     return <div className="steps-form">
         <div className="steps-row setup-panel">

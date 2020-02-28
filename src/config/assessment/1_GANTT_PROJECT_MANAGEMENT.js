@@ -1,4 +1,4 @@
-import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../../constants";
+import {TASK_GANTT_PROJECT_MANAGEMENT} from "../../util/assessment/constants";
 
 export const GANTT_PROJECT_MANAGEMENT = {
     identifier: TASK_GANTT_PROJECT_MANAGEMENT,

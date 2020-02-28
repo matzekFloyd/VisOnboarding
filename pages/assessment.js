@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import Layout from '../src/ui/Layout';
 import AssessmentManager from "../src/ui/assessment/AssessmentManager";
-import {TASKS} from "../constants";
+import {TASKS} from "../src/util/assessment/constants";
 
 export default class Assessment extends PureComponent {
 

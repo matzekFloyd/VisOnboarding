@@ -1,4 +1,4 @@
-import {TASK_GANTT_RESOURCE_MANAGEMENT} from "../../../constants";
+import {TASK_GANTT_RESOURCE_MANAGEMENT} from "../../util/assessment/constants";
 
 export const GANTT_RESOURCE_MANAGEMENT = {
     identifier: TASK_GANTT_RESOURCE_MANAGEMENT,

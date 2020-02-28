@@ -1,5 +1,5 @@
-import {TASK_DATA_SET_VISUALISATION} from "../../../constants";
 import {sanitizePublicPath} from "../../util/helpers";
+import {TASK_DATA_SET_VISUALISATION} from "../../util/assessment/constants";
 
 const GANTT_ICON_SRC = sanitizePublicPath("static/gantt_chart.svg");
 const TREE_MAP_SRC = sanitizePublicPath("static/treemap.svg");

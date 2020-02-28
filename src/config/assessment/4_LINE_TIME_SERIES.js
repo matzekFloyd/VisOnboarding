@@ -1,4 +1,4 @@
-import {TASK_LINE_TIME_SERIES} from "../../../constants";
+import {TASK_LINE_TIME_SERIES} from "../../util/assessment/constants";
 
 export const LINE_TIME_SERIES = {
     identifier: TASK_LINE_TIME_SERIES,
