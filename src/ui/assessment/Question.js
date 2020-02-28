@@ -55,7 +55,8 @@ export default class Question extends PureComponent {
 
     render() {
         return (<div>
-            <QuestionHeading index={this.props.index} text={this.props.config.question}/>
+            <QuestionHeading index={this.props.index} isSubQuestion={this.props.isSubQuestion}
+                             text={this.props.config.question}/>
             {this.initOptions()}
             <div className={"flex mt-8 ml-8"}>
                 <ProgressBar index={this.props.index}/>
@@ -75,7 +76,9 @@ const QuestionHeadingInfo = React.memo(function QuestionHeadingInfo() {
 });
 
 const QuestionHeading = React.memo(function QuestionHeading(props) {
-    let txt = props.index + 1 + ". " + props.text;
+    let number = props.index + 1;
+    props.isSubQuestion ? number += "b. " : number += ". ";
+    let txt = number + props.text;
     return <p className={"task-heading"}>
         <span dangerouslySetInnerHTML={{__html: txt}}/>
         <QuestionHeadingInfo/>
@@ -83,6 +86,7 @@ const QuestionHeading = React.memo(function QuestionHeading(props) {
 });
 QuestionHeading.propTypes = {
     index: PropTypes.number.isRequired,
+    isSubQuestion: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired
 };
 

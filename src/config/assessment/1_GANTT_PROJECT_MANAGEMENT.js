@@ -6,17 +6,16 @@ export const GANTT_PROJECT_MANAGEMENT = {
     question: "<strong>Select all applicable statements</strong>:",
     options: [
         {text: "<i>New Offices</i> is dependent on <i>New Product Launch</i>.", correct: false},
-        {text: "<i>Development</i> will be finished in Week 8.", correct: true},
-        {text: "<i>Prepare Office Building</i> will be finished in Week 7.", correct: false},
+        {text: "<i>Development</i> will probably be finished in Week 9.", correct: true},
+        {text: "<i>Prepare Office Building</i> will most likely be finished in Week 8.", correct: false},
         {text: "<i>Relocate Cantina</i> is dependent on <i>Inspect Building</i>.", correct: true},
     ],
     subQuestion: {
-        question: "asdf",
+        question: "<strong>Select all applicable statements</strong>:",
         options: [
-            {text: "a", correct: true},
-            {text: "b", correct: false},
-            {text: "c", correct: false},
-            {text: "d", correct: false},
+            {text: "<i>Prepare office building</i> is already 20% completed.", correct: true},
+            {text: "<i>New product launch</i> has started after <i>New offices</i>.", correct: true},
+            {text: "<i>Final development</i> is dependent on <i>Relocate cantina</i>.", correct: false}
         ]
     }
 };
