@@ -70,7 +70,7 @@ export default class Question extends PureComponent {
 }
 
 const QuestionHeadingInfo = React.memo(function QuestionHeadingInfo() {
-    return <span className={"ml-2 text-sm"}><img src={sanitizePublicPath("static/error_outline-24px.svg")}
+    return <span className={"ml-2 text-sm"}><img src={sanitizePublicPath("static/assessment/error_outline-24px.svg")}
                                                  alt={""}
                                                  className={"text-green-800"}/>Multiple answers possible!</span>;
 });

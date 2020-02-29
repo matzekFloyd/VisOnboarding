@@ -1,10 +1,10 @@
 import {sanitizePublicPath} from "src/util/helpers";
 import {TASK_DATA_SET_VISUALISATION} from "src/util/assessment/constants";
 
-const GANTT_ICON_SRC = sanitizePublicPath("static/gantt_chart.svg");
-const TREE_MAP_SRC = sanitizePublicPath("static/treemap.svg");
-const LINE_GRAPH_SRC = sanitizePublicPath("static/line_graph.svg");
-const VENN_DIAGRAM_SRC = sanitizePublicPath("static/venn_diagram.svg");
+const GANTT_ICON_SRC = sanitizePublicPath("static/assessment/gantt_chart.svg");
+const TREE_MAP_SRC = sanitizePublicPath("static/assessment/treemap.svg");
+const LINE_GRAPH_SRC = sanitizePublicPath("static/assessment/line_graph.svg");
+const VENN_DIAGRAM_SRC = sanitizePublicPath("static/assessment/venn_diagram.svg");
 
 export const DATA_SET_VISUALISATION = {
     identifier: TASK_DATA_SET_VISUALISATION,

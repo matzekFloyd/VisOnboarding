@@ -171,9 +171,9 @@ ChartsManager.propTypes = {
 
 const ControlsToggle = React.memo(function ControlsToggle(props) {
     return <div id={"toggle-control"}> {props.controlsCollapsed ?
-        <img src={sanitizePublicPath("static/collapse_decrease.png")}
+        <img src={sanitizePublicPath("static/visualisation/collapse_decrease.png")}
              onClick={props.onClick} alt={"collapse_decrease"}/> :
-        <img src={sanitizePublicPath("static/collapse_increase.png")}
+        <img src={sanitizePublicPath("static/visualisation/collapse_increase.png")}
              onClick={props.onClick} alt={"collapse_increase"}/>} </div>;
 });
 ControlsToggle.propTypes = {

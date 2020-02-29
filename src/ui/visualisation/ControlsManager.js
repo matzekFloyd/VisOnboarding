@@ -60,7 +60,8 @@ export default class ControlsManager extends PureComponent {
                 <div id={"controls-content ml-10 h-auto"}>
                     <div className={"w-1/4"}>
                         <div className={"map-container mt-32"}>
-                            <MapImage src={sanitizePublicPath("static/gf_layout.png")} mapName={"layoutMap"}/>
+                            <MapImage src={sanitizePublicPath("static/visualisation/gf_layout.png")}
+                                      mapName={"layoutMap"}/>
                             <Map>
                                 <MapArea id={"area-dornerei"} coords={"225,75,275,150"}
                                          onClick={() => this.setFilter(DORNEREI.name)}/>
