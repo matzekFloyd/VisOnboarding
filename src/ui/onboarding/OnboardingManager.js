@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
+import Chart from "./Chart";
+import {ButtonWhite, ButtonDisabled, ButtonActive} from "../components";
 
 export default class OnboardingManager extends PureComponent {
 
@@ -29,20 +31,35 @@ export default class OnboardingManager extends PureComponent {
                     Left Box
                 </div>
                 <div className={"w-3/5 bg-green-200 ml-6"}>
-                    Right Box
+                    <Chart/>
+                </div>
+            </div>
+            <div className={"flex w-full h-12 m-auto"}>
+                <div className={"w-1/3 mr-auto ml-auto mt-8"}>
+                    <div className={"flex w-full"}>
+                        <ButtonWhite className={"w-1/4 m-auto"} onClick={() => {
+                            console.log("BUTTON CLICKED")
+                        }} title={"Previous"}/>
+                        <ButtonDisabled className={"w-1/4 m-auto"} title={"Skip"} onClick={() => {
+                            console.log("BUTTON CLICKED")
+                        }}/>
+                        <ButtonWhite className={"w-1/4 m-auto"} onClick={() => {
+                            console.log("BUTTON CLICKED")
+                        }} title={"Next"}/>
+                    </div>
                 </div>
             </div>
         </div>);
     }
 }
-OnboardingManager.propTypes = {};
+OnboardingManager.propTypes = {
+    config: PropTypes.object.isRequired
+};
 
 const StepNavigationBtn = React.memo(function StepNavigationBtn(props) {
-    let inActiveBtn = "bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded";
-    let activeBtn = "bg-blue-500 text-white font-semibold py-2 px-4 border border-blue-500 rounded";
-
     return <div className="steps-step">
-        <button className={props.active ? activeBtn : inActiveBtn} onClick={props.onClick}>{props.index} </button>
+        {props.active ? <ButtonActive title={"" + props.index} onClick={props.onClick}/> :
+            <ButtonWhite title={"" + props.index} onClick={props.onClick}/>}
     </div>
 });
 StepNavigationBtn.propTypes = {

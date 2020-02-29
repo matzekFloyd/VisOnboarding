@@ -5,13 +5,34 @@ export const Empty = React.memo(function Empty() {
     return <span/>
 });
 
-export const ButtonOutLine = React.memo(function Button(props) {
+export const ButtonWhite = React.memo(function Button(props) {
     return <button onClick={props.onClick}
-                   className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"}>
+                   className={"bg-white hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-2 px-4 border border-blue-600 hover:border-transparent rounded " + props.className}>
         {props.title}
     </button>
 });
-ButtonOutLine.propTypes = {
+ButtonWhite.propTypes = {
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+};
+
+export const ButtonDisabled = React.memo(function ButtonDisabled(props) {
+    return <button
+        className={"bg-transparent text-gray-900 font-semibold py-2 px-4 border border-gray-900 rounded opacity-50 cursor-not-allowed " + props.className}>
+        {props.title}
+    </button>
+});
+ButtonDisabled.propTypes = {
+    title: PropTypes.string.isRequired
+};
+
+export const ButtonActive = React.memo(function ButtonActive(props) {
+    return <button onClick={props.onClick}
+                   className={"bg-blue-600 text-white font-semibold py-2 px-4 border border-blue-600 rounded " + props.className}>
+        {props.title}
+    </button>
+});
+ButtonActive.propTypes = {
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
 };
