@@ -3,6 +3,7 @@ import Layout from "src/ui/Layout";
 import {withPageRouter} from "src/util/helpers";
 import OnboardingManager from "src/ui/onboarding/OnboardingManager";
 import {BASIC, EXPERT, PROFICIENT} from "src/util/onboarding/constants";
+import "../public/styles/onboarding.scss";
 
 class Onboarding extends PureComponent {
 

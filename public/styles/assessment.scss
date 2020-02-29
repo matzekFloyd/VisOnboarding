@@ -1,0 +1,49 @@
+.task-container {
+  #img-gantt-project-management {
+    min-width: 400px; //1/4 of original width
+    min-height: 405px; //1/4 of original height
+  }
+
+  #img-usd-to-eur-exchange-rate {
+    min-width: 600px; //1/2 of original width
+    min-height: 400px; //1/2 of original height
+  }
+
+  #img-snow-depth-at-vikjafjell {
+    min-width: 600px; //1/2 of original width
+    min-height: 400px; //1/2 of original height
+  }
+
+  #img-car-rental-schedule {
+    min-width: 400px; //1/4 of original width
+    min-height: 205px; //1/4 of original height
+  }
+
+  #img-georg-fischer-data-set {
+    min-width: 515px; //1/2 of original width
+    min-height: 299px; //1/2 of original height
+  }
+}
+
+.option-container {
+
+  label {
+    user-select: none;
+  }
+
+  input {
+    vertical-align: text-top;
+  }
+
+  img {
+    display: inline;
+    height: 70px;
+    margin: 0 5px 0 5px;
+  }
+}
+
+.task-heading {
+  img {
+    display: inline;
+  }
+}

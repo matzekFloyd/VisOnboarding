@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import Layout from 'src/ui/Layout';
 import VisualisationManager from "src/ui/visualisation/VisualisationManager";
+import "../public/styles/visualisation.scss";
 
 export default class Visualisation extends PureComponent {
 
