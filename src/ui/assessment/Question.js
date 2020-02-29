@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
-import {sanitizePublicPath} from "src/util/helpers";
 
 export default class Question extends PureComponent {
 
@@ -69,19 +68,12 @@ export default class Question extends PureComponent {
     }
 }
 
-const QuestionHeadingInfo = React.memo(function QuestionHeadingInfo() {
-    return <span className={"ml-2 text-sm"}><img src={sanitizePublicPath("static/assessment/error_outline-24px.svg")}
-                                                 alt={""}
-                                                 className={"text-green-800"}/>Multiple answers possible!</span>;
-});
-
 const QuestionHeading = React.memo(function QuestionHeading(props) {
     let number = props.index + 1;
     props.isSubQuestion ? number += "b. " : number += ". ";
     let txt = number + props.text;
     return <p className={"task-heading"}>
         <span dangerouslySetInnerHTML={{__html: txt}}/>
-        <QuestionHeadingInfo/>
     </p>
 });
 QuestionHeading.propTypes = {
@@ -124,7 +116,7 @@ ProgressBar.propTypes = {
 
 const NextBtn = React.memo(function NextBtn(props) {
     return <button
-        className={"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
+        className={"bg-green-500 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
         onClick={props.onClick}>Next</button>;
 });
 NextBtn.propTypes = {

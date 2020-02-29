@@ -1,4 +1,9 @@
 .task-container {
+
+  img {
+    user-select: none;
+  }
+
   #img-gantt-project-management {
     min-width: 400px; //1/4 of original width
     min-height: 405px; //1/4 of original height
@@ -45,5 +50,11 @@
 .task-heading {
   img {
     display: inline;
+  }
+}
+
+.assessment-description {
+  img {
+    display: inline-block;
   }
 }
