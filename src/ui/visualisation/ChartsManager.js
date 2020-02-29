@@ -23,7 +23,7 @@ import dynamic from 'next/dynamic';
 import {Empty} from "../components";
 import PropTypes from "prop-types";
 
-const Chart = dynamic(() => import('./Chart'));
+const Chart = dynamic(() => import('./Gantt'));
 
 export default class ChartsManager extends PureComponent {
 

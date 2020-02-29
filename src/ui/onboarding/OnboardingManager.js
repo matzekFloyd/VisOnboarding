@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
-import Chart from "./Chart";
 import {ButtonWhite, ButtonDisabled, ButtonActive} from "../components";
+import dynamic from 'next/dynamic';
+
+const Gantt = dynamic(() => import('./Gantt'));
 
 export default class OnboardingManager extends PureComponent {
 
@@ -31,7 +33,7 @@ export default class OnboardingManager extends PureComponent {
                     Left Box
                 </div>
                 <div className={"w-3/5 bg-green-200 ml-6"}>
-                    <Chart/>
+                    <Gantt/>
                 </div>
             </div>
             <div className={"flex w-full h-12 m-auto"}>

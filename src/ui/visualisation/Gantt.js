@@ -1,27 +1,17 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
-import HighchartsExporting from "highcharts/modules/exporting";
-import highchartsGantt from "highcharts/modules/gantt";
-import drilldown from 'highcharts/modules/drilldown';
 import {DORNEREI, FUNKEN, LOCATIONS, ROBOTER, STANZEN} from "../../util/visualisation/constants";
 import {ChartCfg} from "src/config/visualisation/ChartCfg";
 import {DataCruncher} from "src/util/visualisation/DataCruncher";
 import {getEventEmitter} from "src/util/eventemitter";
 import {Empty} from "../components";
+import Chart from "../Chart";
 
-export default class Chart extends PureComponent {
+export default class Gantt extends Chart {
 
     constructor(props, context) {
         super(props, context);
-        if (typeof Highcharts === 'object') {
-            HighchartsExporting(Highcharts);
-            highchartsGantt(Highcharts);
-            drilldown(Highcharts);
-            Highcharts.Tick.prototype.drillable = function () {
-            };
-        }
         this.id = props.id;
         this.state = {config: null, filter: null, loading: true};
         this.dataCruncher = new DataCruncher(props.date, props.categories);
@@ -126,14 +116,14 @@ export default class Chart extends PureComponent {
         let chartLoadedCallback = this.props.chartLoaded ? {callback: () => this.chartLoadedCallback()} : {};
         return (
             <div className={"chart"}>
-                {config ? <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}
+                {config ? <HighchartsReact highcharts={this.Highcharts} options={config} constructorType={'ganttChart'}
                                            ref={'chart'} {...chartLoadedCallback}/> : <Empty/>}
             </div>
         );
     }
 
 }
-Chart.propTypes = {
+Gantt.propTypes = {
     id: PropTypes.string.isRequired,
     categories: PropTypes.array.isRequired,
     identifier: PropTypes.string.isRequired

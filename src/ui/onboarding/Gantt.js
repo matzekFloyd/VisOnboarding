@@ -1,21 +1,14 @@
-import React, {PureComponent} from 'react';
-import Highcharts from "highcharts";
+import React from 'react';
 import HighchartsReact from "highcharts-react-official";
-import HighchartsExporting from "highcharts/modules/exporting";
-import highchartsGantt from "highcharts/modules/gantt";
 import {Empty} from "../components";
 import {STEP_1} from "src/config/onboarding/1_Step";
+import Chart from "../Chart";
 
-//TODO find a way of not having to import all of this highcharts/react dependecies twice -> bundle size increase
-export default class Chart extends PureComponent {
+export default class Gantt extends Chart {
 
 
     constructor(props, context) {
         super(props, context);
-        if (typeof Highcharts === 'object') {
-            HighchartsExporting(Highcharts);
-            highchartsGantt(Highcharts);
-        }
         this.state = {config: null};
     }
 
@@ -33,7 +26,7 @@ export default class Chart extends PureComponent {
         const {config} = this.state;
         return (
             <div className={"chart"}>
-                {config ? <HighchartsReact highcharts={Highcharts} options={config} constructorType={'ganttChart'}/> :
+                {config ? <HighchartsReact highcharts={this.Highcharts} options={config} constructorType={'ganttChart'}/> :
                     <Empty/>}
             </div>
         );
