@@ -4,10 +4,9 @@ import {GANTT_RESOURCE_MANAGEMENT} from "src/config/assessment/2_GANTT_RESOURCE_
 import {DATA_SET_VISUALISATION} from "src/config/assessment/3_DATASET_VISUALISATION";
 import {LINE_TIME_SERIES} from "src/config/assessment/4_LINE_TIME_SERIES";
 import {IRREGULAR_TIME_SERIES} from "src/config/assessment/5_IRREGULAR_TIME_SERIES";
-import {Empty} from "../components";
 import Router from "next/router";
 import {URL} from "../../../constants";
-import dynamic from 'next/dynamic';
+import Task from "./Task";
 import PropTypes from 'prop-types';
 import {AssessmentCompletedScreen} from "./AssessmentCompletedScreen";
 import {
@@ -15,8 +14,6 @@ import {
     TASK_GANTT_PROJECT_MANAGEMENT,
     TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
-
-const Task = dynamic(() => import('./Task'));
 
 export default class AssessmentManager extends PureComponent {
 
@@ -91,10 +88,9 @@ export default class AssessmentManager extends PureComponent {
     task() {
         let html = [];
         for (let i = 0; i < this.props.tasks.length; i++) {
-            let task = this.state.current === i ? <Task key={"task_" + i} index={i}
-                                                        taskCompleted={(index, taskIdentifier, success, subSuccess, time, skipped) => this.addCompletedTask(index, taskIdentifier, success, subSuccess, time, skipped)}
-                                                        config={this.getConfig(this.props.tasks[i])}/> :
-                <Empty key={"task_" + i}/>;
+            let task = <Task key={"task_" + i} index={i} active={this.state.current === i}
+                             taskCompleted={(index, taskIdentifier, success, subSuccess, time, skipped) => this.addCompletedTask(index, taskIdentifier, success, subSuccess, time, skipped)}
+                             config={this.getConfig(this.props.tasks[i])}/>;
             html.push(task);
         }
         return html;
