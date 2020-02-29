@@ -19,14 +19,12 @@ export default class OnboardingManager extends PureComponent {
     }
 
     render() {
-        return (<div>
-            <div className={"flex"}>
-                <div className={"w-3/4 h-12 m-auto content-center"}>
-                    <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.props.config.steps}
-                                   activeStep={this.state.activeStep}/>
-                </div>
+        return (<div className={"flex flex-wrap w-full mt-12"}>
+            <div className={"w-full h-12 m-auto"}>
+                <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.props.config.steps}
+                               activeStep={this.state.activeStep}/>
             </div>
-            <div className={"flex pt-16 ml-12 mr-12"}>
+            <div className={"flex w-full pt-16 ml-12 mr-12"}>
                 <div className={"w-2/5 bg-red-200 mr-6"}>
                     Left Box
                 </div>

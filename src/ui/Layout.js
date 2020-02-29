@@ -11,7 +11,7 @@ export default ({children, title = 'VisOnboarding'}) => (
             <meta name="description" content="VisOnboarding - A Proof of concept Prototype"/>
             <meta name="author" content="Mathias Mayrhofer"/>
         </Head>
-        <div>
+        <div className={"flex flex-wrap mr-10 ml-10"}>
             {children}
         </div>
     </div>

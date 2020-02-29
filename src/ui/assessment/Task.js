@@ -56,7 +56,7 @@ export default class Task extends PureComponent {
             config={this.state.askSubQuestion ? this.config.subQuestion : this.config}
             isSubQuestion={this.state.askSubQuestion} index={this.index}/>;
 
-        return (<div className={"flex h-screen ml-6 mr-32 task-container"}>
+        return (<div className={"flex"}>
                 <div className={"w-3/4 m-auto mr-6 border border-solid"}>
                     <TaskImage id={this.config.image.id}
                                src={sanitizePublicPath("static/assessment/" + this.config.image.src)}/>

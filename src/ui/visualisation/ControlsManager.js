@@ -17,34 +17,36 @@ export default class ControlsManager extends PureComponent {
     }
 
     initDatesNavigation() {
-        let firstRow = [];
-        let secondRow = [];
-        let base_css = "chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded ml-1 h-auto";
+        let buttons = [];
+        let button_css = "w-32 mr-3 ml-3 chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 border border-blue-500 hover:border-transparent rounded h-auto";
 
         for (let i = 0; i < DATES.length; i++) {
-            let css = base_css;
+            let css = button_css;
             if (this.props.selected === DATES[i].selector) css += " active ";
-            if (i === 4) css += " ml-12 ";
-
             let btn = <DateNavBtn key={"date_nav_btn_" + i} css={css}
                                   onClick={() => this.setSelected(DATES[i].selector)}
                                   text={DATES[i].btnTxt}/>;
-            if (i < 4) {
-                firstRow.push(btn)
-            } else {
-                secondRow.push(btn)
-            }
+            buttons.push(btn)
         }
-        return <div className={"w-1/4"}>
-            <div className={"chart-nav-container mt-12"}>
-                <div className={"flex mb-4"}>
-                    {firstRow}
-                </div>
-                <div className={"flex mb-4"}>
-                    {secondRow}
-                </div>
-            </div>
-        </div>;
+        buttons.push(<DateNavBtn css={button_css} onClick={() => this.setSelected(DATES[0].selector)} text={"Reset date"}/>);
+        return <div className="h-64 grid grid-rows-4 grid-flow-col gap-4">
+            <DateNavRow className={"m-auto"}>
+                {buttons[0]}
+                {buttons[1]}
+            </DateNavRow>
+            <DateNavRow className={"m-auto"}>
+                {buttons[2]}
+                {buttons[3]}
+            </DateNavRow>
+            <DateNavRow className={"m-auto"}>
+                {buttons[4]}
+                {buttons[5]}
+            </DateNavRow>
+            <DateNavRow className={"m-auto"}>
+                {buttons[6]}
+                {buttons[7]}
+            </DateNavRow>
+        </div>
     }
 
     setSelected(identifier) {
@@ -56,32 +58,30 @@ export default class ControlsManager extends PureComponent {
     }
 
     render() {
-        return (<div id="controls-container" className={"w-1/4 h-auto"}>
-                <div id={"controls-content ml-10 h-auto"}>
-                    <div className={"w-1/4"}>
-                        <div className={"map-container mt-32"}>
-                            <MapImage src={sanitizePublicPath("static/visualisation/gf_layout.png")}
-                                      mapName={"layoutMap"}/>
-                            <Map>
-                                <MapArea id={"area-dornerei"} coords={"225,75,275,150"}
-                                         onClick={() => this.setFilter(DORNEREI.name)}/>
-                                <MapArea id="area-roboter" coords={"320,155,180,200"}
-                                         onClick={() => this.setFilter(ROBOTER.name)}/>
-                                <MapArea id="area-stanzen" coords={"160,210,255,300"}
-                                         onClick={() => this.setFilter(STANZEN.name)}/>
-                                <MapArea id="area-funken" coords={"270,215,408,300"}
-                                         onClick={() => this.setFilter(FUNKEN.name)}/>
-                                <MapArea id="area-fremdschleifen" coords={"5,87,123,165"}
-                                         onClick={() => this.setFilter("Fremdschleifen")}/>
-                                <MapArea id="area-lager-stanzen" coords={"100,210,153,305"}
-                                         onClick={() => this.setFilter("LagerStanzen")}/>
-                                <MapArea id="area-rohlager" coords={"283,74,450,153"}
-                                         onClick={() => this.setFilter("Rohlager")}/>
-                            </Map>
-                        </div>
-                    </div>
+        return (<div id="controls-container" className={"w-1/4 h-auto ml-auto mr-auto"}>
+                <MapContent className={"w-full mb-6 mt-12"}>
+                    <MapImage src={sanitizePublicPath("static/visualisation/gf_layout.png")}
+                              mapName={"layoutMap"}/>
+                    <Map>
+                        <MapArea id={"area-dornerei"} coords={"225,75,275,150"}
+                                 onClick={() => this.setFilter(DORNEREI.name)}/>
+                        <MapArea id="area-roboter" coords={"320,155,180,200"}
+                                 onClick={() => this.setFilter(ROBOTER.name)}/>
+                        <MapArea id="area-stanzen" coords={"160,210,255,300"}
+                                 onClick={() => this.setFilter(STANZEN.name)}/>
+                        <MapArea id="area-funken" coords={"270,215,408,300"}
+                                 onClick={() => this.setFilter(FUNKEN.name)}/>
+                        <MapArea id="area-fremdschleifen" coords={"5,87,123,165"}
+                                 onClick={() => this.setFilter("Fremdschleifen")}/>
+                        <MapArea id="area-lager-stanzen" coords={"100,210,153,305"}
+                                 onClick={() => this.setFilter("LagerStanzen")}/>
+                        <MapArea id="area-rohlager" coords={"283,74,450,153"}
+                                 onClick={() => this.setFilter("Rohlager")}/>
+                    </Map>
+                </MapContent>
+                <DateNavContent className={"mt-8"}>
                     {this.initDatesNavigation()}
-                </div>
+                </DateNavContent>
             </div>
         );
     }
@@ -91,8 +91,17 @@ ControlsManager.propTypes = {
     selected: PropTypes.string.isRequired
 };
 
+const MapContent = React.memo(function MapContent(props) {
+    return <div className={props.className}>
+        {props.children}
+    </div>;
+});
+MapContent.propTypes = {
+    className: PropTypes.string.isRequired
+};
+
 const MapImage = React.memo(function MapImage(props) {
-    return <img className={"image layout"} src={props.src} alt={"map_image"} useMap={"#" + props.mapName}/>
+    return <img className={"image layout m-auto"} src={props.src} alt={"map_image"} useMap={"#" + props.mapName}/>
 });
 MapImage.propTypes = {
     src: PropTypes.string.isRequired,
@@ -110,6 +119,24 @@ MapArea.propTypes = {
     id: PropTypes.string.isRequired,
     coords: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
+};
+
+const DateNavContent = React.memo(function DateNavContent(props) {
+    return <div className={props.className}>
+        {props.children}
+    </div>;
+});
+DateNavContent.propTypes = {
+    className: PropTypes.string.isRequired
+};
+
+const DateNavRow = React.memo(function DateNavRow(props) {
+    return <div className={props.className}>
+        {props.children}
+    </div>;
+});
+DateNavRow.propTypes = {
+    className: PropTypes.string.isRequired
 };
 
 const DateNavBtn = React.memo(function DateNavBtn(props) {

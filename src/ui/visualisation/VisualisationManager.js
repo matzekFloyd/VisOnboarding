@@ -22,13 +22,11 @@ export default class VisualisationManager extends PureComponent {
     render() {
         let chartsManagerLoadedFunction = this.state.chartsManagerLoaded ? {} : {chartManagerLoadedCallback: () => this.setState({chartsManagerLoaded: true})};
         let controlsManagerLoadedFunction = this.state.controlsManagerLoaded ? {} : {controlsManagerLoadedCallback: () => this.setState({controlsManagerLoaded: true})};
-        return (<div>
+        return (<div className={this.state.chartsManagerLoaded ? "flex w-full mt-6 " : "flex w-full mt-6 hidden"}>
                 {this.state.chartsManagerLoaded && this.state.controlsManagerLoaded ? <Empty/> : <LoadingMessage/>}
-                <div className={this.state.chartsManagerLoaded ? "flex mt-6 " : "flex mt-6 hidden"}>
-                    <ChartsManager {...chartsManagerLoadedFunction} selected={this.state.selected}/>
-                    <ControlsManager {...controlsManagerLoadedFunction} selected={this.state.selected}
-                                     setSelected={(identifier) => this.setSelected(identifier)}/>
-                </div>
+                <ChartsManager {...chartsManagerLoadedFunction} selected={this.state.selected}/>
+                <ControlsManager {...controlsManagerLoadedFunction} selected={this.state.selected}
+                                 setSelected={(identifier) => this.setSelected(identifier)}/>
             </div>
         );
     }

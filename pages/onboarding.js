@@ -4,6 +4,8 @@ import {withPageRouter} from "src/util/helpers";
 import OnboardingManager from "src/ui/onboarding/OnboardingManager";
 import {BASIC, EXPERT, PROFICIENT} from "src/util/onboarding/constants";
 import "../public/styles/onboarding.scss";
+import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
+import {Empty} from "src/ui/components";
 
 class Onboarding extends PureComponent {
 
@@ -34,9 +36,13 @@ class Onboarding extends PureComponent {
     render() {
         return (
             <Layout>
-                <div className={"h-screen pt-8"}>
-                    <OnboardingManager config={this.config}/>
-                </div>
+                <PageHeadBox>
+                    <PageHeadTitle title={"Onboarding"}/>
+                    <PageHeadContent>
+                        <Empty/>
+                    </PageHeadContent>
+                </PageHeadBox>
+                <OnboardingManager config={this.config}/>
             </Layout>
         );
     }
