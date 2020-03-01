@@ -5,11 +5,6 @@ import OnboardingManager from "src/ui/onboarding/OnboardingManager";
 import {BASIC, EXPERT, PROFICIENT} from "src/util/onboarding/constants";
 import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
 import {Empty} from "src/ui/components";
-import dynamic from 'next/dynamic';
-
-const OnboardingManagerWithNoSSR = dynamic(() => import('../src/ui/onboarding/OnboardingManager'), {
-    ssr: true
-});
 
 class Onboarding extends PureComponent {
 
@@ -46,7 +41,7 @@ class Onboarding extends PureComponent {
                         <Empty/>
                     </PageHeadContent>
                 </PageHeadBox>
-                <OnboardingManagerWithNoSSR config={this.config}/>
+                <OnboardingManager config={this.config}/>
             </Layout>
         );
     }

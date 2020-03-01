@@ -12,11 +12,20 @@ export default class Task extends PureComponent {
         this.state = {
             success: false,
             subSuccess: null,
-            askSubQuestion: false
+            askSubQuestion: false,
+            height: null
         };
         this.config = props.config;
         this.identifier = props.config.identifier;
         this.index = props.index;
+    }
+
+    componentDidMount(){
+        let screenRes = {width: window.screen.availWidth, height: window.screen.availHeight};
+        let height;
+        if (screenRes.height < 1400) height = 800;
+        if (screenRes.height >= 1400) height = 1100;
+        this.setState({height: height});
     }
 
     resolveQuestion(success, requiredTime) {
@@ -58,12 +67,12 @@ export default class Task extends PureComponent {
 
         let divCss = "flex w-full border border-solid task-container ";
         this.props.active ? divCss += "block" : divCss += "hidden";
-        return (<div className={divCss}>
-                <div className={"w-3/4 mr-6 border-r border-solid"}>
+        return (<div style={{height: this.state.height + "px"}} className={divCss}>
+                <div className={"w-3/4 border ml-12 mr-6 mt-auto mb-auto"}>
                     <TaskImage id={this.config.image.id}
                                src={sanitizePublicPath("static/assessment/" + this.config.image.src)}/>
                 </div>
-                <div className={"w-1/4 m-auto"}>
+                <div className={"w-1/4 border mt-auto mb-auto mr-12"}>
                     <div className={"p-2"}>
                         {question}
                     </div>

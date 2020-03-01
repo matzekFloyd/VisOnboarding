@@ -128,7 +128,8 @@ const ControlPanel = React.memo(function ControlPanel(props) {
                 {props.onboardingCompleted ?
                     <ButtonWhite className={"w-1/4 m-auto"} title={"Skip"} onClick={() => props.skip()}/> :
                     <ButtonDisabled className={"w-1/4 m-auto"} title={"Skip"}/>}
-                <ButtonWhite className={"w-1/4 m-auto"} onClick={() => props.nextStep(step)} title={"Next"}/></div> :
+                <ButtonWhite className={"w-1/4 m-auto"} onClick={() => props.nextStep(step)} title={"Next"}/>
+            </div> :
             <Empty key={"control_panel_" + i}/>;
         html.push(buttons);
     }
@@ -139,7 +140,6 @@ const StepNavigationBtn = React.memo(function StepNavigationBtn(props) {
     let button;
     let title = "" + props.index;
     let onClick = props.onClick;
-    console.log("INDEX ACTIVE ", props.index, props.activeStep);
     if (props.active) {
         button = <ButtonActive title={title} onClick={onClick}/>;
     } else {
