@@ -58,7 +58,7 @@ export default class ControlsManager extends PureComponent {
     }
 
     render() {
-        return (<div id="controls-container" className={"w-1/4 h-auto ml-auto mr-auto"}>
+        return (<div id="controls-container" className={"w-1/4 h-auto m-auto"}>
                 <MapContent className={"w-full mb-6 mt-12"}>
                     <MapImage src={sanitizePublicPath("static/visualisation/gf_layout.png")}
                               mapName={"layoutMap"}/>

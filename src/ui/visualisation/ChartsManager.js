@@ -147,7 +147,7 @@ export default class ChartsManager extends PureComponent {
 
     render() {
         return (
-            <div id={"charts-container"} className={"w-3/4 h-auto"}>
+            <div id={"charts-container"} className={"w-3/4 mt-auto mb-auto h-auto"}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
                     {this.chart(JAN_14)}
                     {this.chart(JAN_15)}
