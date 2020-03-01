@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
+import {ButtonCta, ButtonWhite} from "../components";
 
 export default class Question extends PureComponent {
 
@@ -60,8 +61,8 @@ export default class Question extends PureComponent {
             <div className={"flex mt-8 ml-8"}>
                 <ProgressBar index={this.props.index}/>
                 <div className={"w-2/4"}>
-                    <NextBtn onClick={() => this.next()}/>
-                    <SkipBtn onClick={() => this.skip()}/>
+                    <ButtonCta className={"float-right"} onClick={() => this.next()} title={"Next"}/>
+                    <ButtonWhite className={"mr-4 float-right"} onClick={() => this.skip()} title={"Skip"}/>
                 </div>
             </div>
         </div>);
@@ -112,23 +113,4 @@ const ProgressBar = React.memo(function ProgressBar(props) {
 });
 ProgressBar.propTypes = {
     index: PropTypes.number.isRequired,
-};
-
-const NextBtn = React.memo(function NextBtn(props) {
-    return <button
-        className={"bg-green-500 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
-        onClick={props.onClick}>Next</button>;
-});
-NextBtn.propTypes = {
-    onClick: PropTypes.func.isRequired
-};
-
-const SkipBtn = React.memo(function SkipBtn(props) {
-    return <button
-        className={"mr-4 bg-gray-300 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right"}
-        onClick={props.onClick}>{"Skip"}
-    </button>
-});
-SkipBtn.propTypes = {
-    onClick: PropTypes.func.isRequired
 };

@@ -5,7 +5,7 @@ export const Empty = React.memo(function Empty() {
     return <span/>
 });
 
-export const ButtonWhite = React.memo(function Button(props) {
+export const ButtonWhite = React.memo(function ButtonWhite(props) {
     return <button onClick={props.onClick}
                    className={"bg-white hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-2 px-4 border border-blue-600 hover:border-transparent rounded " + props.className}>
         {props.title}
