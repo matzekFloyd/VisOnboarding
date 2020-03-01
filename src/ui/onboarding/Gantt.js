@@ -1,8 +1,6 @@
 import React from 'react';
 import HighchartsReact from "highcharts-react-official";
 import {Empty} from "../components";
-import {STEP_1} from "src/config/onboarding/1_Step";
-import {STEP_2} from "src/config/onboarding/2_Step";
 import Chart from "../Chart";
 
 export default class Gantt extends Chart {
@@ -14,7 +12,7 @@ export default class Gantt extends Chart {
     }
 
     componentDidMount() {
-        let config = this.props.activeStep % 2 === 0 ? {...STEP_1} : {...STEP_2};
+        let config = this.props.config;
         let screenRes = {width: window.screen.availWidth, height: window.screen.availHeight};
         if (screenRes.height < 1400) config.chart.height = 600;
         if (screenRes.height >= 1400) config.chart.height = 900;

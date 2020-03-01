@@ -5,14 +5,20 @@ import dynamic from 'next/dynamic';
 import {Empty} from "../components";
 import {URL} from "../../../constants";
 import Router from "next/router";
+import {BASIC, EXPERT, PROFICIENT} from "../../util/onboarding/constants";
+import {BASIC_CONFIG} from "../../config/onboarding/basic/config";
+import {PROFICIENT_CONFIG} from "../../config/onboarding/proficient/config";
+import {EXPERT_CONFIG} from "../../config/onboarding/expert/config";
 
 const Gantt = dynamic(() => import('./Gantt'));
+const Description = dynamic(() => import('./Description'));
 
 export default class OnboardingManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
+            config: null,
             activeStep: 1,
             onboardingCompleted: false,
             processing: false
@@ -20,11 +26,29 @@ export default class OnboardingManager extends PureComponent {
         this.enableControlPanel = false;
     }
 
+    componentDidMount() {
+        let cfg = null;
+
+        switch (this.props.identifier) {
+            case BASIC:
+            default:
+                cfg = BASIC_CONFIG;
+                break;
+            case PROFICIENT:
+                cfg = PROFICIENT_CONFIG;
+                break;
+            case EXPERT:
+                cfg = EXPERT_CONFIG;
+                break;
+        }
+        this.setState({config: cfg});
+    }
+
     setActiveStep(index) {
         if (!this.state.onboardingCompleted && !(index < this.state.activeStep) && !(index === this.state.activeStep + 1)) return;
 
         let onboardingCompleted = null;
-        if (index === this.props.config.steps) onboardingCompleted = {onboardingCompleted: true};
+        if (index === this.state.config.steps) onboardingCompleted = {onboardingCompleted: true};
         this.setState({activeStep: index, ...onboardingCompleted});
     }
 
@@ -42,8 +66,8 @@ export default class OnboardingManager extends PureComponent {
         let next = index + 1;
         let onboardingCompleted = null;
 
-        if (next >= this.props.config.steps) {
-            next = this.props.config.steps;
+        if (next >= this.state.config.steps) {
+            next = this.state.config.steps;
             onboardingCompleted = {onboardingCompleted: true};
         }
         this.setState({activeStep: next, ...onboardingCompleted});
@@ -54,7 +78,7 @@ export default class OnboardingManager extends PureComponent {
     }
 
     skip() {
-        this.setState({activeStep: this.props.config.steps});
+        this.setState({activeStep: this.state.config.steps});
     }
 
     redirectToContext() {
@@ -62,58 +86,67 @@ export default class OnboardingManager extends PureComponent {
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
     }
 
+    initDescription() {
+        let description = [];
+        for (let i = 0; i < this.state.config.steps; i++) {
+            let index = i + 1;
+            this.activeStep(index) ? description.push(<Description key={"description_" + i}
+                                                                   html={this.state.config.html[i]}
+                                                                   activeStep={index}/>) : description.push(<Empty
+                key={"description_" + i}/>);
+        }
+        return description;
+    }
+
+    initChart() {
+        let chart = [];
+        for (let i = 0; i < this.state.config.steps; i++) {
+            let index = i + 1;
+            this.activeStep(index) ? chart.push(<Gantt key={"gantt_" + i} config={this.state.config.chartCfg[i]}
+                                                       chartLoadedCallback={() => this.chartLoaded()}
+                                                       activeStep={index}/>) :
+                chart.push(<Empty key={"gantt_" + i}/>)
+        }
+        return chart;
+    }
+
     render() {
-        return (<div className={"flex flex-wrap w-full mt-12"}>
-            <div className={"w-full h-12 m-auto"}>
-                <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.props.config.steps}
-                               activeStep={this.state.activeStep} onboardingCompleted={this.state.onboardingCompleted}/>
-            </div>
-            <div className={"flex w-full pt-16 ml-12 mr-12"}>
-                <div className={"w-2/5 mr-6 bg-green-200"}>
-                    {this.state.activeStep % 2 === 0 ? "AAASDKALKSJDKLASJD" : "QWEQOWIEPOIQWEPOIQWE"}
+        return (
+            this.state.config ? <div className={"flex flex-wrap w-full mt-12"}>
+                <div className={"w-full h-12 m-auto"}>
+                    <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.state.config.steps}
+                                   activeStep={this.state.activeStep}
+                                   onboardingCompleted={this.state.onboardingCompleted}/>
                 </div>
-                <div className={"w-3/5 bg-green-200 ml-6"}>
-                    {this.activeStep(1) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
-                    {this.activeStep(2) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
-                    {this.activeStep(3) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
-                    {this.activeStep(4) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
-                    {this.activeStep(5) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
-                    {this.activeStep(6) ?
-                        <Gantt chartLoadedCallback={() => this.chartLoaded()} activeStep={this.state.activeStep}/> :
-                        <Empty/>}
+                <div className={"flex w-full pt-16 ml-12 mr-12"}>
+                    <div className={"w-1/2 mr-6 bg-green-200"}>
+                        {this.initDescription()}
+                    </div>
+                    <div className={"w-1/2 bg-green-200 ml-6"}>
+                        {this.initChart()}
+                    </div>
                 </div>
-            </div>
-            <div className={"flex w-full h-12 m-auto"}>
-                <div className={"w-1/3 mr-auto ml-auto mt-8"}>
-                    {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
-                                                             onboardingCompleted={this.state.onboardingCompleted}
-                                                             steps={this.props.config.steps}
-                                                             previousStep={(i) => this.previousStep(i)}
-                                                             nextStep={(i) => this.nextStep(i)}
-                                                             skip={() => this.skip()}/> :
-                        <Empty/>}
-                    {this.state.onboardingCompleted ?
-                        <div className={"flex w-full"}>
-                            <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
-                                       onClick={() => this.redirectToContext()}/>
-                        </div> : <Empty/>}
+                <div className={"flex w-full h-12 m-auto"}>
+                    <div className={"w-1/3 mr-auto ml-auto mt-8"}>
+                        {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
+                                                                 onboardingCompleted={this.state.onboardingCompleted}
+                                                                 steps={this.state.config.steps}
+                                                                 previousStep={(i) => this.previousStep(i)}
+                                                                 nextStep={(i) => this.nextStep(i)}
+                                                                 skip={() => this.skip()}/> :
+                            <Empty/>}
+                        {this.state.onboardingCompleted ?
+                            <div className={"flex w-full"}>
+                                <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
+                                           onClick={() => this.redirectToContext()}/>
+                            </div> : <Empty/>}
+                    </div>
                 </div>
-            </div>
-        </div>);
+            </div> : <Empty/>);
     }
 }
 OnboardingManager.propTypes = {
-    config: PropTypes.object.isRequired
+    identifier: PropTypes.string.isRequired
 };
 
 const ControlPanel = React.memo(function ControlPanel(props) {
