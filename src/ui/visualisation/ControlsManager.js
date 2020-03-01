@@ -3,6 +3,7 @@ import {DATES, DORNEREI, FUNKEN, ROBOTER, STANZEN} from "src/util/visualisation/
 import {sanitizePublicPath} from "src/util/helpers";
 import {getEventEmitter} from "src/util/eventemitter";
 import PropTypes from "prop-types";
+import {ButtonWhite} from "../components";
 
 export default class ControlsManager extends PureComponent {
 
@@ -18,17 +19,17 @@ export default class ControlsManager extends PureComponent {
 
     initDatesNavigation() {
         let buttons = [];
-        let button_css = "w-32 mr-3 ml-3 chart-nav-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 border border-blue-500 hover:border-transparent rounded h-auto";
-
+        let baseCss = "w-32 mr-3 ml-3 chart-nav-btn";
         for (let i = 0; i < DATES.length; i++) {
-            let css = button_css;
-            if (this.props.selected === DATES[i].selector) css += " active ";
-            let btn = <DateNavBtn key={"date_nav_btn_" + i} css={css}
-                                  onClick={() => this.setSelected(DATES[i].selector)}
-                                  text={DATES[i].btnTxt}/>;
+            let btn = <ButtonWhite key={"date_nav_btn_" + i}
+                                   className={this.props.selected === DATES[i].selector ? baseCss + " active " : baseCss}
+                                   title={DATES[i].btnTxt}
+                                   onClick={() => this.setSelected(DATES[i].selector)}/>;
+
             buttons.push(btn)
         }
-        buttons.push(<DateNavBtn css={button_css} onClick={() => this.setSelected(DATES[0].selector)} text={"Reset date"}/>);
+        buttons.push(<ButtonWhite title={"Reset date"} onClick={() => this.setSelected(DATES[0].selector)}
+                                  className={baseCss}/>);
         return <div className="h-64 grid grid-rows-4 grid-flow-col gap-4">
             <DateNavRow className={"m-auto"}>
                 {buttons[0]}
