@@ -16,14 +16,26 @@ ButtonWhite.propTypes = {
     onClick: PropTypes.func.isRequired
 };
 
+export const ButtonCta = React.memo(function ButtonCta(props) {
+    return <button onClick={props.onClick}
+                   className={"bg-green-500 hover:bg-blue-600 text-white font-semibold hover:text-white py-2 px-4 border border-green-600 hover:border-transparent rounded " + props.className}>
+        {props.title}
+    </button>
+});
+ButtonCta.propTypes = {
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+};
+
 export const ButtonDisabled = React.memo(function ButtonDisabled(props) {
-    return <button
-        className={"bg-transparent text-gray-900 font-semibold py-2 px-4 border border-gray-900 rounded opacity-50 cursor-not-allowed " + props.className}>
+    return <button onClick={props.onClick}
+                   className={"bg-white text-gray-900 font-semibold py-2 px-4 border border-gray-900 rounded opacity-50 cursor-not-allowed " + props.className}>
         {props.title}
     </button>
 });
 ButtonDisabled.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func
 };
 
 export const ButtonActive = React.memo(function ButtonActive(props) {
