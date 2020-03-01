@@ -65,7 +65,7 @@ export const PageHeadBox = React.memo(function PageHeadBox(props) {
 });
 
 export const PageHeadTitle = React.memo(function PageHeadTitle(props) {
-    return <h1 className={"text-xl font-extrabold"}>{props.title}</h1>
+    return <h1>{props.title}</h1>
 });
 PageHeadTitle.propTypes = {
     title: PropTypes.string.isRequired,

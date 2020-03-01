@@ -1,4 +1,4 @@
-var today = new Date(),
+let today = new Date(),
     day = 1000 * 60 * 60 * 24;
 // Set to 00:00:00:000 today
 today.setUTCHours(0);
@@ -7,34 +7,19 @@ today.setUTCSeconds(0);
 today.setUTCMilliseconds(0);
 today = today.getTime();
 
-//TODO this is dummy data/cfg
-export const STEP_2 = {
+// TODO Explain interactivity, drilldown and/or draggable tasks
+export const STEP_4 = {
     chart: {
         height: 600
     },
-    series: [{
-        name: 'Offices',
-        data: [{
-            name: 'New offices',
-            id: 'new_offices',
-            owner: 'Peter'
-        }, {
-            name: 'Prepare office building',
-            id: 'prepare_building',
-            parent: 'new_offices',
-            start: today - (2 * day),
-            end: today + (6 * day),
-            completed: {
-                amount: 0.2
-            },
-            owner: 'Linda'
-        }]
-    }, {
+    tooltip: {
+        enabled: false
+    },
+    series: [ {
         name: 'Product',
         data: [{
             name: 'New product launch',
             id: 'new_product',
-            owner: 'Peter'
         }, {
             name: 'Development',
             id: 'development',
@@ -45,19 +30,15 @@ export const STEP_2 = {
                 amount: 0.6,
                 fill: '#e80'
             },
-            owner: 'Susan'
         }, {
             name: 'Beta',
             id: 'beta',
-            dependency: 'development',
             parent: 'new_product',
-            start: today + 12.5 * day,
-            milestone: true,
-            owner: 'Peter'
+            start: today + 11 * day,
+            end: today + 14 * day,
         }, {
             name: 'Final development',
             id: 'finalize',
-            dependency: 'beta',
             parent: 'new_product',
             start: today + 13 * day,
             end: today + 17 * day
@@ -65,11 +46,11 @@ export const STEP_2 = {
             name: 'Launch',
             dependency: 'finalize',
             parent: 'new_product',
-            start: today + 17.5 * day,
-            milestone: true,
-            owner: 'Peter'
+            start: today + 17 * day,
+            end: today + 18 * day
         }]
     }],
+    colors: ['#621100', '#cf7611', '#ffba46', '#f4777f', '#93003a'],
     title: {
         text: 'Gantt Project Management'
     },
@@ -79,8 +60,7 @@ export const STEP_2 = {
         max: today + 18 * day
     },
     exporting: {
-        sourceWidth: 1200,
-        sourceHeight: 700
+        enabled: false
     },
     credits: {
         enabled: false

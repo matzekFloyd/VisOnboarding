@@ -1,3 +1,16 @@
+.description-container {
+  img {
+    display: inline;
+    height: 60px;
+    margin: 0 15px 0 0;
+  }
+
+  h2 {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
 /*---- STEPS ------------------ */
 .steps-form {
   display: table;

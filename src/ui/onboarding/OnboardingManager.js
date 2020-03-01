@@ -119,10 +119,10 @@ export default class OnboardingManager extends PureComponent {
                                    onboardingCompleted={this.state.onboardingCompleted}/>
                 </div>
                 <div className={"flex w-full pt-16 ml-12 mr-12"}>
-                    <div className={"w-1/2 mr-6 bg-green-200"}>
+                    <div className={"w-1/2 mr-6"}>
                         {this.initDescription()}
                     </div>
-                    <div className={"w-1/2 bg-green-200 ml-6"}>
+                    <div className={"w-1/2 ml-6"}>
                         {this.initChart()}
                     </div>
                 </div>
