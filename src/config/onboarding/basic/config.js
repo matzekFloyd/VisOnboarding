@@ -2,6 +2,8 @@ import {STEP_1} from "src/config/onboarding/basic/charts/1_STEP";
 import {STEP_2} from "src/config/onboarding/basic/charts/2_STEP";
 import {STEP_3} from "src/config/onboarding/basic/charts/3_STEP";
 import {STEP_4} from "src/config/onboarding/basic/charts/4_STEP";
+import {STEP_5} from "src/config/onboarding/basic/charts/5_STEP";
+import {STEP_6} from "src/config/onboarding/basic/charts/6_STEP";
 
 export const BASIC_CONFIG = {
     steps: 6,
@@ -104,6 +106,6 @@ export const BASIC_CONFIG = {
         {header: {text: "Gantt chart - Asset Tracking", img: ""}, body: "", footer: null},
     ],
     chartCfg: [
-        STEP_1, STEP_2, STEP_3, STEP_4
+        STEP_1, STEP_2, STEP_3, STEP_4, STEP_5, STEP_6
     ]
 };

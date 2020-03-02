@@ -163,7 +163,7 @@ export class DataCruncher {
             text: this.getTitleText(1, event),
             textAlign: 'center',
             margin: 0,
-            uesHtml: true
+            useHtml: true
         };
         chart.update({
             title: this.title.drilldown,
