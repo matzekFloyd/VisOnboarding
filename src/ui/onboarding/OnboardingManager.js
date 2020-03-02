@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
-import {ButtonWhite, ButtonDisabled, ButtonActive, ButtonCta} from "../components";
+import {ButtonWhite, ButtonDisabled, ButtonActive, ButtonCta, LoadingIndicator} from "../components";
 import dynamic from 'next/dynamic';
 import {Empty} from "../components";
 import {URL} from "../../../constants";
@@ -137,37 +137,41 @@ export default class OnboardingManager extends PureComponent {
 
     render() {
         return (
-            !this.state.loading ? <div className={"flex flex-wrap w-full mt-12"}>
-                <div className={"w-full h-12 m-auto"}>
-                    <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.steps}
-                                   activeStep={this.state.activeStep}
-                                   onboardingCompleted={this.state.onboardingCompleted}/>
-                </div>
-                <div className={"flex w-full pt-16 ml-12 mr-12"}>
-                    <div className={"w-1/2 mr-6"}>
-                        {this.initDescription()}
+            this.state.loading ?
+                <div className={"flex flex-wrap w-full mt-12"}>
+                    <LoadingIndicator/>
+                </div> :
+                <div className={"flex flex-wrap w-full mt-12"}>
+                    <div className={"w-full h-12 m-auto"}>
+                        <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.steps}
+                                       activeStep={this.state.activeStep}
+                                       onboardingCompleted={this.state.onboardingCompleted}/>
                     </div>
-                    <div className={"w-1/2 ml-6"}>
-                        {this.initChart()}
+                    <div className={"flex w-full pt-16 ml-12 mr-12"}>
+                        <div className={"w-1/2 mr-6"}>
+                            {this.initDescription()}
+                        </div>
+                        <div className={"w-1/2 ml-6"}>
+                            {this.initChart()}
+                        </div>
                     </div>
-                </div>
-                <div className={"flex w-full h-12 m-auto"}>
-                    <div className={"w-1/3 mr-auto ml-auto mt-8"}>
-                        {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
-                                                                 onboardingCompleted={this.state.onboardingCompleted}
-                                                                 steps={this.steps}
-                                                                 previousStep={(i) => this.previousStep(i)}
-                                                                 nextStep={(i) => this.nextStep(i)}
-                                                                 skip={() => this.skip()}/> :
-                            <Empty/>}
-                        {this.state.onboardingCompleted ?
-                            <div className={"flex w-full"}>
-                                <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
-                                           onClick={() => this.redirectToContext()}/>
-                            </div> : <Empty/>}
+                    <div className={"flex w-full h-12 m-auto"}>
+                        <div className={"w-1/3 mr-auto ml-auto mt-8"}>
+                            {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
+                                                                     onboardingCompleted={this.state.onboardingCompleted}
+                                                                     steps={this.steps}
+                                                                     previousStep={(i) => this.previousStep(i)}
+                                                                     nextStep={(i) => this.nextStep(i)}
+                                                                     skip={() => this.skip()}/> :
+                                <Empty/>}
+                            {this.state.onboardingCompleted ?
+                                <div className={"flex w-full"}>
+                                    <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
+                                               onClick={() => this.redirectToContext()}/>
+                                </div> : <Empty/>}
+                        </div>
                     </div>
-                </div>
-            </div> : <Empty/>);
+                </div>);
     }
 }
 OnboardingManager.propTypes = {
