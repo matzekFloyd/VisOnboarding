@@ -1,7 +1,6 @@
 import {convertUnixToString} from "src/util/helpers";
 
 let today = new Date();
-// Set to 00:00:00:000 today
 today.setUTCHours(0);
 today.setUTCMinutes(0);
 today.setUTCSeconds(0);

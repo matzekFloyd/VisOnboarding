@@ -1,7 +1,7 @@
 import {convertUnixToString} from "src/util/helpers";
 import {BEACON} from "src/util/visualisation/constants";
 import {OVERVIEW_2018_12_20} from "../../2018_12_20";
-import {formatDateString} from "src/util/helpers";
+import {formatDateString} from "../../../../util/helpers";
 
 let startDate = new Date('2018-12-20T01:00:00');
 let categories = [
@@ -12,7 +12,7 @@ let categories = [
 let titleOverview = '<b>Overview - ' + formatDateString(startDate, true, true, true, false, false) + '</b>';
 
 let day = 1000 * 60 * 60 * 24;
-export const STEP_5 = {
+export const STEP_1 = {
     chart: {
         height: 600
     },

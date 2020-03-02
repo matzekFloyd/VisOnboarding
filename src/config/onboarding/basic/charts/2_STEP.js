@@ -1,6 +1,5 @@
 let today = new Date(),
     day = 1000 * 60 * 60 * 24;
-// Set to 00:00:00:000 today
 today.setUTCHours(0);
 today.setUTCMinutes(0);
 today.setUTCSeconds(0);
