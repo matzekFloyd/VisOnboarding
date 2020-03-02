@@ -13,6 +13,12 @@ import {EXPERT_CONFIG} from "../../config/onboarding/expert/config";
 const Gantt = dynamic(() => import('./Gantt'));
 const Description = dynamic(() => import('./Description'));
 
+//TODO maybe OnboardingManager should import chart config lazily
+// -> if active step 1
+// -> import and load config for 1 and 2
+// -> save it
+// -> if active step then changes to 2, it already has config loaded (this potentially leads to non-jarring flickering on screen)
+// -> only import once though, if config is already set per step, only pass it down, dont import/load again
 export default class OnboardingManager extends PureComponent {
 
     constructor(props, context) {
