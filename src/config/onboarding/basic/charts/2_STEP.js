@@ -37,13 +37,11 @@ export const STEP_2 = {
             end: today + 14 * day,
         }, {
             name: 'Final development',
-            id: 'finalize',
             parent: 'new_product',
             start: today + 13 * day,
             end: today + 17 * day
         }, {
             name: 'Launch',
-            dependency: 'finalize',
             parent: 'new_product',
             start: today + 17 * day,
             end: today + 18 * day
@@ -54,7 +52,6 @@ export const STEP_2 = {
         text: 'Gantt Project Management'
     },
     xAxis: {
-        currentDateIndicator: true,
         min: today - 3 * day,
         max: today + 18 * day
     },

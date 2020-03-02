@@ -17,7 +17,7 @@ export default class Description extends PureComponent {
         for (let i = 0; i < this.state.html.body.length; i++) {
             let cur = this.state.html.body[i];
             html.push(
-                <div className={"mb-6"}><p>{cur}</p></div>
+                <div key={"description_paragraph_" + i} className={"mb-6"}>{cur}</div>
             );
         }
         return html;
@@ -44,7 +44,7 @@ Description.propTypes = {
 
 const DescriptionHeader = React.memo(function DescriptionHeader(props) {
     return <div className={"flex w-full m-auto"}>
-        <div className='mb-6'><img src={sanitizePublicPath("static/assessment/" + props.img)}/><h2
+        <div className='mb-6'><img src={sanitizePublicPath("static/assessment/" + props.img)} alt={""}/><h2
         >{props.text}</h2></div>
     </div>;
 });
