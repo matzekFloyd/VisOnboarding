@@ -1,4 +1,3 @@
-export const EXPERT_CONFIG = {
-    steps: 2,
+export const EXPERT_DESCRIPTION = {
     html: []
 };

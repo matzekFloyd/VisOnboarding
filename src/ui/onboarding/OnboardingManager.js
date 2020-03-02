@@ -6,55 +6,75 @@ import {Empty} from "../components";
 import {URL} from "../../../constants";
 import Router from "next/router";
 import {BASIC, EXPERT, PROFICIENT} from "../../util/onboarding/constants";
-import {BASIC_CONFIG} from "../../config/onboarding/basic/config";
-import {PROFICIENT_CONFIG} from "../../config/onboarding/proficient/config";
-import {EXPERT_CONFIG} from "../../config/onboarding/expert/config";
 
 const Gantt = dynamic(() => import('./Gantt'));
 const Description = dynamic(() => import('./Description'));
 
-//TODO maybe OnboardingManager should import chart config lazily
-// -> if active step 1
-// -> import and load config for 1 and 2
-// -> save it
-// -> if active step then changes to 2, it already has config loaded (this potentially leads to non-jarring flickering on screen)
-// -> only import once though, if config is already set per step, only pass it down, dont import/load again
 export default class OnboardingManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            config: null,
             activeStep: 1,
             onboardingCompleted: false,
-            processing: false
+            chartLoading: true,
+            descriptionConfig: null,
+            chartConfig: null,
+            loading: true
         };
+        this.identifier = props.identifier;
+        this.steps = props.steps;
         this.enableControlPanel = false;
     }
 
-    componentDidMount() {
-        let cfg = null;
+    async componentDidMount() {
+        let descriptionConfig = await this.getDescriptionCfg();
 
+        let chartCfg = [];
+        for (let i = 0; i < this.steps; i++) {
+            let cfg;
+            cfg = await this.getChartCfg(i + 1);
+            chartCfg.push(cfg)
+        }
+
+        this.setState({descriptionConfig: descriptionConfig, chartConfig: chartCfg}, () => {
+            this.setState({loading: false});
+        });
+    }
+
+    async getDescriptionCfg() {
         switch (this.props.identifier) {
             case BASIC:
-            default:
-                cfg = BASIC_CONFIG;
-                break;
+                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.BASIC_DESCRIPTION);
             case PROFICIENT:
-                cfg = PROFICIENT_CONFIG;
-                break;
+                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.PROFCIENT_DESCRIPTION);
             case EXPERT:
-                cfg = EXPERT_CONFIG;
-                break;
+                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.EXPERT_DESCRIPTION);
         }
-        this.setState({config: cfg});
+    }
+
+    async getChartCfg(index) {
+        switch (index) {
+            case 1:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/1_STEP").then((mod) => mod.STEP_1);
+            case 2:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/2_STEP").then((mod) => mod.STEP_2);
+            case 3:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/3_STEP").then((mod) => mod.STEP_3);
+            case 4:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/4_STEP").then((mod) => mod.STEP_4);
+            case 5:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/5_STEP").then((mod) => mod.STEP_5);
+            case 6:
+                return await import("src/config/onboarding/" + this.props.identifier + "/charts/6_STEP").then((mod) => mod.STEP_6);
+        }
     }
 
     setActiveStep(index) {
         if (!this.state.onboardingCompleted && !(index < this.state.activeStep) && !(index === this.state.activeStep + 1)) return;
 
         let onboardingCompleted = null;
-        if (index === this.state.config.steps) onboardingCompleted = {onboardingCompleted: true};
+        if (index === this.steps) onboardingCompleted = {onboardingCompleted: true};
         this.setState({activeStep: index, ...onboardingCompleted});
     }
 
@@ -72,19 +92,19 @@ export default class OnboardingManager extends PureComponent {
         let next = index + 1;
         let onboardingCompleted = null;
 
-        if (next >= this.state.config.steps) {
-            next = this.state.config.steps;
+        if (next >= this.steps) {
+            next = this.steps;
             onboardingCompleted = {onboardingCompleted: true};
         }
         this.setState({activeStep: next, ...onboardingCompleted});
     }
 
     chartLoaded() {
-        this.setState({processing: false});
+        this.setState({chartLoading: false});
     }
 
     skip() {
-        this.setState({activeStep: this.state.config.steps});
+        this.setState({activeStep: this.steps});
     }
 
     redirectToContext() {
@@ -94,10 +114,10 @@ export default class OnboardingManager extends PureComponent {
 
     initDescription() {
         let description = [];
-        for (let i = 0; i < this.state.config.steps; i++) {
+        for (let i = 0; i < this.steps; i++) {
             let index = i + 1;
             this.activeStep(index) ? description.push(<Description key={"description_" + i}
-                                                                   html={this.state.config.html[i]}
+                                                                   html={this.state.descriptionConfig.html[i]}
                                                                    activeStep={index}/>) : description.push(<Empty
                 key={"description_" + i}/>);
         }
@@ -106,11 +126,10 @@ export default class OnboardingManager extends PureComponent {
 
     initChart() {
         let chart = [];
-        for (let i = 0; i < this.state.config.steps; i++) {
+        for (let i = 0; i < this.steps; i++) {
             let index = i + 1;
-            this.activeStep(index) ? chart.push(<Gantt key={"gantt_" + i} identifier={this.props.identifier}
-                                                       chartLoadedCallback={() => this.chartLoaded()}
-                                                       activeStep={index}/>) :
+            this.activeStep(index) ? chart.push(<Gantt key={"gantt_" + i} config={this.state.chartConfig[i]}
+                                                       chartLoadedCallback={() => this.chartLoaded()}/>) :
                 chart.push(<Empty key={"gantt_" + i}/>)
         }
         return chart;
@@ -118,9 +137,9 @@ export default class OnboardingManager extends PureComponent {
 
     render() {
         return (
-            this.state.config ? <div className={"flex flex-wrap w-full mt-12"}>
+            !this.state.loading ? <div className={"flex flex-wrap w-full mt-12"}>
                 <div className={"w-full h-12 m-auto"}>
-                    <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.state.config.steps}
+                    <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.steps}
                                    activeStep={this.state.activeStep}
                                    onboardingCompleted={this.state.onboardingCompleted}/>
                 </div>
@@ -136,7 +155,7 @@ export default class OnboardingManager extends PureComponent {
                     <div className={"w-1/3 mr-auto ml-auto mt-8"}>
                         {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
                                                                  onboardingCompleted={this.state.onboardingCompleted}
-                                                                 steps={this.state.config.steps}
+                                                                 steps={this.steps}
                                                                  previousStep={(i) => this.previousStep(i)}
                                                                  nextStep={(i) => this.nextStep(i)}
                                                                  skip={() => this.skip()}/> :

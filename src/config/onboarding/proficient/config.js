@@ -1,4 +1,3 @@
-export const PROFICIENT_CONFIG = {
-    steps: 4,
+export const PROFCIENT_DESCRIPTION = {
     html: []
 };

@@ -1,5 +1,4 @@
-export const BASIC_CONFIG = {
-    steps: 6,
+export const BASIC_DESCRIPTION = {
     html: [
         {
             header: {text: "Gantt chart - What is it?", img: "gantt_chart.svg"}, body:

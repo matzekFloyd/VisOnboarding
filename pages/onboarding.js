@@ -11,7 +11,9 @@ class Onboarding extends PureComponent {
     constructor(props, context) {
         super(props, context);
         this.state = {};
-        this.identifier = this.setOnboarding(parseInt(props.router.query.pts) || 0);
+        let onboardingCfg = this.setOnboarding(parseInt(props.router.query.pts));
+        this.identifier = onboardingCfg.identifier;
+        this.steps = onboardingCfg.steps;
     }
 
     setOnboarding(assessmentScore) {
@@ -19,17 +21,19 @@ class Onboarding extends PureComponent {
         const ACCESS_PROFICIENT = (points) => points >= 46 && points <= 90;
         const ACCESS_EXPERT = (points) => points >= 91 && points <= 100;
 
+        let config = {};
         if (ACCESS_BASIC(assessmentScore)) {
-            return BASIC;
+            config = {identifier: BASIC, steps: 6};
         }
 
         if (ACCESS_PROFICIENT(assessmentScore)) {
-            return PROFICIENT;
+            config = {identifier: PROFICIENT, steps: 4};
         }
 
         if (ACCESS_EXPERT(assessmentScore)) {
-            return EXPERT;
+            config = {identifier: EXPERT, steps: 2};
         }
+        return config;
     }
 
     render() {
@@ -41,7 +45,7 @@ class Onboarding extends PureComponent {
                         <Empty/>
                     </PageHeadContent>
                 </PageHeadBox>
-                <OnboardingManager identifier={this.identifier}/>
+                <OnboardingManager identifier={this.identifier} steps={this.steps}/>
             </Layout>
         );
     }
