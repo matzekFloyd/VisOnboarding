@@ -102,7 +102,7 @@ export default class OnboardingManager extends PureComponent {
         let chart = [];
         for (let i = 0; i < this.state.config.steps; i++) {
             let index = i + 1;
-            this.activeStep(index) ? chart.push(<Gantt key={"gantt_" + i} config={this.state.config.chartCfg[i]}
+            this.activeStep(index) ? chart.push(<Gantt key={"gantt_" + i} identifier={this.props.identifier}
                                                        chartLoadedCallback={() => this.chartLoaded()}
                                                        activeStep={index}/>) :
                 chart.push(<Empty key={"gantt_" + i}/>)
