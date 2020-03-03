@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
-import {ButtonWhite, ButtonDisabled, ButtonActive, ButtonCta} from "../components";
+import {ButtonWhite, ButtonActive, ButtonCta} from "../components";
 import dynamic from 'next/dynamic';
 import {Empty, LoadingMessage} from "../components";
 import {URL} from "../../../constants";
@@ -25,7 +25,6 @@ export default class OnboardingManager extends PureComponent {
         };
         this.identifier = props.identifier;
         this.steps = props.steps;
-        this.enableControlPanel = false;
     }
 
     async componentDidMount() {
@@ -91,29 +90,8 @@ export default class OnboardingManager extends PureComponent {
         return this.state.activeStep === index;
     }
 
-    previousStep(index) {
-        let previous = index - 1;
-        if (previous < 1) previous = 1;
-        this.setActiveStep(previous);
-    }
-
-    nextStep(index) {
-        let next = index + 1;
-        let onboardingCompleted = null;
-
-        if (next >= this.steps) {
-            next = this.steps;
-            onboardingCompleted = {onboardingCompleted: true};
-        }
-        this.setState({activeStep: next, ...onboardingCompleted});
-    }
-
     chartLoaded() {
         this.setState({chartLoading: false});
-    }
-
-    skip() {
-        this.setState({activeStep: this.steps});
     }
 
     redirectToContext() {
@@ -166,13 +144,6 @@ export default class OnboardingManager extends PureComponent {
                     </div>
                     <div className={"flex w-full h-12 m-auto"}>
                         <div className={"w-1/3 mr-auto ml-auto mt-6"}>
-                            {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
-                                                                     onboardingCompleted={this.state.onboardingCompleted}
-                                                                     steps={this.steps}
-                                                                     previousStep={(i) => this.previousStep(i)}
-                                                                     nextStep={(i) => this.nextStep(i)}
-                                                                     skip={() => this.skip()}/> :
-                                <Empty/>}
                             {this.state.onboardingCompleted && !this.state.chartLoading ?
                                 <div className={"flex w-full"}>
                                     <ButtonCta className={"w-2/4 m-auto"} title={"Continue to task explanation"}
@@ -186,26 +157,6 @@ export default class OnboardingManager extends PureComponent {
 OnboardingManager.propTypes = {
     identifier: PropTypes.string.isRequired
 };
-
-const ControlPanel = React.memo(function ControlPanel(props) {
-    let html = [];
-    for (let i = 1; i <= props.steps; i++) {
-        let step = i;
-        let buttons = props.activeStep === step ?
-            <div key={"control_panel_" + i} className={"flex w-full"}>{props.activeStep === 1 ?
-                <ButtonDisabled className={"w-1/4 m-auto"} title={"Previous"}/> :
-                <ButtonWhite className={"w-1/4 m-auto"} onClick={() => props.previousStep(step)}
-                             title={"Previous"}/>}
-                {props.onboardingCompleted ?
-                    <ButtonWhite className={"w-1/4 m-auto"} title={"Skip"} onClick={() => props.skip()}/> :
-                    <ButtonDisabled className={"w-1/4 m-auto"} title={"Skip"}/>}
-                <ButtonWhite className={"w-1/4 m-auto"} onClick={() => props.nextStep(step)} title={"Next"}/>
-            </div> :
-            <Empty key={"control_panel_" + i}/>;
-        html.push(buttons);
-    }
-    return html;
-});
 
 const StepNavigationBtn = React.memo(function StepNavigationBtn(props) {
     let button;
