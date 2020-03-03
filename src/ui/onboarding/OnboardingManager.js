@@ -6,6 +6,7 @@ import {Empty} from "../components";
 import {URL} from "../../../constants";
 import Router from "next/router";
 import {BASIC, EXPERT, PROFICIENT} from "../../util/onboarding/constants";
+import Error from "next/error";
 
 const Gantt = dynamic(() => import('./Gantt'));
 const Description = dynamic(() => import('./Description'));
@@ -28,12 +29,12 @@ export default class OnboardingManager extends PureComponent {
     }
 
     async componentDidMount() {
-        let descriptionConfig = await this.getDescriptionCfg();
+        let descriptionConfig = await this.getDescriptionCfg().catch((error) => console.error(error));
 
         let chartCfg = [];
         for (let i = 0; i < this.steps; i++) {
             let cfg;
-            cfg = await this.getChartCfg(i + 1);
+            cfg = await this.getChartCfg(i + 1).catch((error) => console.error(error));
             chartCfg.push(cfg)
         }
 
@@ -43,30 +44,38 @@ export default class OnboardingManager extends PureComponent {
     }
 
     async getDescriptionCfg() {
-        switch (this.props.identifier) {
-            case BASIC:
-                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.BASIC_DESCRIPTION);
-            case PROFICIENT:
-                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.PROFCIENT_DESCRIPTION);
-            case EXPERT:
-                return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.EXPERT_DESCRIPTION);
+        if (this.props.identifier) {
+            switch (this.props.identifier) {
+                case BASIC:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.BASIC_DESCRIPTION);
+                case PROFICIENT:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.PROFCIENT_DESCRIPTION);
+                case EXPERT:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/config").then((mod) => mod.EXPERT_DESCRIPTION);
+            }
+        } else {
+            throw new Error("No identifier set! ", this.props.identifier);
         }
     }
 
     async getChartCfg(index) {
-        switch (index) {
-            case 1:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/1_STEP").then((mod) => mod.STEP_1);
-            case 2:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/2_STEP").then((mod) => mod.STEP_2);
-            case 3:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/3_STEP").then((mod) => mod.STEP_3);
-            case 4:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/4_STEP").then((mod) => mod.STEP_4);
-            case 5:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/5_STEP").then((mod) => mod.STEP_5);
-            case 6:
-                return await import("src/config/onboarding/" + this.props.identifier + "/charts/6_STEP").then((mod) => mod.STEP_6);
+        if (index) {
+            switch (index) {
+                case 1:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/1_STEP").then((mod) => mod.STEP_1);
+                case 2:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/2_STEP").then((mod) => mod.STEP_2);
+                case 3:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/3_STEP").then((mod) => mod.STEP_3);
+                case 4:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/4_STEP").then((mod) => mod.STEP_4);
+                case 5:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/5_STEP").then((mod) => mod.STEP_5);
+                case 6:
+                    return await import("src/config/onboarding/" + this.props.identifier + "/charts/6_STEP").then((mod) => mod.STEP_6);
+            }
+        } else {
+            throw new Error("No index set! ", index);
         }
     }
 

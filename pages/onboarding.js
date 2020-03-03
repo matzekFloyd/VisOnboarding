@@ -11,7 +11,8 @@ class Onboarding extends PureComponent {
     constructor(props, context) {
         super(props, context);
         this.state = {};
-        let onboardingCfg = this.setOnboarding(parseInt(props.router.query.pts));
+        let points = parseInt(props.router.query.pts) || 0;
+        let onboardingCfg = this.setOnboarding(points);
         this.identifier = onboardingCfg.identifier;
         this.steps = onboardingCfg.steps;
     }
