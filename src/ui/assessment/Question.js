@@ -10,14 +10,9 @@ export default class Question extends PureComponent {
             isSubQuestion: props.isSubQuestion,
             answers: [false, false, false, false],
             success: null,
-            startTime: null,
             endTime: null,
             time: null
         };
-    }
-
-    componentDidMount() {
-        this.setState({startTime: new Date()})
     }
 
     initOptions() {
@@ -36,8 +31,7 @@ export default class Question extends PureComponent {
     }
 
     getTimeRequired() {
-        let startTime = this.state.startTime;
-        return (new Date().getTime() - startTime) / 1000;
+        return (new Date().getTime() - this.props.startTime) / 1000;
     }
 
     skip() {

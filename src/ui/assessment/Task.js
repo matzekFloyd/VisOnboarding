@@ -20,7 +20,7 @@ export default class Task extends PureComponent {
         this.index = props.index;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let screenRes = {width: window.screen.availWidth, height: window.screen.availHeight};
         let height;
         if (screenRes.height < 1400) height = 800;
@@ -63,7 +63,8 @@ export default class Task extends PureComponent {
             resolveQuestion={(success, requiredTime) => this.resolveQuestion(success, requiredTime)}
             resolveTask={(success, requiredTime, skipped) => this.resolveTask(success, requiredTime, skipped)}
             config={this.state.askSubQuestion ? this.config.subQuestion : this.config}
-            isSubQuestion={this.state.askSubQuestion} index={this.index}/>;
+            isSubQuestion={this.state.askSubQuestion} index={this.index}
+            startTime={this.props.active ? new Date() : null}/>;
 
         let divCss = "flex w-full border border-solid task-container ";
         this.props.active ? divCss += "block" : divCss += "hidden";
