@@ -4,12 +4,18 @@ import AssessmentManager from "src/ui/assessment/AssessmentManager";
 import {TASKS} from "src/util/assessment/constants";
 import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
 import {sanitizePublicPath} from "../src/util/helpers";
+import {Empty} from "src/ui/components";
 
 export default class Assessment extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {assessmentCompleted: false};
         this.tasks = TASKS;
+    }
+
+    assessmentCompleted() {
+        this.setState({assessmentCompleted: true});
     }
 
     render() {
@@ -18,23 +24,22 @@ export default class Assessment extends PureComponent {
                 <PageHeadBox>
                     <PageHeadTitle title={"Assessment"}/>
                     <PageHeadContent>
-                        <AssessmentDescription/>
-                        <br/>
+                        {this.state.assessmentCompleted ? <Empty/> : <AssessmentDescription/>}
                     </PageHeadContent>
                 </PageHeadBox>
-                <AssessmentManager tasks={this.tasks}/>
+                <AssessmentManager assessmentCompletedCb={() => this.assessmentCompleted()} tasks={this.tasks}/>
             </Layout>
         );
     }
-
 }
 
 const AssessmentDescription = React.memo(function AssessmentDescription() {
-    return <p className={"assessment-description"}>
-                            <span>Please answer the questions by thoroughly examining the corresponding graph.
-                            </span>
-        <span className={"ml-6 mr-2"}><img
-            src={sanitizePublicPath("static/assessment/error_outline-24px.svg")}
-            alt={""}/>It is possible that multiple options are correct!</span>
-    </p>;
+    return <div className={"assessment-description mb-2"}>
+        <p><AssessmentInfoIcon/>Please answer the questions by thoroughly examining the corresponding graph.</p>
+        <p><AssessmentInfoIcon/> It is possible that multiple options are correct!</p>
+    </div>
+});
+
+const AssessmentInfoIcon = React.memo(function AssessmentInfoIcon() {
+    return <img src={sanitizePublicPath("static/assessment/error_outline-24px.svg")} alt={""} className={"mr-2"}/>;
 });

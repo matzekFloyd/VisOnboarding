@@ -165,7 +165,7 @@ export default class OnboardingManager extends PureComponent {
                         </div>
                     </div>
                     <div className={"flex w-full h-12 m-auto"}>
-                        <div className={"w-1/3 mr-auto ml-auto mt-2"}>
+                        <div className={"w-1/3 mr-auto ml-auto mt-6"}>
                             {this.enableControlPanel ? <ControlPanel activeStep={this.state.activeStep}
                                                                      onboardingCompleted={this.state.onboardingCompleted}
                                                                      steps={this.steps}

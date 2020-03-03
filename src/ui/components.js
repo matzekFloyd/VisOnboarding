@@ -59,18 +59,20 @@ export const LoadingIndicator = React.memo(function LoadingIndicator() {
 });
 
 export const PageHeadBox = React.memo(function PageHeadBox(props) {
-    return <div className={"mt-6"}>
+    return <div className={"w-full mt-6"}>
         {props.children}
     </div>
 });
 
 export const PageHeadTitle = React.memo(function PageHeadTitle(props) {
-    return <h1>{props.title}</h1>
+    return <h1 className={"page-title"}>{props.title}</h1>
 });
 PageHeadTitle.propTypes = {
     title: PropTypes.string.isRequired,
 };
 
 export const PageHeadContent = React.memo(function PageHeadContent(props) {
-    return props.children;
+    return <div className={"flex w-3/4 "}>
+        {props.children}
+    </div>
 });

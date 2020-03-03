@@ -36,7 +36,7 @@ export const AssessmentCompletedScreen = React.memo(function AssessmentCompleted
                                        success={cur.success} points={cur.points}/>);
     }
 
-    return <div className="flex h-screen">
+    return <div className="w-full flex">
         <div className={"w-2/4 m-auto border border-solid h-auto"}>
             <div className={"flex"}>
                 <div className={"m-auto p-8"}>
@@ -128,7 +128,7 @@ const RedirectOnboardingBtn = React.memo(function RedirectOnboardingBtn(props) {
     return <button
         className={"m-auto content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"}
         onClick={props.onClick}>
-        Go to Onboarding
+        Continue to Onboarding
     </button>
 });
 RedirectOnboardingBtn.propTypes = {

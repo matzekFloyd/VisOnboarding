@@ -40,6 +40,7 @@ export default class AssessmentManager extends PureComponent {
                     pointsTotal += this.state.finishedTasks[i].points;
                 }
                 this.setState({assessmentCompleted: true, pointsTotal: pointsTotal}, () => {
+                    this.props.assessmentCompletedCb();
                     if (!this.enableAssessmentCompletedScreen) this.redirectToOnboarding();
                 });
             }
