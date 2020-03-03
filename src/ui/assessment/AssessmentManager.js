@@ -14,6 +14,7 @@ import {
     TASK_GANTT_PROJECT_MANAGEMENT,
     TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
+import {LoadingMessage} from "../components";
 
 export default class AssessmentManager extends PureComponent {
 
@@ -23,9 +24,19 @@ export default class AssessmentManager extends PureComponent {
             current: 0,
             finishedTasks: [],
             assessmentCompleted: false,
-            pointsTotal: 0
+            pointsTotal: 0,
+            loading: true
         };
         this.enableAssessmentCompletedScreen = false;
+        this.enableLoadingDelay = true;
+    }
+
+    componentDidMount() {
+        if (this.enableLoadingDelay) {
+            setTimeout(() => this.setState({loading: false}), 750);
+        } else {
+            this.setState({loading: false});
+        }
     }
 
     addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
@@ -98,7 +109,8 @@ export default class AssessmentManager extends PureComponent {
     }
 
     render() {
-        return (this.state.assessmentCompleted && this.enableAssessmentCompletedScreen ?
+        let showResults = this.state.assessmentCompleted && this.enableAssessmentCompletedScreen;
+        return (this.state.loading ? <LoadingMessage text={"Initializing assessment..."}/> : showResults ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
                                        onClick={() => this.redirectToOnboarding()}/> : this.task());
     }

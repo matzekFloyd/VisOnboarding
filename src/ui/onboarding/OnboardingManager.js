@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from "prop-types";
-import {ButtonWhite, ButtonDisabled, ButtonActive, ButtonCta, LoadingIndicator} from "../components";
+import {ButtonWhite, ButtonDisabled, ButtonActive, ButtonCta} from "../components";
 import dynamic from 'next/dynamic';
-import {Empty} from "../components";
+import {Empty, LoadingMessage} from "../components";
 import {URL} from "../../../constants";
 import Router from "next/router";
 import {BASIC, EXPERT, PROFICIENT} from "../../util/onboarding/constants";
@@ -148,7 +148,7 @@ export default class OnboardingManager extends PureComponent {
         return (
             this.state.loading ?
                 <div className={"flex flex-wrap w-full mt-6"}>
-                    <LoadingIndicator/>
+                    <LoadingMessage text={"Initializing onboarding..."}/>
                 </div> :
                 <div className={"flex flex-wrap w-full mt-6"}>
                     <div className={"w-full h-12 m-auto"}>

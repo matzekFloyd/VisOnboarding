@@ -59,6 +59,13 @@ export const LoadingIndicator = React.memo(function LoadingIndicator() {
     </div>;
 });
 
+export const LoadingMessage = React.memo(function LoadingMessage(props) {
+    return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>{props.text}</b></div>;
+});
+LoadingMessage.propTypes = {
+    text: PropTypes.string.isRequired
+};
+
 export const PageHeadBox = React.memo(function PageHeadBox(props) {
     return <div className={"w-full mt-4"}>
         {props.children}
