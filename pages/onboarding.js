@@ -18,9 +18,9 @@ class Onboarding extends PureComponent {
     }
 
     setOnboarding(assessmentScore) {
-        const ACCESS_BASIC = (points) => points >= 0 && points <= 45;
+        const ACCESS_BASIC = (points) => points <= 45;
         const ACCESS_PROFICIENT = (points) => points >= 46 && points <= 90;
-        const ACCESS_EXPERT = (points) => points >= 91 && points <= 100;
+        const ACCESS_EXPERT = (points) => points >= 91;
 
         let config = {};
         if (ACCESS_BASIC(assessmentScore)) {
