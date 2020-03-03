@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import Layout from 'src/ui/Layout';
 import AssessmentManager from "src/ui/assessment/AssessmentManager";
 import {TASKS} from "src/util/assessment/constants";
-import "../public/styles/assessment.scss";
 import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
 import {sanitizePublicPath} from "../src/util/helpers";
 

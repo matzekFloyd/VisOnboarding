@@ -3,7 +3,6 @@ import React, {PureComponent} from 'react';
 import {sanitizePublicPath} from "src/util/helpers";
 import Router from "next/router";
 import {URL} from "../constants";
-import "../public/styles/index.scss";
 
 export default class Home extends PureComponent {
 

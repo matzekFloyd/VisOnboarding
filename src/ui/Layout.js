@@ -1,7 +1,6 @@
 import React from "react";
 import "../../public/styles/main.scss";
 import Head from 'next/head'
-import "../../public/styles/onboarding.scss";
 
 export default ({children, title = 'VisOnboarding'}) => (
     <div>
