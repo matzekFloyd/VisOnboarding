@@ -102,7 +102,7 @@ MapContent.propTypes = {
 };
 
 const MapImage = React.memo(function MapImage(props) {
-    return <img className={"image layout m-auto"} src={props.src} alt={"map_image"} useMap={"#" + props.mapName}/>
+    return <img className={"map-image-layout m-auto"} src={props.src} alt={"map_image"} useMap={"#" + props.mapName}/>
 });
 MapImage.propTypes = {
     src: PropTypes.string.isRequired,

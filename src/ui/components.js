@@ -78,6 +78,9 @@ export const PageHeadContent = React.memo(function PageHeadContent(props) {
     </div>
 });
 
-export const PageDescriptionInfoIcon = React.memo(function PageDescriptionInfoIcon() {
-    return <img src={sanitizePublicPath("static/error_outline-24px.svg")} alt={""} className={"mr-2"}/>;
+export const PageDescriptionIcon = React.memo(function PageDescriptionIcon(props) {
+    return <img src={sanitizePublicPath(props.icon)} alt={""} className={"mr-2"}/>;
 });
+PageDescriptionIcon.propTypes = {
+    icon: PropTypes.string.isRequired,
+};

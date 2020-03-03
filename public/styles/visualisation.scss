@@ -1,14 +1,14 @@
-$img-width: 470px;
-$img-height: 317px;
+$map-img-width: 470px;
+$map-img-height: 317px;
 
-.image.layout {
+.map-image-layout {
   display: block;
-  width: $img-width;
-  height: $img-height;
-  max-width: $img-width;
-  min-width: $img-width;
-  max-height: $img-height;
-  min-height: $img-height;
+  width: $map-img-width;
+  height: $map-img-height;
+  max-width: $map-img-width;
+  min-width: $map-img-width;
+  max-height: $map-img-height;
+  min-height: $map-img-height;
 }
 
 .chart-nav-btn.active {
