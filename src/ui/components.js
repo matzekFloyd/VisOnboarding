@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {sanitizePublicPath} from "../util/helpers";
 
 export const Empty = React.memo(function Empty() {
     return <span/>
@@ -59,7 +60,7 @@ export const LoadingIndicator = React.memo(function LoadingIndicator() {
 });
 
 export const PageHeadBox = React.memo(function PageHeadBox(props) {
-    return <div className={"w-full mt-6"}>
+    return <div className={"w-full mt-4"}>
         {props.children}
     </div>
 });
@@ -75,4 +76,8 @@ export const PageHeadContent = React.memo(function PageHeadContent(props) {
     return <div className={"flex w-3/4 "}>
         {props.children}
     </div>
+});
+
+export const PageDescriptionInfoIcon = React.memo(function PageDescriptionInfoIcon() {
+    return <img src={sanitizePublicPath("static/error_outline-24px.svg")} alt={""} className={"mr-2"}/>;
 });

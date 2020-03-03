@@ -147,16 +147,16 @@ export default class OnboardingManager extends PureComponent {
     render() {
         return (
             this.state.loading ?
-                <div className={"flex flex-wrap w-full mt-12"}>
+                <div className={"flex flex-wrap w-full mt-6"}>
                     <LoadingIndicator/>
                 </div> :
-                <div className={"flex flex-wrap w-full mt-12"}>
+                <div className={"flex flex-wrap w-full mt-6"}>
                     <div className={"w-full h-12 m-auto"}>
                         <StepsOverview onClick={(index) => this.setActiveStep(index)} stepCount={this.steps}
                                        activeStep={this.state.activeStep}
                                        onboardingCompleted={this.state.onboardingCompleted}/>
                     </div>
-                    <div className={"flex w-full pt-16 ml-12 mr-12"}>
+                    <div className={"flex w-full pt-12 ml-12 mr-12"}>
                         <div className={"w-1/2 mr-6"}>
                             {this.initDescription()}
                         </div>
@@ -175,7 +175,7 @@ export default class OnboardingManager extends PureComponent {
                                 <Empty/>}
                             {this.state.onboardingCompleted && !this.state.chartLoading ?
                                 <div className={"flex w-full"}>
-                                    <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
+                                    <ButtonCta className={"w-2/4 m-auto"} title={"Continue to task explanation"}
                                                onClick={() => this.redirectToContext()}/>
                                 </div> : <Empty/>}
                         </div>

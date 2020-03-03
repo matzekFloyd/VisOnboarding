@@ -33,7 +33,7 @@ export default class Gantt extends Chart {
     componentDidMount() {
         let config = ChartCfg(this.dataCruncher);
         let screenRes = {width: window.screen.availWidth, height: window.screen.availHeight};
-        if (screenRes.height < 1400) config.chart.height = 750;
+        if (screenRes.height < 1400) config.chart.height = 800;
         if (screenRes.height >= 1400) config.chart.height = 1100;
         this.setState({config: config}, () => {
             this.eventEmitter = getEventEmitter();

@@ -2,8 +2,7 @@ import React, {PureComponent} from 'react';
 import Layout from 'src/ui/Layout';
 import AssessmentManager from "src/ui/assessment/AssessmentManager";
 import {TASKS} from "src/util/assessment/constants";
-import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
-import {sanitizePublicPath} from "../src/util/helpers";
+import {PageHeadBox, PageHeadContent, PageHeadTitle, PageDescriptionInfoIcon} from "src/ui/components";
 import {Empty} from "src/ui/components";
 
 export default class Assessment extends PureComponent {
@@ -35,11 +34,7 @@ export default class Assessment extends PureComponent {
 
 const AssessmentDescription = React.memo(function AssessmentDescription() {
     return <div className={"assessment-description mb-2"}>
-        <p><AssessmentInfoIcon/>Please answer the questions by thoroughly examining the corresponding graph.</p>
-        <p><AssessmentInfoIcon/> It is possible that multiple options are correct!</p>
+        <p><PageDescriptionInfoIcon/>Please answer the questions by thoroughly examining the corresponding graph.</p>
+        <p><PageDescriptionInfoIcon/>It is possible that multiple options are correct!</p>
     </div>
-});
-
-const AssessmentInfoIcon = React.memo(function AssessmentInfoIcon() {
-    return <img src={sanitizePublicPath("static/assessment/error_outline-24px.svg")} alt={""} className={"mr-2"}/>;
 });

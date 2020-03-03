@@ -14,7 +14,7 @@ export default class Gantt extends Chart {
     componentDidMount() {
         let config = this.props.config;
         let screenRes = {width: window.screen.availWidth, height: window.screen.availHeight};
-        if (screenRes.height < 1400) config.chart.height = 600;
+        if (screenRes.height < 1400) config.chart.height = 550;
         if (screenRes.height >= 1400) config.chart.height = 900;
         this.setState({config: config});
     }

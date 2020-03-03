@@ -3,8 +3,7 @@ import Layout from "src/ui/Layout";
 import {withPageRouter} from "src/util/helpers";
 import OnboardingManager from "src/ui/onboarding/OnboardingManager";
 import {BASIC, EXPERT, PROFICIENT} from "src/util/onboarding/constants";
-import {PageHeadBox, PageHeadContent, PageHeadTitle} from "src/ui/components";
-import {Empty} from "src/ui/components";
+import {PageHeadBox, PageHeadContent, PageHeadTitle, PageDescriptionInfoIcon} from "src/ui/components";
 
 class Onboarding extends PureComponent {
 
@@ -43,14 +42,21 @@ class Onboarding extends PureComponent {
                 <PageHeadBox>
                     <PageHeadTitle title={"Onboarding"}/>
                     <PageHeadContent>
-                        <Empty/>
+                        <OnboardingDescription/>
                     </PageHeadContent>
                 </PageHeadBox>
                 <OnboardingManager identifier={this.identifier} steps={this.steps}/>
             </Layout>
         );
     }
-
 }
+
+const OnboardingDescription = React.memo(function OnboardingDescription() {
+    return <div className={"assessment-description mb-2"}>
+    <p><PageDescriptionInfoIcon/>Please complete the onboarding by using the numbered navigation.</p>
+    <p><PageDescriptionInfoIcon/>Each step provides information and explanation that is helpful for the final task.</p>
+    </div>
+});
+
 
 export default withPageRouter(Onboarding)

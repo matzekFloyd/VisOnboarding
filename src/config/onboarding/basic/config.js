@@ -28,7 +28,7 @@ export const BASIC_DESCRIPTION = {
             body: {
                 paragraphs:
                     [
-                        "<strong>Connecting arrows</strong> can be used to show which tasks are dependent on each other. <strong>Critical paths</strong>, the key activities required to finish the project can also be displayed with a series of highlighted arrows. <strong>Symbols</strong> can also be placed within a Gantt Chart to <strong>signify milestones</strong> and a vertical line running through the chart is used to highlight the current date.",
+                        "<strong>Connecting arrows</strong> can be used to show which tasks are dependent on each other. <strong>Symbols</strong> can also be placed within a Gantt Chart to <strong>signify milestones</strong>. A vertical line running through the chart is often used to highlight the current date.",
                         "These elements mainly focus on visualising a <strong>comprehensive overview</strong>. However every meaningful data visualization provides functionality to explore its data set in <strong>detail</strong>. The user should be able to get this information when he chooses, in other words, interacts with the visualization (<strong>Detail on Demand</strong>).",
                         "A conventional way for providing <strong>detailed information on interactions</strong> are <strong>tooltips</strong>, that appear when hovering over a specific data point."
                     ],
