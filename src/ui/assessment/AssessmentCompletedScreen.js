@@ -90,7 +90,7 @@ const AssessmentResult = React.memo(function AssessmentResult(props) {
 
     if (props.skipped) {
         classes += "bg-gray-100";
-        icon = <img src={sanitizePublicPath("static/assessment/remove-24px.svg")} alt={""}/>
+        icon = <img src={sanitizePublicPath("static/remove-24px.svg")} alt={""}/>
     } else {
         props.success ? classes += "bg-green-200" : classes += "bg-red-200";
     }
