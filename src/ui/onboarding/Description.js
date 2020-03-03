@@ -44,7 +44,7 @@ Description.propTypes = {
 
 const DescriptionHeader = React.memo(function DescriptionHeader(props) {
     return <div className={"flex w-full m-auto"}>
-        <div className='mb-6'><img src={sanitizePublicPath("static/assessment/" + props.img)} alt={""}/><h2
+        <div className='mb-6'><img src={sanitizePublicPath("static/onboarding/" + props.img)} alt={""}/><h2
         >{props.text}</h2></div>
     </div>;
 });

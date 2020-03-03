@@ -173,7 +173,7 @@ export default class OnboardingManager extends PureComponent {
                                                                      nextStep={(i) => this.nextStep(i)}
                                                                      skip={() => this.skip()}/> :
                                 <Empty/>}
-                            {this.state.onboardingCompleted ?
+                            {this.state.onboardingCompleted && !this.state.chartLoading ?
                                 <div className={"flex w-full"}>
                                     <ButtonCta className={"w-2/4 m-auto"} title={"Go to Task!"}
                                                onClick={() => this.redirectToContext()}/>
