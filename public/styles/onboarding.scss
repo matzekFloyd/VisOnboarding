@@ -1,3 +1,5 @@
+$headline-color: #93003A;
+
 .description-container {
   img {
     display: inline;
@@ -5,9 +7,23 @@
     margin: 0 15px 0 0;
   }
 
+  h2, h3 {
+    color: $headline-color;
+  }
+
   h2 {
     display: inline-block;
     vertical-align: middle;
+  }
+}
+
+.description-example-container {
+  border-left: 6px solid;
+  border-color: #ff8ea9;
+  background-color: #edf2f7;
+
+  h3 {
+    margin: 0 0 5px 0;
   }
 }
 

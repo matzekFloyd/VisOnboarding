@@ -14,10 +14,11 @@ export default class Description extends PureComponent {
 
     initParagraphs() {
         let html = [];
-        for (let i = 0; i < this.state.html.body.length; i++) {
-            let cur = this.state.html.body[i];
+        for (let i = 0; i < this.state.html.body.paragraphs.length; i++) {
+            let cur = this.state.html.body.paragraphs[i];
             html.push(
-                <div key={"description_paragraph_" + i} className={"mb-6"}>{cur}</div>
+                <div key={"description_paragraph_" + i} className={"mb-6 text-justify"}
+                     dangerouslySetInnerHTML={{__html: cur}}/>
             );
         }
         return html;
@@ -30,6 +31,7 @@ export default class Description extends PureComponent {
                 <DescriptionHeader text={html.header.text} img={html.header.img}/>
                 <DescriptionBody>
                     {this.initParagraphs()}
+                    <DescriptionExample text={html.body.example}/>
                 </DescriptionBody>
                 <DescriptionFooter>
                     {html.footer}
@@ -60,5 +62,15 @@ const DescriptionBody = React.memo(function DescriptionBody(props) {
 const DescriptionFooter = React.memo(function DescriptionFooter(props) {
     return <div className={"flex w-full m-auto"} dangerouslySetInnerHTML={{__html: props.children}}/>;
 });
+
+const DescriptionExample = React.memo(function DescriptionExample(props) {
+    return <div className='description-example-container p-3 rounded'>
+        <h3><strong>Example</strong></h3>
+        <span dangerouslySetInnerHTML={{__html: props.text}}/>
+    </div>
+});
+DescriptionExample.propTypes = {
+    text: PropTypes.string.isRequired
+};
 
 
