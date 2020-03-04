@@ -10,8 +10,8 @@
 /.idea
 
 #css
-/src/css/*.css
-/src/css/*.css.map
+/public/styles/*.css
+/public/styles/*.css.map
 
 #env
 .env
