@@ -36,10 +36,13 @@ class Home extends PureComponent {
     }
 
     navigate(event, to) {
-        if (!this.state.inputValid) return;
-
         event.preventDefault();
-        Router.push(to).then(() => console.log("Redirecting: ", to));
+        if (!this.state.inputValid) return;
+        let href = to;
+        if(to === URL.assessment) {
+            href += "?uid=" + this.state.user;
+        }
+        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
     }
 
     initCards() {

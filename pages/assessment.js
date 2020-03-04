@@ -9,13 +9,15 @@ import {
     PageDescriptionIcon
 } from "src/ui/components";
 import {Empty} from "src/ui/components";
+import {withPageRouter} from "../src/util/helpers";
 
-export default class Assessment extends PureComponent {
+class Assessment extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {assessmentCompleted: false};
         this.tasks = TASKS;
+        this.user = props.router.query.uid;
     }
 
     assessmentCompleted() {
@@ -31,7 +33,7 @@ export default class Assessment extends PureComponent {
                         {this.state.assessmentCompleted ? <Empty/> : <AssessmentDescription/>}
                     </PageHeadContent>
                 </PageHeadBox>
-                <AssessmentManager assessmentCompletedCb={() => this.assessmentCompleted()} tasks={this.tasks}/>
+                <AssessmentManager user={this.user} assessmentCompletedCb={() => this.assessmentCompleted()} tasks={this.tasks}/>
             </Layout>
         );
     }
@@ -45,3 +47,5 @@ const AssessmentDescription = React.memo(function AssessmentDescription() {
             correct!</p>
     </div>
 });
+
+export default withPageRouter(Assessment)
