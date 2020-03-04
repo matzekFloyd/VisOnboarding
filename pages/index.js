@@ -18,7 +18,9 @@ class Home extends PureComponent {
         this.state = {
             loading: true,
             mode: null,
-            user: null
+            user: null,
+            inputValid: false,
+            inputError: null
         };
     }
 
@@ -34,7 +36,7 @@ class Home extends PureComponent {
     }
 
     navigate(event, to) {
-        if (!this.validateInput()) return;
+        if (!this.state.inputValid) return;
 
         event.preventDefault();
         Router.push(to).then(() => console.log("Redirecting: ", to));
@@ -42,29 +44,38 @@ class Home extends PureComponent {
 
     initCards() {
         let cards = [];
-        let enabled = this.validateInput();
+        let enabled = this.state.inputValid;
         if (this.activeMode(OPTIONAL)) {
             cards.push(<OnboardingCard key={"card_1"} className={"mr-6 ml-auto"} enabled={enabled}
                                        onClick={(e) => this.navigate(e, URL.assessment)}/>);
             cards.push(<TaskCard key={"card_2"} className={"ml-6 mr-auto"} enabled={enabled}
                                  onClick={(e) => this.navigate(e, URL.context)}/>)
         } else if (this.activeMode(ONBOARDING)) {
-            cards.push(<OnboardingCard className={"m-auto"} onClick={(e) => this.navigate(e, URL.assessment)}
+            cards.push(<OnboardingCard key={"card_1"} className={"m-auto"}
+                                       onClick={(e) => this.navigate(e, URL.assessment)}
                                        enabled={enabled}/>);
         } else if (this.activeMode(TASK)) {
-            cards.push(<TaskCard className={"m-auto"} onClick={(e) => this.navigate(e, URL.context)}
+            cards.push(<TaskCard key={"card_2"} className={"m-auto"} onClick={(e) => this.navigate(e, URL.context)}
                                  enabled={enabled}/>);
         }
         return cards;
     }
 
     handleInputChange(e) {
-        this.setState({user: e.target.value});
+        this.setState({user: e.target.value}, () => {
+            this.validateInput()
+        });
     }
 
     validateInput() {
-        //TODO
-        return this.state.user ? true : false;
+        let input = this.state.user;
+        if (typeof input !== "undefined" && input !== null) {
+            if (!input.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/)) {
+                this.setState({inputValid: false, inputError: "Only letters (a-z) and numbers (0-9) allowed!"});
+            } else {
+                this.setState({inputValid: true, inputError: null});
+            }
+        }
     }
 
     render() {
@@ -76,7 +87,7 @@ class Home extends PureComponent {
                             {this.initCards()}
                         </div>
                         <div className={"flex w-full"}>
-                            <InputPanel onChange={(e) => this.handleInputChange(e)}/>
+                            <InputPanel inputError={this.state.inputError} onChange={(e) => this.handleInputChange(e)}/>
                         </div>
                     </div>
                 }
@@ -86,15 +97,16 @@ class Home extends PureComponent {
 }
 
 const InputPanel = React.memo(function InputPanel(props) {
-    return <div className={"w-1/3 mr-auto ml-auto mt-12"}>
-                                <span className="w-full block ml-auto mr-auto align-middle text-center">
-                                    <img src={sanitizePublicPath("static/error_outline-24px.svg")} alt={""}
-                                         className={"inline mr-2 align-top"}/>
-                                    {props.text}
-                                    </span>
+    return <div className={"w-2/5 mr-auto ml-auto mt-12"}>
+            <span className="w-full block ml-auto mr-auto align-middle text-center">
+                <img src={sanitizePublicPath("static/error_outline-24px.svg")} alt={""}
+                     className={"inline mr-2 align-top"}/>
+                {props.text}
+                </span>
         <label className="w-1/2 block ml-auto mr-auto mt-3">
             <input type={"text"} onChange={props.onChange}
                    className="form-input mt-1 block w-full" placeholder={props.placeholderText}/>
+            <span className={"text-red-600"}>{props.inputError}</span>
         </label>
     </div>
 });
