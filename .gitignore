@@ -12,3 +12,6 @@
 #css
 /src/css/*.css
 /src/css/*.css.map
+
+#env
+.env
