@@ -30,22 +30,28 @@ export default class AssessmentManager extends PureComponent {
         };
         this.enableAssessmentCompletedScreen = false;
         this.enableLoadingDelay = true;
+        this.enableWritingToDB = true;
     }
 
     async componentDidMount() {
         let firebase = await loadFireBase();
         this.db = firebase.firestore();
-        this.setState({loading: false});
+        if (this.enableLoadingDelay) {
+            setTimeout(() => this.setState({loading: false}), 500);
+        } else {
+            this.setState({loading: false});
+        }
     }
 
     async redirectToOnboarding() {
         this.setState({loading: true});
-        await this.persistToDb();
+        if (this.enableWritingToDB) await this.persistToDb();
         let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
     }
 
     async persistToDb() {
+        let collection = process.env.NODE_ENV === "production" ? "[PROD] assessments" : "[DEV] assessments";
         let timeStamp = new Date().toLocaleString();
         let doc_id = this.props.user + " " + timeStamp;
         let payload = {
@@ -55,7 +61,7 @@ export default class AssessmentManager extends PureComponent {
             timeCreated: new Date()
         };
         await this.db
-            .collection("assessments")
+            .collection(collection)
             .doc(doc_id)
             .set(payload)
             .then(() => {
@@ -132,7 +138,7 @@ export default class AssessmentManager extends PureComponent {
 
     render() {
         let showResults = this.state.assessmentCompleted && this.enableAssessmentCompletedScreen;
-        return (this.state.loading ? <LoadingMessage text={"Processing..."}/> : showResults ?
+        return (this.state.loading ? <LoadingMessage text={"Loading..."}/> : showResults ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
                                        onClick={() => this.redirectToOnboarding()}/> : this.task());
     }
