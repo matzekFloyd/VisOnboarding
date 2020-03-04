@@ -33,7 +33,8 @@ class Assessment extends PureComponent {
                         {this.state.assessmentCompleted ? <Empty/> : <AssessmentDescription/>}
                     </PageHeadContent>
                 </PageHeadBox>
-                <AssessmentManager user={this.user} assessmentCompletedCb={() => this.assessmentCompleted()} tasks={this.tasks}/>
+                <AssessmentManager user={this.user} assessmentCompletedCb={() => this.assessmentCompleted()}
+                                   tasks={this.tasks}/>
             </Layout>
         );
     }

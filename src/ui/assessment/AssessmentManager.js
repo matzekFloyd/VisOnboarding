@@ -15,6 +15,7 @@ import {
     TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
 import {LoadingMessage} from "../components";
+import {loadFireBase} from "../../../lib/db";
 
 export default class AssessmentManager extends PureComponent {
 
@@ -31,12 +32,38 @@ export default class AssessmentManager extends PureComponent {
         this.enableLoadingDelay = true;
     }
 
-    componentDidMount() {
-        if (this.enableLoadingDelay) {
-            setTimeout(() => this.setState({loading: false}), 750);
-        } else {
-            this.setState({loading: false});
-        }
+    async componentDidMount() {
+        let firebase = await loadFireBase();
+        this.db = firebase.firestore();
+        this.setState({loading: false});
+    }
+
+    async redirectToOnboarding() {
+        this.setState({loading: true});
+        await this.persistToDb();
+        let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
+        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+    }
+
+    async persistToDb() {
+        let timeStamp = new Date().toLocaleString();
+        let doc_id = this.props.user + " " + timeStamp;
+        let payload = {
+            user: this.props.user,
+            finishedTasks: this.state.finishedTasks,
+            points: this.state.pointsTotal,
+            timeCreated: new Date()
+        };
+        await this.db
+            .collection("assessments")
+            .doc(doc_id)
+            .set(payload)
+            .then(() => {
+            })
+            .catch((error) => {
+                    console.error("Could not write to database: ", error);
+                }
+            );
     }
 
     addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
@@ -77,11 +104,6 @@ export default class AssessmentManager extends PureComponent {
         return subtractMinutes(points, minutes);
     }
 
-    redirectToOnboarding() {
-        let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
-        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
-    }
-
     getConfig(identifier) {
         switch (identifier) {
             case TASK_GANTT_PROJECT_MANAGEMENT:
@@ -110,12 +132,17 @@ export default class AssessmentManager extends PureComponent {
 
     render() {
         let showResults = this.state.assessmentCompleted && this.enableAssessmentCompletedScreen;
-        return (this.state.loading ? <LoadingMessage text={"Initializing assessment..."}/> : showResults ?
+        return (this.state.loading ? <LoadingMessage text={"Processing..."}/> : showResults ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
                                        onClick={() => this.redirectToOnboarding()}/> : this.task());
     }
 
 }
+AssessmentManager.defaultProps = {
+    user: "anonymous"
+};
+
 AssessmentManager.propTypes = {
+    user: PropTypes.string,
     tasks: PropTypes.array.isRequired
 };
