@@ -1,12 +1,17 @@
 import React, {PureComponent} from 'react';
 import Layout from 'src/ui/Layout';
 import VisualisationManager from "src/ui/visualisation/VisualisationManager";
-import {PageHeadBox, PageHeadTitle, PageHeadContent, Empty} from "src/ui/components";
+import {PageHeadBox, PageHeadTitle, PageHeadContent, Empty, LoadingMessage} from "src/ui/components";
 
 export default class Visualisation extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {loading: true};
+    }
+
+    componentDidMount() {
+        this.setState({loading: false});
     }
 
     render() {
@@ -18,7 +23,7 @@ export default class Visualisation extends PureComponent {
                         <Empty/>
                     </PageHeadContent>
                 </PageHeadBox>
-                <VisualisationManager/>
+                {this.state.loading ? <LoadingMessage/> : <VisualisationManager/>}
             </Layout>
         );
     }

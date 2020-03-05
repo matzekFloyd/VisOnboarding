@@ -1,7 +1,7 @@
 import Layout from 'src/ui/Layout';
 import React, {PureComponent} from 'react';
-import {sanitizePublicPath, withPageRouter} from "../src/util/helpers";
-import {LoadingMessage, PageHeadBox, PageHeadTitle} from "../src/ui/components";
+import {sanitizePublicPath, withPageRouter} from "src/util/helpers";
+import {LoadingMessage, PageHeadBox, PageHeadTitle} from "src/ui/components";
 import PropTypes from "prop-types";
 import {URL} from "../constants";
 import {redirect} from "src/util/helpers";
