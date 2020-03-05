@@ -64,7 +64,7 @@ export default class AssessmentManager extends PureComponent {
     async persistToDb() {
         let collection = process.env.NODE_ENV === "production" ? "[PROD] assessments" : "[DEV] assessments";
         let timeStamp = new Date().toLocaleString();
-        let doc_id = this.props.user + " " + timeStamp;
+        let doc_id = timeStamp + " " + this.props.user;
         let payload = {
             user: this.props.user,
             finishedTasks: this.state.finishedTasks,
@@ -72,29 +72,10 @@ export default class AssessmentManager extends PureComponent {
             timeCreated: new Date()
         };
 
-        let auth = this.firebase.auth();
         let db = this.firebase.firestore();
-        return await auth.signInAnonymously()
-            .then(() => {
-                console.log("Firebase sign in");
-                auth.onAuthStateChanged(fireBaseUser => {
-                    if (fireBaseUser) {
-                        db.collection(collection).doc(doc_id).set(payload)
-                            .then(() => {
-                                console.log("Firebase DB write");
-                                auth.signOut()
-                                    .then(() => console.log("Firebase sign out"))
-                                    .catch((error) => console.error("Firebase sign out.", error))
-                            })
-                            .catch(
-                                (error) => console.error("Firebase DB write", error)
-                            );
-                    }
-                })
-            })
-            .catch((error) => {
-                console.error("Firebase sign in", error);
-            });
+        return await db.collection(collection).doc(doc_id).set(payload)
+            .then(() => console.log("Firebase DB write"))
+            .catch((error) => console.error("Firebase DB write", error));
     }
 
     addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
