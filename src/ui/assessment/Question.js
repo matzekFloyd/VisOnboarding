@@ -78,11 +78,10 @@ QuestionHeading.propTypes = {
 };
 
 const Option = React.memo(function Option(props) {
-    return <div className={"option-container ml-6 mt-10 mb-2"}>
-        <label className={"cursor-pointer p-2 hover:bg-blue-500 hover:text-white"}>
-            <input readOnly={true} checked={props.checked} type="checkbox"
-                   className="cursor-pointer form-checkbox h-5 w-5 bg-gray-500 text-green-500"
-                   onClick={props.onClick}/>
+    return <div className={"option-container ml-2 mr-2 mt-8 mb-2"}>
+        <label className={"inline-flex cursor-pointer p-2 hover:bg-blue-500 hover:text-white rounded"}>
+            <input readOnly={true} checked={props.checked} type="checkbox" onClick={props.onClick}
+                   className="m-auto cursor-pointer form-checkbox h-6 w-6 bg-gray-400 text-green-500 "/>
             <span className="ml-2 " dangerouslySetInnerHTML={{__html: props.text}}/>
         </label>
     </div>
@@ -95,7 +94,7 @@ Option.propTypes = {
 
 const ProgressBar = React.memo(function ProgressBar(props) {
     let width = props.index * 20;
-    return <div className="h-5 shadow w-2/4 bg-grey-light mt-2 cursor-default">
+    return <div className="progressbar h-5 shadow w-2/4 bg-grey-light mt-2 cursor-default">
         {props.index === 0 ?
             <div className="rounded h-full text-xs leading-none py-1 text-center text-black w-full">
                 <span>{width}%</span>
