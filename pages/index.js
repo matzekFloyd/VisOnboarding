@@ -39,7 +39,7 @@ class Home extends PureComponent {
         event.preventDefault();
         if (!this.state.inputValid) return;
         let href = to;
-        if(to === URL.assessment) {
+        if (to === URL.assessment) {
             href += "?uid=" + this.state.user;
         }
         Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
@@ -114,7 +114,7 @@ const InputPanel = React.memo(function InputPanel(props) {
     </div>
 });
 InputPanel.defaultProps = {
-    text: "Please enter your matriculation number / surname and choose a path.",
+    text: "Please enter either your student registration number or your name and choose a path.",
     placeholderText: "it181508 / mayrhofer"
 };
 InputPanel.propTypes = {
@@ -127,13 +127,13 @@ const OnboardingCard = React.memo(function OnboardingCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start a data visualization onboarding tour consisting of 4 phases: Assessment,
-            Onboarding, Task, Visualisation.
+            Start a data visualization onboarding tour consisting of 4
+            phases: <i>Assessment</i>, <i>Onboarding</i>, <i>Task</i>, <i>Visualisation</i>.
         </ModeCardText>
     </ModeCard>;
 });
 OnboardingCard.defaultProps = {
-    title: "Path A",
+    title: "Path: Onboarding",
     image: "static/visOnboarding_onboarding.png"
 };
 OnboardingCard.propTypes = {
@@ -148,12 +148,13 @@ const TaskCard = React.memo(function TaskCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start without onboarding and navigate directly to the task.
+            Start without onboarding and navigate directly to the task explanation.
+            Phases: <i>Task</i>, <i>Visualisation</i>.
         </ModeCardText>
     </ModeCard>;
 });
 TaskCard.defaultProps = {
-    title: "Path B",
+    title: "Path: Task",
     image: "static/visOnboarding_task.png"
 };
 TaskCard.propTypes = {
@@ -165,7 +166,7 @@ TaskCard.propTypes = {
 };
 
 const ModeCard = React.memo(function ModeCard(props) {
-    let className = props.className + " bg-gray-100 flex max-w-lg mt-auto mb-auto rounded overflow-hidden shadow-lg p-2";
+    let className = props.className + " bg-gray-300 flex max-w-lg mt-auto mb-auto rounded overflow-hidden shadow-lg p-2";
     let active = " hover:bg-blue-600 hover:text-white cursor-pointer";
     let inActive = " cursor-not-allowed";
     props.enabled ? className += active : className += inActive;
