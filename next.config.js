@@ -23,6 +23,7 @@ module.exports = withBundleAnalyzer(withImages(withSass({
     assetPrefix: process.env.NODE_ENV === 'production' ? "/vis" : "",
     webpack(config, options) {
         config.resolve.alias['src'] = path.join(__dirname, "/src");
+        config.resolve.alias['lib'] = path.join(__dirname, "/lib");
         const env = Object.keys(process.env).reduce((acc, curr) => {
             acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
             return acc;

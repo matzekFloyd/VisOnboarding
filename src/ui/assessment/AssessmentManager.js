@@ -12,10 +12,12 @@ import {AssessmentCompletedScreen} from "./AssessmentCompletedScreen";
 import {
     TASK_DATA_SET_VISUALISATION,
     TASK_GANTT_PROJECT_MANAGEMENT,
-    TASK_GANTT_RESOURCE_MANAGEMENT, TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
+    TASK_GANTT_RESOURCE_MANAGEMENT,
+    TASK_IRREGULAR_TIME_SERIES,
+    TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
 import {LoadingMessage} from "../components";
-import {loadFireBase} from "../../../lib/db";
+import {loadFireBase} from "lib/db";
 
 export default class AssessmentManager extends PureComponent {
 
@@ -34,6 +36,9 @@ export default class AssessmentManager extends PureComponent {
     }
 
     async componentDidMount() {
+        /* TODO this did only work in DEV env, not in PROD
+        this.firebase = await import("lib/db").then((module) => module.loadFireBase());
+        */
         this.firebase = await loadFireBase();
         if (this.enableLoadingDelay) {
             setTimeout(() => this.setState({loading: false}), 500);
@@ -44,9 +49,16 @@ export default class AssessmentManager extends PureComponent {
 
     async redirectToOnboarding() {
         this.setState({loading: true});
-        if (this.enableWritingToDB) await this.persistToDb();
         let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
-        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+        if (this.enableWritingToDB) {
+            await this.persistToDb()
+                .then(() => {
+                    Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+                })
+                .catch(error => console.error("Persist to DB", error));
+        } else {
+            Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+        }
     }
 
     async persistToDb() {
@@ -62,7 +74,7 @@ export default class AssessmentManager extends PureComponent {
 
         let auth = this.firebase.auth();
         let db = this.firebase.firestore();
-        await auth.signInAnonymously()
+        return await auth.signInAnonymously()
             .then(() => {
                 console.log("Firebase sign in");
                 auth.onAuthStateChanged(fireBaseUser => {
