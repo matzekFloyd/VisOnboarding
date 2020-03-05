@@ -4,7 +4,6 @@ import {GANTT_RESOURCE_MANAGEMENT} from "src/config/assessment/2_GANTT_RESOURCE_
 import {DATA_SET_VISUALISATION} from "src/config/assessment/3_DATASET_VISUALISATION";
 import {LINE_TIME_SERIES} from "src/config/assessment/4_LINE_TIME_SERIES";
 import {IRREGULAR_TIME_SERIES} from "src/config/assessment/5_IRREGULAR_TIME_SERIES";
-import Router from "next/router";
 import {URL} from "../../../constants";
 import Task from "./Task";
 import PropTypes from 'prop-types';
@@ -18,6 +17,7 @@ import {
 } from "../../util/assessment/constants";
 import {LoadingMessage} from "../components";
 import {loadFireBase} from "lib/db";
+import {redirect} from "src/util/helpers";
 
 export default class AssessmentManager extends PureComponent {
 
@@ -53,11 +53,11 @@ export default class AssessmentManager extends PureComponent {
         if (this.enableWritingToDB) {
             await this.persistToDb()
                 .then(() => {
-                    Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+                    redirect(href);
                 })
                 .catch(error => console.error("Persist to DB", error));
         } else {
-            Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+            redirect(href);
         }
     }
 

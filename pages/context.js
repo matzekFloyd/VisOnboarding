@@ -8,7 +8,7 @@ import {
     ButtonCta
 } from "src/ui/components";
 import {URL} from "../constants";
-import Router from "next/router";
+import {redirect} from "src/util/helpers";
 
 export default class Context extends PureComponent {
 
@@ -26,8 +26,7 @@ export default class Context extends PureComponent {
     redirectToVisualisation(event) {
         event.preventDefault();
         this.setState({loading: true}, () => {
-            let href = URL.visualisation;
-            Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+            redirect(URL.visualisation);
         });
     }
 

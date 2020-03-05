@@ -1,5 +1,5 @@
 import 'url-search-params-polyfill';
-import {withRouter} from "next/router";
+import Router, {withRouter} from "next/router";
 import React from "react";
 
 export const withPageRouter = Component => {
@@ -13,6 +13,15 @@ export const withPageRouter = Component => {
     routerWrapper.getInitialProps = Component.getInitialProps;
     return routerWrapper;
 };
+
+export function redirect(url, as = url, options = {}, timeout = 0) {
+    let push = () => Router.push(url, as, options).then(() => console.log("Redirecting: ", url));
+    if (timeout > 0) {
+        setTimeout(() => push(), timeout);
+    } else { // noinspection JSIgnoredPromiseFromCall
+        push();
+    }
+}
 
 /**
  *

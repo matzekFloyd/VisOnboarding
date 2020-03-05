@@ -4,9 +4,9 @@ import {ButtonWhite, ButtonActive, ButtonCta} from "../components";
 import dynamic from 'next/dynamic';
 import {Empty, LoadingMessage} from "../components";
 import {URL} from "../../../constants";
-import Router from "next/router";
 import {BASIC, EXPERT, PROFICIENT} from "../../util/onboarding/constants";
 import Error from "next/error";
+import {redirect} from "src/util/helpers";
 
 const Gantt = dynamic(() => import('./Gantt'));
 const Description = dynamic(() => import('./Description'));
@@ -96,10 +96,8 @@ export default class OnboardingManager extends PureComponent {
 
     redirectToContext() {
         this.setState({loading: true}, () => {
-            setTimeout(() => {
-                let href = URL.context;
-                Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
-            }, 250);
+            let href = URL.context;
+            redirect(href, href, {}, 250);
         });
     }
 

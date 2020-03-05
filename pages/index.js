@@ -1,10 +1,10 @@
 import Layout from 'src/ui/Layout';
 import React, {PureComponent} from 'react';
-import Router from "next/router";
 import {sanitizePublicPath, withPageRouter} from "../src/util/helpers";
 import {LoadingMessage, PageHeadBox, PageHeadTitle} from "../src/ui/components";
 import PropTypes from "prop-types";
 import {URL} from "../constants";
+import {redirect} from "src/util/helpers";
 
 const OPTIONAL = "optional";
 const ONBOARDING = "onboarding";
@@ -43,7 +43,7 @@ class Home extends PureComponent {
             if (to === URL.assessment) {
                 href += "?uid=" + this.state.user;
             }
-            Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+            redirect(href);
         });
     }
 
