@@ -26,7 +26,7 @@ export default class VisualisationManager extends PureComponent {
         return (
             <div className={"flex w-full mt-6"}>
                 <div>
-                    {visualisationManagerLoaded ? <Empty/> : <LoadingMessage text={"Initializing visualisation..."}/>}
+                    {visualisationManagerLoaded ? <Empty/> : <LoadingMessage/>}
                 </div>
                 <div className={visualisationManagerLoaded ? "flex w-full mt-6 block" : "flex w-full mt-6 hidden"}>
                     <ChartsManager {...chartsManagerLoadedFunction} selected={this.state.selected}/>

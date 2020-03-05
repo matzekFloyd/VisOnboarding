@@ -95,8 +95,12 @@ export default class OnboardingManager extends PureComponent {
     }
 
     redirectToContext() {
-        let href = URL.context;
-        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+        this.setState({loading: true}, () => {
+            setTimeout(() => {
+                let href = URL.context;
+                Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+            }, 250);
+        });
     }
 
     initDescription() {
@@ -126,7 +130,7 @@ export default class OnboardingManager extends PureComponent {
         return (
             this.state.loading ?
                 <div className={"flex flex-wrap w-full mt-6"}>
-                    <LoadingMessage text={"Initializing onboarding..."}/>
+                    <LoadingMessage/>
                 </div> :
                 <div className={"flex flex-wrap w-full mt-6"}>
                     <div className={"w-full h-12 m-auto"}>

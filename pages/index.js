@@ -2,7 +2,7 @@ import Layout from 'src/ui/Layout';
 import React, {PureComponent} from 'react';
 import Router from "next/router";
 import {sanitizePublicPath, withPageRouter} from "../src/util/helpers";
-import {Empty} from "../src/ui/components";
+import {LoadingMessage, PageHeadBox, PageHeadTitle} from "../src/ui/components";
 import PropTypes from "prop-types";
 import {URL} from "../constants";
 
@@ -38,11 +38,13 @@ class Home extends PureComponent {
     navigate(event, to) {
         event.preventDefault();
         if (!this.state.inputValid) return;
-        let href = to;
-        if (to === URL.assessment) {
-            href += "?uid=" + this.state.user;
-        }
-        Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+        this.setState({loading: true}, () => {
+            let href = to;
+            if (to === URL.assessment) {
+                href += "?uid=" + this.state.user;
+            }
+            Router.push(href, href, {}).then(() => console.log("Redirecting: ", href));
+        });
     }
 
     initCards() {
@@ -84,7 +86,10 @@ class Home extends PureComponent {
     render() {
         return (
             <Layout>
-                {this.state.loading ? <Empty/> :
+                <PageHeadBox>
+                    <PageHeadTitle title={"VisOnboarding"}/>
+                </PageHeadBox>
+                {this.state.loading ? <LoadingMessage/> :
                     <div className={"mt-32 w-full"}>
                         <div className={"flex w-full"}>
                             {this.initCards()}

@@ -62,6 +62,9 @@ export const LoadingIndicator = React.memo(function LoadingIndicator() {
 export const LoadingMessage = React.memo(function LoadingMessage(props) {
     return <div className={"mt-3"}><LoadingIndicator/> <b className={"ml-3"}>{props.text}</b></div>;
 });
+LoadingMessage.defaultProps = {
+    text: "Loading...",
+};
 LoadingMessage.propTypes = {
     text: PropTypes.string.isRequired
 };

@@ -41,7 +41,7 @@ export default class AssessmentManager extends PureComponent {
         */
         this.firebase = await loadFireBase();
         if (this.enableLoadingDelay) {
-            setTimeout(() => this.setState({loading: false}), 500);
+            setTimeout(() => this.setState({loading: false}), 250);
         } else {
             this.setState({loading: false});
         }
@@ -163,7 +163,7 @@ export default class AssessmentManager extends PureComponent {
 
     render() {
         let showResults = this.state.assessmentCompleted && this.enableAssessmentCompletedScreen;
-        return (this.state.loading ? <LoadingMessage text={"Loading..."}/> : showResults ?
+        return (this.state.loading ? <LoadingMessage/> : showResults ?
             <AssessmentCompletedScreen finishedTasks={this.state.finishedTasks} pointsTotal={this.state.pointsTotal}
                                        onClick={() => this.redirectToOnboarding()}/> : this.task());
     }
