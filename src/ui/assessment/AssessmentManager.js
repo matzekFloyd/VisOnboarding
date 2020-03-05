@@ -34,8 +34,7 @@ export default class AssessmentManager extends PureComponent {
     }
 
     async componentDidMount() {
-        let firebase = await loadFireBase();
-        this.db = firebase.firestore();
+        this.firebase = await loadFireBase();
         if (this.enableLoadingDelay) {
             setTimeout(() => this.setState({loading: false}), 500);
         } else {
@@ -60,16 +59,30 @@ export default class AssessmentManager extends PureComponent {
             points: this.state.pointsTotal,
             timeCreated: new Date()
         };
-        await this.db
-            .collection(collection)
-            .doc(doc_id)
-            .set(payload)
+
+        let auth = this.firebase.auth();
+        let db = this.firebase.firestore();
+        await auth.signInAnonymously()
             .then(() => {
+                console.log("Firebase sign in");
+                auth.onAuthStateChanged(fireBaseUser => {
+                    if (fireBaseUser) {
+                        db.collection(collection).doc(doc_id).set(payload)
+                            .then(() => {
+                                console.log("Firebase DB write");
+                                auth.signOut()
+                                    .then(() => console.log("Firebase sign out"))
+                                    .catch((error) => console.error("Firebase sign out.", error))
+                            })
+                            .catch(
+                                (error) => console.error("Firebase DB write", error)
+                            );
+                    }
+                })
             })
             .catch((error) => {
-                    console.error("Could not write to database: ", error);
-                }
-            );
+                console.error("Firebase sign in", error);
+            });
     }
 
     addCompletedTask(index, identifier, success, subSuccess, time, skipped) {
