@@ -28,14 +28,14 @@ export default class Context extends PureComponent {
                 content: <Visualisation identifier={EXPLANATION_VISUALISATION}/>
             },
             {
-                identifier: EXPLANATION_GEORG_FISCHER,
-                navText: "Georg Fischer",
-                content: <GeorgFischer identifier={EXPLANATION_GEORG_FISCHER}/>
-            },
-            {
                 identifier: EXPLANATION_ASSET_TRACKING,
                 navText: "Asset Tracking",
                 content: <AssetTracking identifier={EXPLANATION_ASSET_TRACKING}/>
+            },
+            {
+                identifier: EXPLANATION_GEORG_FISCHER,
+                navText: "+GF+",
+                content: <GeorgFischer identifier={EXPLANATION_GEORG_FISCHER}/>
             }
         ];
         this.state = {loading: true, activeTab: this.contentCfg[0].identifier};
@@ -137,7 +137,7 @@ Tab.propTypes = {
 };
 
 const TabContent = React.memo(function TabContent(props) {
-    let css = props.className + " tab-content w-full ml-6 mt-6 p-6 ";
+    let css = props.className ? props.className + " tab-content w-full ml-6 p-6 " : " tab-content w-full ml-6 p-6 ";
     props.active ? css += "block" : css += "hidden";
     return <div className={css}>
         {props.children}

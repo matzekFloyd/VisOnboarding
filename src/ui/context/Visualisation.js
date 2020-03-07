@@ -10,36 +10,39 @@ export default class Visualisation extends Explanation {
     }
 
     render() {
-        return <div className={"flex w-full"}>
-            <div className={"w-1/2 mr-6 "}>
+        return <div className={"flex w-full m-auto"}>
+            <div className={"w-2/3 mr-6 text-justify"}>
                 <h2>Visualisation</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                    ipsum dolor sit amet.
+                    At the beginning of 2017, the company Georg Fischer Fittings (+GF+) wanted to make boxes of castings
+                    <strong> traceable</strong> and <strong>locatable</strong> in its <strong>manufacturing
+                    process</strong>. At first, barcodes were attached to these assets, which were recorded in a
+                    resource planning system by manual scanning when they arrived in a department.
                 </p>
                 <br/>
                 <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-                    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                    ipsum dolor sit amet.</p>
+                    As part of a research project, a commercial <strong>asset tracking system</strong>, which
+                    uses <strong>Bluetooth</strong> technology in an industrial environment was launched. The assets and
+                    the different departments were equipped with <strong>blue tooth beacons</strong> in order to
+                    <strong> automatically</strong> track their locations at all times.
+                </p>
+                <br/>
+                <p>
+                    A <strong>Gantt visualization</strong> shows the <strong>temporal development</strong> of this asset
+                    tracking data for a selected period of time.
+                </p>
+                <br/>
+                <p>
+                    The image on the right displays the <strong>layout</strong> of the
+                    different <strong>departments</strong> at the factory, where the assets were tracked. Thereby
+                    the <strong>color encoding</strong> plays a central
+                    role in associating the different data points to their related <strong>locations</strong>. Within
+                    the visualisation, selecting a location in the image will also function as
+                    a <strong>filter</strong>, by hiding all data points not belonging to this location.</p>
+                <br/>
             </div>
-            <div className={"w-1/2 ml-6 m-auto"}>
-                <img className={"m-auto"}
-                     src={sanitizePublicPath("static/visualisation/gf_layout.png")}
-                     alt={"map_image"}/>
+            <div className={"ml-6 mr-auto mt-auto mb-auto"}>
+                <img src={sanitizePublicPath("static/context/gf_layout.png")} alt={""}/>
             </div>
         </div>;
     }
