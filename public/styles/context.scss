@@ -3,8 +3,6 @@ $tab-nav-color: #ff8ea9;
 
 .context-container {
 
-
-
   h2, h3 {
     color: $headline-color;
     margin: 0 0 10px 0;
@@ -12,11 +10,9 @@ $tab-nav-color: #ff8ea9;
 
   .tab-nav {
     color: #3182ce;
-
   }
 
   .tab-nav.active {
     color: black;
-
   }
 }

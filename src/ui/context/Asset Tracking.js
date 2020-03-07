@@ -27,7 +27,7 @@ export default class AssetTracking extends Explanation {
             <br/>
         </div>;
 
-        let rightCol = <div className={"right-col"}>
+        let rightCol = <div className={"right-col m-auto"}>
             <img className={"w-3/4 m-auto rounded"} src={sanitizePublicPath("static/context/manufacturing.jpg")}
                  alt={"manufacturing"}/>
         </div>;
