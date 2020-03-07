@@ -13,7 +13,7 @@ export const STEP_2 = {
     tooltip: {
         enabled: false
     },
-    series: [ {
+    series: [{
         name: 'Product',
         data: [{
             name: 'New product launch',
@@ -23,11 +23,7 @@ export const STEP_2 = {
             id: 'development',
             parent: 'new_product',
             start: today - day,
-            end: today + (11 * day),
-            completed: {
-                amount: 0.6,
-                fill: '#e80'
-            },
+            end: today + (11 * day)
         }, {
             name: 'Beta',
             id: 'beta',

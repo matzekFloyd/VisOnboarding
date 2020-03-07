@@ -49,7 +49,7 @@ export const STEP_1 = {
             }
         ]
     }],
-    colors: ["#000000", "#708090", "#696969", "#C0C0C0", "#DCDCDC"],
+    colors: ["#696969", "#696969", "#696969", "#696969", "#696969"],
     title: {
         text: 'Gantt Project Management'
     },
