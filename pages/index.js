@@ -153,14 +153,14 @@ const TaskCard = React.memo(function TaskCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start without onboarding and navigate directly to the task explanation.
-            Phases: <i>Task</i>, <i>Visualisation</i>.
+            Start without onboarding and navigate directly to the context explanation.
+            Phases: <i>Context</i>, <i>Visualisation</i>.
         </ModeCardText>
     </ModeCard>;
 });
 TaskCard.defaultProps = {
-    title: "Path: Task",
-    image: "static/visOnboarding_task.png"
+    title: "Path: Visualisation",
+    image: "static/visOnboarding_visualisation.png"
 };
 TaskCard.propTypes = {
     className: PropTypes.string.isRequired,
