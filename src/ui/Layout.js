@@ -1,6 +1,7 @@
 import React from "react";
 import "../../public/styles/main.scss";
 import Head from 'next/head'
+import {sanitizePublicPath} from "src/util/helpers";
 
 export default ({children, title = 'VisOnboarding'}) => (
     <div>
@@ -10,6 +11,7 @@ export default ({children, title = 'VisOnboarding'}) => (
             <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             <meta name="description" content="VisOnboarding - A Proof of concept Prototype"/>
             <meta name="author" content="Mathias Mayrhofer"/>
+            <link rel="shortcut icon" href={sanitizePublicPath("static/favicon.ico")} />
         </Head>
         <div className={"flex flex-wrap w-9/10 mr-8 ml-8"}>
             {children}
