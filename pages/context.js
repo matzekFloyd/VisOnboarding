@@ -34,7 +34,7 @@ export default class Context extends PureComponent {
             },
             {
                 identifier: EXPLANATION_GEORG_FISCHER,
-                navText: "+GF+",
+                navText: "Georg Fischer Fittings",
                 content: <GeorgFischer identifier={EXPLANATION_GEORG_FISCHER}/>
             }
         ];
@@ -76,7 +76,7 @@ export default class Context extends PureComponent {
         return (
             <Layout>
                 <PageHeadBox>
-                    <PageHeadTitle title={"Task"}/>
+                    <PageHeadTitle title={"Context"}/>
                 </PageHeadBox>
                 {this.state.loading ? <LoadingMessage/> :
                     <div className={"context-container flex flex-wrap w-full mt-6"}>

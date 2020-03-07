@@ -41,6 +41,7 @@ export default class GeorgFischer extends Explanation {
             <p>
                 The images on the right show two examples of their product.
             </p>
+            <br/>
         </div>;
 
         let rightCol = <div className={"right-col flex w-full "}>
