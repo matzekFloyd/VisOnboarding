@@ -43,7 +43,7 @@ export default class GeorgFischer extends Explanation {
             </p>
         </div>;
 
-        let rightCol = <div className={"flex w-full "}>
+        let rightCol = <div className={"right-col flex w-full "}>
             <img className={"w-1/2 m-auto"}
                  src={sanitizePublicPath("static/context/malleable_cast_iron_fitting_1.jpg")}
                  alt={"malleable_cast_iron_fitting_1"}/>
