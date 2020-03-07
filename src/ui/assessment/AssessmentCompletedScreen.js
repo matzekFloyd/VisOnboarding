@@ -85,12 +85,12 @@ const AssessmentResult = React.memo(function AssessmentResult(props) {
     let classes = "border px-4 py-2 ";
     let time = props.min + "m " + props.sec + "s";
     let icon = props.success ?
-        <img src={sanitizePublicPath("static/check-24px.svg")} alt={""}/> :
-        <img src={sanitizePublicPath("static/close-24px.svg")} alt={""}/>;
+        <img src={sanitizePublicPath("static/assessment/check-24px.svg")} alt={""}/> :
+        <img src={sanitizePublicPath("static/assessment/close-24px.svg")} alt={""}/>;
 
     if (props.skipped) {
         classes += "bg-gray-100";
-        icon = <img src={sanitizePublicPath("static/remove-24px.svg")} alt={""}/>
+        icon = <img src={sanitizePublicPath("static/assessment/remove-24px.svg")} alt={""}/>
     } else {
         props.success ? classes += "bg-green-200" : classes += "bg-red-200";
     }

@@ -53,9 +53,9 @@ class Onboarding extends PureComponent {
 
 const OnboardingDescription = React.memo(function OnboardingDescription() {
     return <div className={"onboarding-description mb-2"}>
-        <p><PageDescriptionIcon icon={"static/error_outline-24px.svg"}/>Please complete the onboarding by using the
+        <p><PageDescriptionIcon icon={"static/onboarding/error_outline-24px.svg"}/>Please complete the onboarding by using the
             numbered navigation.</p>
-        <p><PageDescriptionIcon icon={"static/error_outline-24px.svg"}/>Each step provides information and explanation
+        <p><PageDescriptionIcon icon={"static/onboarding/error_outline-24px.svg"}/>Each step provides information and explanation
             that is helpful for the final task.</p>
     </div>
 });

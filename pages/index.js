@@ -107,7 +107,7 @@ class Home extends PureComponent {
 const InputPanel = React.memo(function InputPanel(props) {
     return <div className={"w-2/5 mr-auto ml-auto mt-12"}>
             <span className="w-full block ml-auto mr-auto align-middle text-center">
-                <img src={sanitizePublicPath("static/error_outline-24px.svg")} alt={""}
+                <img src={sanitizePublicPath("static/index/error_outline-24px.svg")} alt={""}
                      className={"inline mr-2 align-top"}/>
                 {props.text}
                 </span>
@@ -139,7 +139,7 @@ const OnboardingCard = React.memo(function OnboardingCard(props) {
 });
 OnboardingCard.defaultProps = {
     title: "Path: Onboarding",
-    image: "static/visOnboarding_onboarding.png"
+    image: "static/index/visOnboarding_onboarding.png"
 };
 OnboardingCard.propTypes = {
     className: PropTypes.string.isRequired,
@@ -160,7 +160,7 @@ const TaskCard = React.memo(function TaskCard(props) {
 });
 TaskCard.defaultProps = {
     title: "Path: Visualisation",
-    image: "static/visOnboarding_visualisation.png"
+    image: "static/index/visOnboarding_visualisation.png"
 };
 TaskCard.propTypes = {
     className: PropTypes.string.isRequired,
