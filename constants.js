@@ -6,4 +6,5 @@ export const URL = {
     context: sanitizeRouteUrl("/context"),
     onboarding: sanitizeRouteUrl("/onboarding"),
     visualisation: sanitizeRouteUrl("/visualisation"),
+    results: sanitizeRouteUrl("/results")
 };

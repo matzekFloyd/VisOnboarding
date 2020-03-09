@@ -7,7 +7,7 @@ import {
     TASK_IRREGULAR_TIME_SERIES, TASK_LINE_TIME_SERIES
 } from "src/util/assessment/constants";
 
-const TASK_TEXT_MAPPING = (task) => {
+export const TASK_TEXT_MAPPING = (task) => {
     switch (task) {
         case TASK_GANTT_PROJECT_MANAGEMENT:
             return {title: "Project management", category: "Gantt Chart"};
@@ -70,7 +70,7 @@ const AssessmentCompletedTitle = React.memo(function AssessmentCompletedTitle() 
     return <p className={"text-center"}>You have successfully finished the assessment test!</p>;
 });
 
-const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
+export const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
     return <tr>
         <th className="px-4 py-2">#</th>
         <th align={"start"} className="px-4 py-2">Task</th>
@@ -81,7 +81,7 @@ const AssessmentResultHeading = React.memo(function AssessmentResultHeading() {
     </tr>
 });
 
-const AssessmentResult = React.memo(function AssessmentResult(props) {
+export const AssessmentResult = React.memo(function AssessmentResult(props) {
     let classes = "border px-4 py-2 ";
     let time = props.min + "m " + props.sec + "s";
     let icon = props.success ?

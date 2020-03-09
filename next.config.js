@@ -17,6 +17,7 @@ module.exports = withBundleAnalyzer(withImages(withSass({
             '/context': {page: '/context'},
             '/onboarding': {page: '/onboarding'},
             '/visualisation': {page: '/visualisation'},
+            '/results': {page: '/results'}
         };
     },
     distDir: 'build',
