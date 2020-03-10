@@ -9,7 +9,7 @@ export default class GeorgFischer extends Explanation {
     }
 
     render() {
-        let leftCol = <div className={"left-col"}><p>
+        let content = <div><p>
             The Georg Fischer Fittings GmbH (+GF+) is located in Traisen, Lower Austria, and consists of
             approximately 460 employees. On their industrial plant, 12.200 tons of <strong>pipe
             fittings</strong> are produced every year.
@@ -38,29 +38,16 @@ export default class GeorgFischer extends Explanation {
                 </li>
             </ul>
             <br/>
-            <p>
-                The images on the right show two examples of their product.
-            </p>
-            <br/>
         </div>;
 
-        let rightCol = <div className={"right-col flex w-full "}>
-            <img className={"w-1/2 m-auto"}
-                 src={sanitizePublicPath("static/context/malleable_cast_iron_fitting_1.jpg")}
-                 alt={"malleable_cast_iron_fitting_1"}/>
-            <img className={"w-1/2 m-auto"}
-                 src={sanitizePublicPath("static/context/malleable_cast_iron_fitting_2.jpg")}
-                 alt={"malleable_cast_iron_fitting_2"}/>
-        </div>;
-
-        return <div className={"flex w-full"}>
-            <div className={"w-1/2 mr-6 text-justify"}>
-                {this.headline("Georg Fischer Fittings GmbH")}
-                {this.leftColumn(leftCol)}
+        return <div className={"flex flex-wrap w-full p-4 "}>
+            <div className={"flex w-full"}>
+                <img className={"w-1/2"} alt={""}
+                     src={sanitizePublicPath("static/visualisation/malleable_cast_iron_fitting_1.jpg")}/>
+                <img className={"w-1/2"} alt={""}
+                     src={sanitizePublicPath("static/visualisation/malleable_cast_iron_fitting_2.jpg")}/>
             </div>
-            <div className={"w-1/2 ml-6 mr-auto mt-auto mb-auto"}>
-                {this.rightColumn(rightCol)}
-            </div>
+            {this.explanation(content)}
         </div>;
     }
 

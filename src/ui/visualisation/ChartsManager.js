@@ -25,12 +25,16 @@ import PropTypes from "prop-types";
 
 const Chart = dynamic(() => import('./Gantt'));
 
+const TOGGLE_CONTROL_ID = "toggle-control";
+const TOGGLE_CONTEXT_ID = "toggle-context";
+
 export default class ChartsManager extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
             controlsCollapsed: false,
+            contextCollapsed: false,
             filter: null,
             chartLoading: true
         };
@@ -128,26 +132,59 @@ export default class ChartsManager extends PureComponent {
         });
     }
 
-    toggleControlsPanel(event) {
+    togglePanel(event) {
         event.preventDefault();
-        this.setState({controlsCollapsed: !this.state.controlsCollapsed}, () => {
-            let controlsDiv = document.getElementById("controls-container");
+        let div = <div/>;
+        let targetId = event.target.parentElement.id;
+        let newState = null;
+        if (targetId === TOGGLE_CONTROL_ID) {
+            div = document.getElementById("controls-container");
+            newState = {controlsCollapsed: !this.state.controlsCollapsed}
+        }
+
+        if (targetId === TOGGLE_CONTEXT_ID) {
+            div = document.getElementById("context-container");
+            newState = {contextCollapsed: !this.state.contextCollapsed}
+        }
+
+        this.setState({...newState}, () => {
             let chartsDiv = document.getElementById("charts-container");
 
-            controlsDiv.classList.toggle("w-1/4");
-            controlsDiv.style.display === "none" ? controlsDiv.style.display = "block" : controlsDiv.style.display = "none";
+            div.classList.toggle("block");
+            div.classList.toggle("hidden");
 
-            chartsDiv.classList.toggle("w-3/4");
-            chartsDiv.classList.toggle("w-full");
-            chartsDiv.firstChild.classList.toggle("mr-10");
+            let bothCollapsed = this.state.contextCollapsed && this.state.controlsCollapsed;
+            let neitherCollapsed = !this.state.contextCollapsed && !this.state.controlsCollapsed;
+            let oneCollapsed = this.state.contextCollapsed || this.state.controlsCollapsed;
 
+            if (bothCollapsed) {
+                if (chartsDiv.classList.contains("w-2/4")) chartsDiv.classList.remove("w-2/4");
+                if (chartsDiv.classList.contains("w-3/4")) chartsDiv.classList.remove("w-3/4");
+                chartsDiv.classList.add("w-full");
+            } else if (neitherCollapsed) {
+                if (chartsDiv.classList.contains("w-3/4")) chartsDiv.classList.remove("w-3/4");
+                if (chartsDiv.classList.contains("w-full")) chartsDiv.classList.remove("w-full");
+                chartsDiv.classList.add("w-2/4");
+            } else {
+                let previousFullScreen = chartsDiv.classList.contains("w-full");
+                if (previousFullScreen && oneCollapsed) {
+                    chartsDiv.classList.remove("w-full");
+                    chartsDiv.classList.add("w-3/4")
+                } else if (previousFullScreen) {
+                    chartsDiv.classList.remove("w-full");
+                    chartsDiv.classList.add("w-2/4");
+                } else {
+                    chartsDiv.classList.toggle("w-2/4");
+                    chartsDiv.classList.toggle("w-3/4");
+                }
+            }
             window.dispatchEvent(new Event('resize'));
         });
     }
 
     render() {
         return (
-            <div id={"charts-container"} className={"w-3/4 mt-auto mb-auto h-auto"}>
+            <div id={"charts-container"} className={"w-2/4 h-auto block "}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
                     {this.chart(JAN_14)}
                     {this.chart(JAN_15)}
@@ -156,8 +193,10 @@ export default class ChartsManager extends PureComponent {
                     {this.chart(JAN_18)}
                     {this.chart(JAN_19)}
                     {this.chart(JAN_20)}
-                    <ControlsToggle controlsCollapsed={this.state.controlsCollapsed}
-                                    onClick={(e) => this.toggleControlsPanel(e)}/>
+                    <TogglePanel id={"toggle-control"} controlsCollapsed={this.state.controlsCollapsed}
+                                 onClick={(e) => this.togglePanel(e)}/>
+                    <TogglePanel id={"toggle-context"} controlsCollapsed={this.state.contextCollapsed}
+                                 onClick={(e) => this.togglePanel(e)}/>
                 </div>
             </div>
         );
@@ -169,14 +208,27 @@ ChartsManager.propTypes = {
     selected: PropTypes.string.isRequired
 };
 
-const ControlsToggle = React.memo(function ControlsToggle(props) {
-    return <div id={"toggle-control"}> {props.controlsCollapsed ?
-        <img src={sanitizePublicPath("static/visualisation/collapse_decrease.png")}
-             onClick={props.onClick} alt={"collapse_decrease"}/> :
-        <img src={sanitizePublicPath("static/visualisation/collapse_increase.png")}
-             onClick={props.onClick} alt={"collapse_increase"}/>} </div>;
+const TogglePanel = React.memo(function ControlsToggle(props) {
+    let active = null;
+    let inActive = null;
+    if (props.id === TOGGLE_CONTROL_ID) {
+        active = <img src={sanitizePublicPath("static/visualisation/collapse_decrease.png")}
+                      onClick={props.onClick} alt={"collapse_decrease"}/>;
+        inActive = <img src={sanitizePublicPath("static/visualisation/collapse_increase.png")}
+                        onClick={props.onClick} alt={"collapse_increase"}/>;
+    }
+
+    if (props.id === TOGGLE_CONTEXT_ID) {
+        active = <img src={sanitizePublicPath("static/visualisation/collapse_increase.png")}
+                      onClick={props.onClick} alt={"collapse_increase"}/>;
+        inActive = <img src={sanitizePublicPath("static/visualisation/collapse_decrease.png")}
+                        onClick={props.onClick} alt={"collapse_decrease"}/>;
+    }
+
+    return <div id={props.id}> {props.controlsCollapsed ? active : inActive} </div>;
 });
-ControlsToggle.propTypes = {
+TogglePanel.propTypes = {
+    id: PropTypes.string.isRequired,
     controlsCollapsed: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired
 };

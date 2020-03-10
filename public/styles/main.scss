@@ -3,7 +3,6 @@
 @import "index";
 @import "onboarding";
 @import "visualisation";
-@import "context";
 
 /* --- VARIABLES --------------------------------------------------------------------------------------------------- */
 $txt-main-font: 'Lato', sans-serif;
@@ -45,10 +44,16 @@ h4 {
   font-size: 20px;
 }
 
-.context-description, .assessment-description, .onboarding-description {
+.context-description, .assessment-description, .onboarding-description, .visualisation-description {
   img {
     display: inline;
     vertical-align: sub;
+  }
+}
+
+.visualisation-description {
+  .toggle-icons {
+    vertical-align: middle ;
   }
 }
 

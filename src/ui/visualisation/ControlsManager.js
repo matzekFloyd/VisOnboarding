@@ -59,7 +59,7 @@ export default class ControlsManager extends PureComponent {
     }
 
     render() {
-        return (<div id="controls-container" className={"w-1/4 h-auto m-auto"}>
+        return (<div id="controls-container" className={"w-1/4 h-auto ml-2 mt-auto mb-auto mr-auto block "}>
                 <MapContent className={"w-full mb-6 mt-12"}>
                     <MapImage src={sanitizePublicPath("static/visualisation/gf_layout.png")}
                               mapName={"layoutMap"}/>
@@ -89,6 +89,7 @@ export default class ControlsManager extends PureComponent {
 
 }
 ControlsManager.propTypes = {
+    controlsManagerLoadedCallback: PropTypes.func,
     selected: PropTypes.string.isRequired
 };
 
