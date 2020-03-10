@@ -110,7 +110,7 @@ const InputPanel = React.memo(function InputPanel(props) {
             <span className="w-full block ml-auto mr-auto align-middle text-center">
                 <img src={sanitizePublicPath("static/index/error_outline-24px.svg")} alt={""}
                      className={"inline mr-2 align-top"}/>
-                {props.text}
+                <span dangerouslySetInnerHTML={{__html: props.text}}/>
                 </span>
         <label className="w-1/2 block ml-auto mr-auto mt-3">
             <input type={"text"} onChange={props.onChange}
@@ -120,7 +120,7 @@ const InputPanel = React.memo(function InputPanel(props) {
     </div>
 });
 InputPanel.defaultProps = {
-    text: "Please enter either your student registration number or your name and choose a path.",
+    text: "Please enter either your <strong>student registration number</strong> or your <strong>name</strong> and choose a path.",
     placeholderText: "it181508 / mayrhofer"
 };
 InputPanel.propTypes = {
@@ -154,8 +154,7 @@ const TaskCard = React.memo(function TaskCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start without onboarding and navigate directly to the visualisation.
-            Phases: <i>Visualisation</i>.
+            Start without a data visualization onboarding tour and navigate directly to the visualisation.
         </ModeCardText>
     </ModeCard>;
 });
