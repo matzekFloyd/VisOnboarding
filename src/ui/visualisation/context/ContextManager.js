@@ -58,12 +58,9 @@ export default class ContextManager extends PureComponent {
         return (
             <div id="context-container" className={"context-container block w-1/4 mr-10 border "}>
                 <div className={"flex flex-wrap w-full "}>
-                    <div className={"w-full"}>
-                        <TabNavigation tabs={this.contentCfg} current={this.state.activeTab}
-                                       onClick={(event, identifier) => this.setTab(event, identifier)}/>
-                        <br/>
-                        {this.initContent()}
-                    </div>
+                    <TabNavigation tabs={this.contentCfg} current={this.state.activeTab}
+                                   onClick={(event, identifier) => this.setTab(event, identifier)}/>
+                    {this.initContent()}
                 </div>
             </div>
         );
@@ -78,10 +75,10 @@ const TabNavigation = React.memo(function TabNavigation(props) {
     let tabs = [];
     for (let i = 0; i < props.tabs.length; i++) {
         let cur = props.tabs[i];
-        tabs.push(<Tab key={"tab_" + i} active={props.current === cur.identifier} text={cur.navText}
+        tabs.push(<Tab className={i === 1 ? "mr-2 ml-2" : ""} key={"tab_" + i} active={props.current === cur.identifier} text={cur.navText}
                        onClick={(event) => props.onClick(event, cur.identifier)}/>)
     }
-    return <ul className={"flex pt-2 pl-1 pr-1 "}>
+    return <ul className={"flex m-auto pt-2 pl-1 pr-1 mb-4"}>
         {tabs}
     </ul>;
 });
@@ -93,7 +90,7 @@ TabNavigation.propTypes = {
 const Tab = React.memo(function Tab(props) {
     let active = "text-center tab-nav active bg-white inline-block rounded-t py-1 px-1 font-semibold cursor-pointer";
     let inactive = "text-center tab-nav bg-white inline-block py-1 px-1 font-semibold cursor-pointer hover:bg-blue-600 hover:text-white rounded";
-    return <li className={"flex-none -mb-px mr-1 m-auto"}>
+    return <li className={"flex-none -mb-px " + props.className}>
         <a className={props.active ? active : inactive} onClick={props.onClick}>{props.text}</a>
     </li>
 });
