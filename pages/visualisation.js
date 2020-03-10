@@ -39,12 +39,13 @@ export default class Visualisation extends PureComponent {
 
 const VisualisationDescription = React.memo(function VisualisationDescription() {
     return <div className={"visualisation-description mb-2"}>
-        <p><PageDescriptionIcon icon={"static/onboarding/error_outline-24px.svg"}/>Click these icons to toggle the
-            visibility of the Context (left) and Control (right) panel:
+        <p><PageDescriptionIcon icon={"static/onboarding/error_outline-24px.svg"}/>
+            Click these icons
             <img className={"toggle-icons ml-2 mr-2"} alt={""}
                  src={sanitizePublicPath("static/visualisation/collapse_increase.png")}/>
             <img className={"toggle-icons mr-2"} alt={""}
                  src={sanitizePublicPath("static/visualisation/collapse_decrease.png")}/>
+            to toggle the visibility of the Context panel (left) and Control panel (right).
         </p>
     </div>
 });
