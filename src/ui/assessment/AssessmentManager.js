@@ -62,9 +62,9 @@ export default class AssessmentManager extends PureComponent {
     }
 
     async persistToDb() {
-        let collection = process.env.NODE_ENV === "production" ? "[PROD] assessments" : "[DEV] assessments";
-        let timeStamp = new Date().toLocaleString();
-        let doc_id = timeStamp + " " + this.props.user;
+        let collection = process.env.NODE_ENV === "production" ? "[PROD] " : "[DEV] ";
+        collection += new Date().toLocaleDateString();
+        let doc_id = new Date().toLocaleTimeString() + " " + this.props.user;
         let payload = {
             user: this.props.user,
             finishedTasks: this.state.finishedTasks,
