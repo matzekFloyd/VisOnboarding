@@ -9,7 +9,7 @@ export default class AssetTracking extends Explanation {
     }
 
     render() {
-        let leftCol = <div className={"left-col"}>
+        let content = <div>
             <p>
                 Asset tracking refers to the method of tracking <strong>physical assets</strong>, either by <strong>scanning
                 barcode</strong> labels attached to the assets or by using tags utilizing GPS, BLE or
@@ -27,19 +27,10 @@ export default class AssetTracking extends Explanation {
             <br/>
         </div>;
 
-        let rightCol = <div className={"right-col m-auto"}>
-            <img className={"w-3/4 m-auto rounded"} src={sanitizePublicPath("static/context/manufacturing.jpg")}
-                 alt={"manufacturing"}/>
-        </div>;
-
-        return <div className={"flex w-full"}>
-            <div className={"w-1/2 mr-6 text-justify"}>
-                {this.headline("Asset Tracking")}
-                {this.leftColumn(leftCol)}
-            </div>
-            <div className={"flex w-1/2 ml-6 mr-auto mt-auto mb-auto"}>
-                {this.rightColumn(rightCol)}
-            </div>
+        return <div className={"flex flex-wrap w-full p-4 "}>
+            <img className={"w-3/4 ml-auto mr-auto mb-4 rounded"} alt={""}
+                 src={sanitizePublicPath("static/visualisation/manufacturing.jpg")}/>
+            {this.explanation(content)}
         </div>;
     }
 

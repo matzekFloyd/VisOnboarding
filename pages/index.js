@@ -54,13 +54,14 @@ class Home extends PureComponent {
             cards.push(<OnboardingCard key={"card_1"} className={"mr-6 ml-auto"} enabled={enabled}
                                        onClick={(e) => this.navigate(e, URL.assessment)}/>);
             cards.push(<TaskCard key={"card_2"} className={"ml-6 mr-auto"} enabled={enabled}
-                                 onClick={(e) => this.navigate(e, URL.context)}/>)
+                                 onClick={(e) => this.navigate(e, URL.visualisation)}/>)
         } else if (this.activeMode(ONBOARDING)) {
             cards.push(<OnboardingCard key={"card_1"} className={"m-auto"}
                                        onClick={(e) => this.navigate(e, URL.assessment)}
                                        enabled={enabled}/>);
         } else if (this.activeMode(TASK)) {
-            cards.push(<TaskCard key={"card_2"} className={"m-auto"} onClick={(e) => this.navigate(e, URL.context)}
+            cards.push(<TaskCard key={"card_2"} className={"m-auto"}
+                                 onClick={(e) => this.navigate(e, URL.visualisation)}
                                  enabled={enabled}/>);
         }
         return cards;
@@ -132,8 +133,8 @@ const OnboardingCard = React.memo(function OnboardingCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start a data visualization onboarding tour consisting of 4
-            phases: <i>Assessment</i>, <i>Onboarding</i>, <i>Task</i>, <i>Visualisation</i>.
+            Start a data visualization onboarding tour consisting of 3
+            phases: <i>Assessment</i>, <i>Onboarding</i>, <i>Visualisation</i>.
         </ModeCardText>
     </ModeCard>;
 });
@@ -153,8 +154,8 @@ const TaskCard = React.memo(function TaskCard(props) {
     return <ModeCard className={props.className} image={props.image} onClick={props.onClick} title={props.title}
                      enabled={props.enabled}>
         <ModeCardText>
-            Start without onboarding and navigate directly to the context explanation.
-            Phases: <i>Context</i>, <i>Visualisation</i>.
+            Start without onboarding and navigate directly to the visualisation.
+            Phases: <i>Visualisation</i>.
         </ModeCardText>
     </ModeCard>;
 });

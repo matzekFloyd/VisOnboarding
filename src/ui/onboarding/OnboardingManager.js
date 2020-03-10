@@ -94,9 +94,9 @@ export default class OnboardingManager extends PureComponent {
         this.setState({chartLoading: false});
     }
 
-    redirectToContext() {
+    redirectToVisualisation() {
         this.setState({loading: true}, () => {
-            let href = URL.context;
+            let href = URL.visualisation;
             redirect(href, href, {}, 250);
         });
     }
@@ -148,8 +148,8 @@ export default class OnboardingManager extends PureComponent {
                         <div className={"w-1/3 mr-auto ml-auto mt-6"}>
                             {this.state.onboardingCompleted && !this.state.chartLoading ?
                                 <div className={"flex w-full"}>
-                                    <ButtonCta className={"w-2/4 m-auto"} title={"Continue to task explanation"}
-                                               onClick={() => this.redirectToContext()}/>
+                                    <ButtonCta className={"w-2/4 m-auto"} title={"Continue to the visualisation "}
+                                               onClick={() => this.redirectToVisualisation()}/>
                                 </div> : <Empty/>}
                         </div>
                     </div>

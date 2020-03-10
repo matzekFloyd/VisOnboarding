@@ -1,5 +1,7 @@
 $map-img-width: 470px;
 $map-img-height: 317px;
+$headline-color: #93003A;
+$tab-nav-color: #ff8ea9;
 
 .map-image-layout {
   display: block;
@@ -31,4 +33,28 @@ $map-img-height: 317px;
   img:hover {
     background-color: #e6e6e6;
   }
+}
+
+#toggle-context {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+
+  img:hover {
+    background-color: #e6e6e6;
+  }
+}
+
+h2, h3 {
+  color: $headline-color;
+  margin: 0 0 10px 0;
+}
+
+.tab-nav {
+  color: #3182ce;
+}
+
+.tab-nav.active {
+  color: black;
 }
