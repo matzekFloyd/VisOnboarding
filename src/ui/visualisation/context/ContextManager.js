@@ -25,7 +25,7 @@ export default class ContextManager extends PureComponent {
             },
             {
                 identifier: EXPLANATION_GEORG_FISCHER,
-                navText: "Georg Fischer Fittings",
+                navText: "Georg Fischer",
                 content: <GeorgFischer identifier={EXPLANATION_GEORG_FISCHER}/>
             }
         ];
@@ -56,7 +56,7 @@ export default class ContextManager extends PureComponent {
 
     render() {
         return (
-            <div id="context-container" className={"context-container flex flex-wrap w-1/4 mr-10 border "}>
+            <div id="context-container" className={"context-container block w-1/4 mr-10 border "}>
                 <div className={"flex flex-wrap w-full "}>
                     <div className={"w-full"}>
                         <TabNavigation tabs={this.contentCfg} current={this.state.activeTab}
@@ -81,7 +81,7 @@ const TabNavigation = React.memo(function TabNavigation(props) {
         tabs.push(<Tab key={"tab_" + i} active={props.current === cur.identifier} text={cur.navText}
                        onClick={(event) => props.onClick(event, cur.identifier)}/>)
     }
-    return <ul className={"flex "}>
+    return <ul className={"flex pt-2 pl-1 pr-1 "}>
         {tabs}
     </ul>;
 });
@@ -91,16 +91,17 @@ TabNavigation.propTypes = {
 };
 
 const Tab = React.memo(function Tab(props) {
-    let active = "tab-nav active bg-white inline-block rounded-t py-2 px-2 font-semibold cursor-pointer";
-    let inactive = "tab-nav bg-white inline-block py-2 px-4 font-semibold cursor-pointer";
-    return <li className={"-mb-px mr-1 "}>
+    let active = "text-center tab-nav active bg-white inline-block rounded-t py-1 px-1 font-semibold cursor-pointer";
+    let inactive = "text-center tab-nav bg-white inline-block py-1 px-1 font-semibold cursor-pointer hover:bg-blue-600 hover:text-white rounded";
+    return <li className={"flex-none -mb-px mr-1 m-auto"}>
         <a className={props.active ? active : inactive} onClick={props.onClick}>{props.text}</a>
     </li>
 });
 Tab.propTypes = {
     active: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    className: PropTypes.string
 };
 
 const TabContent = React.memo(function TabContent(props) {

@@ -134,7 +134,7 @@ export default class ChartsManager extends PureComponent {
 
     togglePanel(event) {
         event.preventDefault();
-        let div = null;
+        let div = <div/>;
         let targetId = event.target.parentElement.id;
         let newState = null;
         if (targetId === TOGGLE_CONTROL_ID) {
@@ -150,8 +150,8 @@ export default class ChartsManager extends PureComponent {
         this.setState({...newState}, () => {
             let chartsDiv = document.getElementById("charts-container");
 
-            div.classList.toggle("w-1/4");
-            div.style.display === "none" ? div.style.display = "block" : div.style.display = "none";
+            div.classList.toggle("block");
+            div.classList.toggle("hidden");
 
             let bothCollapsed = this.state.contextCollapsed && this.state.controlsCollapsed;
             let neitherCollapsed = !this.state.contextCollapsed && !this.state.controlsCollapsed;
@@ -184,7 +184,7 @@ export default class ChartsManager extends PureComponent {
 
     render() {
         return (
-            <div id={"charts-container"} className={"w-2/4 h-auto"}>
+            <div id={"charts-container"} className={"w-2/4 h-auto block "}>
                 <div id={"charts-content"} className={"mr-10 h-auto"}>
                     {this.chart(JAN_14)}
                     {this.chart(JAN_15)}
