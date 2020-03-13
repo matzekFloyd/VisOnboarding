@@ -37,7 +37,9 @@ export const ChartCfg = (dataCruncher) => {
             buttons: {
                 contextButton: {
                     align: "left",
-                    enabled: true
+                    x: -5,
+                    y: 50,
+                    enabled: false
                 }
             }
         },
