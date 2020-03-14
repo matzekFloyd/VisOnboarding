@@ -71,28 +71,21 @@ export const STEP_2 = {
             start: Date.UTC(2017, 11, 1),
             end: Date.UTC(2018, 1, 2),
             parent: 'new_product',
-            completed: 0.95,
             name: 'Prototyping'
         }, {
             start: Date.UTC(2018, 1, 2),
             end: Date.UTC(2018, 11, 5),
             parent: 'new_product',
-            completed: 0.5,
             name: 'Development',
         }, {
             start: Date.UTC(2018, 11, 6),
             end: Date.UTC(2018, 11, 9),
             parent: 'new_product',
-            completed: 0.15,
             name: 'Testing',
         }, {
             start: Date.UTC(2018, 11, 9),
             end: Date.UTC(2018, 11, 19),
             parent: 'new_product',
-            completed: {
-                amount: 0.3,
-                fill: '#fa0'
-            },
             name: 'Development'
         }, {
             start: Date.UTC(2018, 11, 10),

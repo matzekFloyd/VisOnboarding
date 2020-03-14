@@ -42,10 +42,6 @@ export const STEP_1 = {
             start: today - day,
             end: today + (11 * day),
             duration: 12 + " days",
-            completed: {
-                amount: 0.6,
-                fill: '#e80'
-            },
         }, {
             name: 'Beta',
             id: 'beta',

@@ -42,9 +42,9 @@ class Assessment extends PureComponent {
 
 const AssessmentDescription = React.memo(function AssessmentDescription() {
     return <div className={"assessment-description mb-2"}>
-        <p><PageDescriptionIcon icon={"static/error_outline-24px.svg"}/>Please answer the questions by thoroughly
+        <p><PageDescriptionIcon icon={"static/assessment/error_outline-24px.svg"}/>Please answer the questions by thoroughly
             examining the corresponding graph.</p>
-        <p><PageDescriptionIcon icon={"static/error_outline-24px.svg"}/>It is possible that multiple options are
+        <p><PageDescriptionIcon icon={"static/assessment/error_outline-24px.svg"}/>It is possible that multiple options are
             correct!</p>
     </div>
 });

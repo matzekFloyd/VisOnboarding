@@ -41,11 +41,7 @@ export const STEP_3 = {
             parent: 'new_product',
             start: today - day,
             end: today + (11 * day),
-            duration: 12 + " days",
-            completed: {
-                amount: 0.6,
-                fill: '#e80'
-            },
+            duration: 12 + " days"
         }, {
             name: 'Beta',
             id: 'beta',

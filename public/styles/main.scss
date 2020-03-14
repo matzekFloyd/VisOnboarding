@@ -44,10 +44,16 @@ h4 {
   font-size: 20px;
 }
 
-.context-description, .assessment-description, .onboarding-description {
+.context-description, .assessment-description, .onboarding-description, .visualisation-description {
   img {
     display: inline;
     vertical-align: sub;
+  }
+}
+
+.visualisation-description {
+  .toggle-icons {
+    vertical-align: middle ;
   }
 }
 
@@ -93,4 +99,12 @@ h4 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* --- COPY-RIGHT -------------------------------------------------------------------------------------------------- */
+.copy-right {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  font-size: 12px;
 }
