@@ -2,11 +2,6 @@ import React, {PureComponent} from 'react';
 import {loadFireBase} from "lib/db";
 import Layout from "src/ui/Layout";
 import {PageHeadBox, PageHeadTitle} from "src/ui/components";
-import {
-    AssessmentResult,
-    AssessmentResultHeading,
-    TASK_TEXT_MAPPING
-} from "src/ui/assessment/AssessmentCompletedScreen";
 
 export default class Results extends PureComponent {
 
