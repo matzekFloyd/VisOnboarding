@@ -40,9 +40,7 @@ export default class Results extends PureComponent {
     }
 
     render() {
-        let results = this.props.assessments;
         let resultsStr = JSON.stringify(this.props.assessments, null, 3);
-        console.warn("Results: ", results);
         return <Layout>
             <PageHeadBox>
                 <PageHeadTitle title={"Results"}/>
