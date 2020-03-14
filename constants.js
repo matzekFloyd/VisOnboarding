@@ -5,4 +5,5 @@ export const URL = {
     assessment: sanitizeRouteUrl("/assessment"),
     onboarding: sanitizeRouteUrl("/onboarding"),
     visualisation: sanitizeRouteUrl("/visualisation"),
+    results: sanitizeRouteUrl("/results")
 };
