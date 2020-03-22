@@ -4,7 +4,6 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
         './src/**/*.js',
         './public/index.html',
         './pages/**/*.js',
-        './pages/onboarding/**/*.js'
     ],
     whitelist: ['html', 'body'],
     css: ['./src/tailwind.scss'],
