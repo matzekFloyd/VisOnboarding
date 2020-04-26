@@ -52,8 +52,14 @@ export default class AssessmentManager extends PureComponent {
         let href = URL.onboarding + "?pts=" + this.state.pointsTotal;
         if (this.enableWritingToDB) {
             try {
-                await this.persistToDb();
-                redirect(href);
+                let success = await this.persistToDb();
+                if (success) {
+                    redirect(href);
+                } else {
+                    //retry persisting once
+                    await this.persistToDb();
+                    redirect(href);
+                }
             } catch (error) {
                 console.error("Failed persisting to DB", error);
             }
@@ -77,8 +83,10 @@ export default class AssessmentManager extends PureComponent {
         try {
             await db.collection(collection).doc(doc_id).set(payload);
             console.log("Firebase DB write");
+            return true;
         } catch (error) {
             console.error("Failed writing to Firebase DB ", error);
+            return false;
         }
     }
 
