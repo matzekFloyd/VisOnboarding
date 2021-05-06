@@ -16,6 +16,7 @@ export default class Results extends PureComponent {
         collection += env;
         let today = new Date().getDate() + "." + (new Date().getMonth() + 1) + "." + new Date().getFullYear();
         collection += today;
+        console.log("Collection: ", collection);
         let snapshot = await fireBase.firestore()
             .collection(collection)
             .orderBy('timeCreated', 'desc')
