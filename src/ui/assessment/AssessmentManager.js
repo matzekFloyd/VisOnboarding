@@ -69,9 +69,8 @@ export default class AssessmentManager extends PureComponent {
     }
 
     async persistToDb() {
-        let collection = process.env.NODE_ENV === "production" ? "[PROD] " : "[DEV] ";
-        collection += new Date().toLocaleDateString();
-        let doc_id = new Date().toLocaleTimeString() + " " + this.props.user;
+        let collection = process.env.NODE_ENV === "production" ? `[PROD]` : `[DEV]`;
+        let doc_id = `${new Date().getTime()} ${this.props.user}`;
         let payload = {
             user: this.props.user,
             finishedTasks: this.state.finishedTasks,
@@ -81,7 +80,9 @@ export default class AssessmentManager extends PureComponent {
 
         let db = this.firebase.firestore();
         try {
-            await db.collection(collection).doc(doc_id).set(payload);
+            let collectionRef = await db.collection(collection);
+            let docRef = await collectionRef.doc(doc_id);
+            await docRef.set(payload, {merge: true});
             console.log("Firebase DB write");
             return true;
         } catch (error) {
