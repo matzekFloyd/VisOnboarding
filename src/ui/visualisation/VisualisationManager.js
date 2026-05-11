@@ -24,7 +24,7 @@ export default class VisualisationManager extends PureComponent {
     render() {
         let chartsManagerLoadedFunction = this.state.chartsManagerLoaded ? {} : {chartManagerLoadedCallback: () => this.setState({chartsManagerLoaded: true})};
         let controlsManagerLoadedFunction = this.state.controlsManagerLoaded ? {} : {controlsManagerLoadedCallback: () => this.setState({controlsManagerLoaded: true})};
-        let contextManagerLoadedFunction = this.state.contextManagerLoadedFunction ? {} : {contextManagerLoadedCallback: () => this.setState({contextManagerLoaded: true})};
+        let contextManagerLoadedFunction = this.state.contextManagerLoaded ? {} : {contextManagerLoadedCallback: () => this.setState({contextManagerLoaded: true})};
         let visualisationManagerLoaded = this.state.chartsManagerLoaded && this.state.controlsManagerLoaded && this.state.contextManagerLoaded;
         return (
             <div className={"flex w-full mt-6"}>

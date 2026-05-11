@@ -21,7 +21,11 @@ export default class Results extends PureComponent {
         let collectionName = "";
         let env = process.env.NODE_ENV === "production" ? "[PROD] " : "[DEV] ";
         collectionName += env;
-        let today = new Date().getDate() + "." + (new Date().getMonth() + 1) + "." + new Date().getFullYear();
+        let now = new Date();
+        let dd = String(now.getDate()).padStart(2, '0');
+        let mm = String(now.getMonth() + 1).padStart(2, '0');
+        let yyyy = now.getFullYear();
+        let today = `${dd}.${mm}.${yyyy}`;
         collectionName += today;
         console.log("Collection: ", collectionName);
         const collectionRef = collection(fireBase.firestore, collectionName);

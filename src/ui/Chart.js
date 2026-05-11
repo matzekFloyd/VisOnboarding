@@ -9,6 +9,7 @@ export default class Chart extends PureComponent {
 
     constructor(props, context) {
         super(props, context);
+        this.Highcharts = Highcharts;
         if (typeof Highcharts === 'object') {
             HighchartsExporting(Highcharts);
             highchartsGantt(Highcharts);

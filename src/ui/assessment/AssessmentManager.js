@@ -16,8 +16,9 @@ import {
     TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
 import {LoadingMessage} from "../components";
+import { loadFireBase } from "lib/db";
 import { collection, doc, setDoc } from 'firebase/firestore';
-import {redirect} from "src/util/helpers";
+import {redirect, sanitizeUserName, sanitizeFirestoreId} from "src/util/helpers";
 
 export default class AssessmentManager extends PureComponent {
 
@@ -74,10 +75,20 @@ export default class AssessmentManager extends PureComponent {
             return false;
         }
 
-        let collection = process.env.NODE_ENV === "production" ? `[PROD]` : `[DEV]`;
-        let doc_id = `${new Date().getTime()} ${this.props.user}`;
+        // Keep the collection naming consistent with `pages/results.js`.
+        // Expected: [DEV] 11.05.2026 / [PROD] 11.05.2026
+        let envPrefix = process.env.NODE_ENV === "production" ? "[PROD] " : "[DEV] ";
+        let now = new Date();
+        let dd = String(now.getDate()).padStart(2, '0');
+        let mm = String(now.getMonth() + 1).padStart(2, '0');
+        let yyyy = now.getFullYear();
+        let collectionName = `${envPrefix}${dd}.${mm}.${yyyy}`;
+        let safeUser = sanitizeUserName(this.props.user);
+        // Make document IDs human-readable and stable: UTC time + username.
+        let utcTime = `${String(now.getUTCHours()).padStart(2, '0')}:${String(now.getUTCMinutes()).padStart(2, '0')}:${String(now.getUTCSeconds()).padStart(2, '0')}`;
+        let doc_id = `${utcTime} ${sanitizeFirestoreId(safeUser)}`;
         let payload = {
-            user: this.props.user,
+            user: safeUser,
             finishedTasks: this.state.finishedTasks,
             points: this.state.pointsTotal,
             timeCreated: new Date()
@@ -85,7 +96,7 @@ export default class AssessmentManager extends PureComponent {
 
         let db = this.firebase.firestore;
         try {
-            let collectionRef = collection(db, collection);
+            let collectionRef = collection(db, collectionName);
             let docRef = doc(collectionRef, doc_id);
             await setDoc(docRef, payload, {merge: true});
             console.log("Firebase DB write");

@@ -5,23 +5,14 @@ const path = require('path');
 
 /* CONFIG */
 module.exports = {
-    exportPathMap: async function () {
-        return {
-            '/': {page: '/'},
-            '/assessment': {page: '/assessment'},
-            '/onboarding': {page: '/onboarding'},
-            '/visualisation': {page: '/visualisation'},
-            '/results': {page: '/results'}
-        };
-    },
+    output: 'export',
     distDir: 'build',
-    assetPrefix: process.env.NODE_ENV === 'production' ? "/vis" : "",
+    assetPrefix: "",
     webpack(config, options) {
         config.resolve.alias['src'] = path.join(__dirname, "/src");
         config.resolve.alias['lib'] = path.join(__dirname, "/lib");
         const env = Object.keys(process.env).reduce((acc, curr) => {
-            // Skip Next.js internal environment variables
-            if (curr.startsWith('NEXT_') || curr === 'NODE_ENV') {
+            if (!curr.startsWith('NEXT_PUBLIC_')) {
                 return acc;
             }
             acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);

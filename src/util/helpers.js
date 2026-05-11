@@ -29,8 +29,7 @@ export function redirect(url, as = url, options = {}, timeout = 0) {
  * @return {string}
  */
 export function sanitizePublicPath(path) {
-    let isProd = process.env.NODE_ENV === "production";
-    return isProd ? "/vis/" + path : path;
+    return path;
 }
 
 /**
@@ -39,9 +38,28 @@ export function sanitizePublicPath(path) {
  * @return {string|*}
  */
 export function sanitizeRouteUrl(url) {
-    let isProd = process.env.NODE_ENV === "production";
-    if (url === "/" && isProd) return "/vis";
-    return isProd ? "/vis" + url : url;
+    return url;
+}
+
+export function normalizeUserName(value) {
+    if (typeof value !== 'string') return '';
+    return value.trim().replace(/\s+/g, ' ');
+}
+
+export function sanitizeUserName(value) {
+    let normalized = normalizeUserName(value);
+    return normalized.replace(/[^A-Za-z0-9 _-]/g, '');
+}
+
+export function isValidUserName(value) {
+    let sanitized = sanitizeUserName(value);
+    return /^[A-Za-z0-9][A-Za-z0-9 _-]*[A-Za-z0-9]$/.test(sanitized);
+}
+
+export function sanitizeFirestoreId(value) {
+    let safe = sanitizeUserName(value);
+    if (!safe) return 'anonymous';
+    return safe.replace(/\s+/g, '_').slice(0, 150);
 }
 
 /**

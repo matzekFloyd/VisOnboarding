@@ -1,6 +1,6 @@
 import Layout from 'src/ui/Layout';
 import React, {PureComponent} from 'react';
-import {sanitizePublicPath, withPageRouter} from "src/util/helpers";
+import {sanitizePublicPath, withPageRouter, isValidUserName, normalizeUserName, sanitizeUserName} from "src/util/helpers";
 import {LoadingMessage, PageHeadBox, PageHeadTitle} from "src/ui/components";
 import PropTypes from "prop-types";
 import {URL} from "../constants";
@@ -41,7 +41,8 @@ class Home extends PureComponent {
         this.setState({loading: true}, () => {
             let href = to;
             if (to === URL.assessment) {
-                href += "?uid=" + this.state.user;
+                let user = sanitizeUserName(this.state.user);
+                href += "?uid=" + encodeURIComponent(user);
             }
             redirect(href);
         });
@@ -74,13 +75,15 @@ class Home extends PureComponent {
     }
 
     validateInput() {
-        let input = this.state.user;
-        if (typeof input !== "undefined" && input !== null) {
-            if (!input.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/)) {
-                this.setState({inputValid: false, inputError: "Only letters (a-z) and numbers (0-9) allowed!"});
+        let input = normalizeUserName(this.state.user);
+        if (typeof input !== "undefined" && input !== null && input.length > 0) {
+            if (!isValidUserName(input)) {
+                this.setState({inputValid: false, inputError: "Only letters, numbers, spaces, underscores and hyphens are allowed."});
             } else {
                 this.setState({inputValid: true, inputError: null});
             }
+        } else {
+            this.setState({inputValid: false, inputError: "Please enter a valid name."});
         }
     }
 
@@ -120,8 +123,8 @@ const InputPanel = React.memo(function InputPanel(props) {
     </div>
 });
 InputPanel.defaultProps = {
-    text: "Please enter either your <strong>student registration number</strong> or your <strong>name</strong> and choose a path.",
-    placeholderText: "it181508 / mayrhofer"
+    text: "Please enter your <strong>name</strong> and choose a path.",
+    placeholderText: "e.g. Jane Doe"
 };
 InputPanel.propTypes = {
     text: PropTypes.string.isRequired,
