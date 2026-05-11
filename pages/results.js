@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import {loadFireBase} from "lib/db";
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import Layout from "src/ui/Layout";
 import {PageHeadBox, PageHeadTitle} from "src/ui/components";
 
@@ -11,21 +12,23 @@ export default class Results extends PureComponent {
 
     static async getInitialProps() {
         let fireBase = await loadFireBase();
-        let collection = "";
+
+        if (!fireBase.firestore) {
+            console.warn('Firebase not initialized. Returning empty results.');
+            return { assessments: [] };
+        }
+
+        let collectionName = "";
         let env = process.env.NODE_ENV === "production" ? "[PROD] " : "[DEV] ";
-        collection += env;
+        collectionName += env;
         let today = new Date().getDate() + "." + (new Date().getMonth() + 1) + "." + new Date().getFullYear();
-        collection += today;
-        console.log("Collection: ", collection);
-        let snapshot = await fireBase.firestore()
-            .collection(collection)
-            .orderBy('timeCreated', 'desc')
-            .get()
-            .then((snapshot) => {
-                return snapshot;
-            });
+        collectionName += today;
+        console.log("Collection: ", collectionName);
+        const collectionRef = collection(fireBase.firestore, collectionName);
+        const q = query(collectionRef, orderBy('timeCreated', 'desc'));
+        const snapshot = await getDocs(q);
         let data = [];
-        await snapshot.forEach((doc) => {
+        snapshot.forEach((doc) => {
             data.push(
                 Object.assign(
                     {id: doc.id}, doc.data()

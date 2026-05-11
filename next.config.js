@@ -20,6 +20,10 @@ module.exports = {
         config.resolve.alias['src'] = path.join(__dirname, "/src");
         config.resolve.alias['lib'] = path.join(__dirname, "/lib");
         const env = Object.keys(process.env).reduce((acc, curr) => {
+            // Skip Next.js internal environment variables
+            if (curr.startsWith('NEXT_') || curr === 'NODE_ENV') {
+                return acc;
+            }
             acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
             return acc;
         }, {});

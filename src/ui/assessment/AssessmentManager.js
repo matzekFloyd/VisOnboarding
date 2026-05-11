@@ -16,7 +16,7 @@ import {
     TASK_LINE_TIME_SERIES
 } from "../../util/assessment/constants";
 import {LoadingMessage} from "../components";
-import {loadFireBase} from "lib/db";
+import { collection, doc, setDoc } from 'firebase/firestore';
 import {redirect} from "src/util/helpers";
 
 export default class AssessmentManager extends PureComponent {
@@ -69,6 +69,11 @@ export default class AssessmentManager extends PureComponent {
     }
 
     async persistToDb() {
+        if (!this.firebase || !this.firebase.firestore) {
+            console.warn('Firebase not initialized. Skipping database write.');
+            return false;
+        }
+
         let collection = process.env.NODE_ENV === "production" ? `[PROD]` : `[DEV]`;
         let doc_id = `${new Date().getTime()} ${this.props.user}`;
         let payload = {
@@ -78,11 +83,11 @@ export default class AssessmentManager extends PureComponent {
             timeCreated: new Date()
         };
 
-        let db = this.firebase.firestore();
+        let db = this.firebase.firestore;
         try {
-            let collectionRef = await db.collection(collection);
-            let docRef = await collectionRef.doc(doc_id);
-            await docRef.set(payload, {merge: true});
+            let collectionRef = collection(db, collection);
+            let docRef = doc(collectionRef, doc_id);
+            await setDoc(docRef, payload, {merge: true});
             console.log("Firebase DB write");
             return true;
         } catch (error) {
