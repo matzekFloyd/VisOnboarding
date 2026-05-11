@@ -1,15 +1,10 @@
 /* CONSTANTS */
 const webpack = require('webpack');
 require('dotenv').config();
-const withSass = require('@zeit/next-sass');
-const withImages = require('next-images');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true'
-});
 const path = require('path');
 
 /* CONFIG */
-module.exports = withBundleAnalyzer(withImages(withSass({
+module.exports = {
     exportPathMap: async function () {
         return {
             '/': {page: '/'},
@@ -29,6 +24,6 @@ module.exports = withBundleAnalyzer(withImages(withSass({
             return acc;
         }, {});
         config.plugins.push(new webpack.DefinePlugin(env));
-        return config
+        return config;
     },
-})));
+};

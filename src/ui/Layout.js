@@ -1,5 +1,4 @@
 import React from "react";
-import "../../public/styles/main.scss";
 import Head from 'next/head'
 import {sanitizePublicPath} from "src/util/helpers";
 
