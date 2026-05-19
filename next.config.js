@@ -11,13 +11,10 @@ module.exports = {
     webpack(config, options) {
         config.resolve.alias['src'] = path.join(__dirname, "/src");
         config.resolve.alias['lib'] = path.join(__dirname, "/lib");
-        const env = Object.keys(process.env).reduce((acc, curr) => {
-            if (!curr.startsWith('NEXT_PUBLIC_')) {
-                return acc;
-            }
-            acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
-            return acc;
-        }, {});
+        const env = {
+            'process.env.NEXT_PUBLIC_API_BASE_URL': JSON.stringify(process.env.NEXT_PUBLIC_API_BASE_URL),
+            'process.env.NEXT_PUBLIC_APP_ENV': JSON.stringify(process.env.NEXT_PUBLIC_APP_ENV),
+        };
         config.plugins.push(new webpack.DefinePlugin(env));
         return config;
     },
